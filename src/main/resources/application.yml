@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    database: mysql
+    hibernate: 
+      ddl-auto: create-drop
+  datasource: 
+      url: jdbc:mysql://127.0.0.1/easycarservice?useSSL=true
+      username: root
+      password: root
+steam:
+  api:
+    key: 50548F365955D619C1257C3123FB7220
+    user-info-url: https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/ 
