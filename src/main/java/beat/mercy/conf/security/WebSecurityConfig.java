@@ -28,12 +28,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// super.configure(http);
-		http.cors()//跨域请求拦截器
-		.and()
+		http
+		//.cors().and()
 			.csrf().disable()
 			.authorizeRequests()//认证入口
 				.antMatchers(HttpMethod.POST, "/signup").permitAll()
 			.anyRequest().authenticated()
+			.antMatchers("/hello").anonymous()
 		.and()
 			.addFilter(new JWTLoginFilter(authenticationManager()))
 			.addFilter(new JWTAuthenticationFilter(authenticationManager()));

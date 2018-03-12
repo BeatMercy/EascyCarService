@@ -51,7 +51,7 @@ public class Staff extends BaseEntity{
 	}
 	
 	@OneToMany(mappedBy="superior",cascade=CascadeType.ALL)
-	public Iterable<Staff> getSubordinates() {
+	public List<Staff> getSubordinates() {
 		return subordinates;
 	}
 	//---------------------------------------------------

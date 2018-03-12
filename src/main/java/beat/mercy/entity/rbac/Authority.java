@@ -27,7 +27,7 @@ public class Authority extends BaseEntity {
 		this.name = name;
 	}
 	
-	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.REFRESH,mappedBy="roles")
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.REFRESH,mappedBy="authorites")
 	public Set<Role> getRoles() {
 		return roles;
 	}

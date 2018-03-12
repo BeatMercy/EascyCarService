@@ -55,7 +55,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -66,7 +66,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		 <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
@@ -76,12 +76,25 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-jpamodelgen</artifactId>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/org.bytedeco/javacpp -->
+		<!--javacpp requirement -->
+		<dependency>
+			<groupId>org.bytedeco</groupId>
+			<artifactId>javacpp</artifactId>
+			<version>0.11</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.bytedeco/javacv -->
+		<dependency>
+			<groupId>org.bytedeco</groupId>
+			<artifactId>javacv</artifactId>
+			<version>0.11</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.json</groupId>
