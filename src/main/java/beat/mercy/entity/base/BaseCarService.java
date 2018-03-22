@@ -48,7 +48,7 @@ public class BaseCarService extends BaseEntity {
 		return costTime;
 	}
 	
-	@NotEmpty
+	@Column(nullable=false)
 	public Double getStartPrice() {
 		return startPrice;
 	}

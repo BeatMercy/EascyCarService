@@ -8,6 +8,6 @@ import beat.mercy.entity.Staff;
 
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Long>,JpaSpecificationExecutor<Staff> {
-	public Staff findByName(String name);
+	public Staff findByUsername(String username);
 
 }

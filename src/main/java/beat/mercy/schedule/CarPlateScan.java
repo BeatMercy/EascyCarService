@@ -10,6 +10,6 @@ public class CarPlateScan {
 	
 	@Scheduled(fixedRate = 6000)
 	private void scanFloder() {
-		System.err.println("Scan the floder of car plate!");
+		//System.err.println("Scan the floder of car plate!");
 	}
 }

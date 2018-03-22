@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import beat.mercy.entity.Customer;
-import beat.mercy.repository.CustomerRepository;
+import beat.mercy.entity.base.Account;
+import beat.mercy.repository.AccountRepository;
 
 import java.util.Collections;;
 
@@ -15,14 +15,17 @@ import java.util.Collections;;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-    private CustomerRepository userRepository;
+    private AccountRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Customer user = userRepository.findByUsername(username);
+        Account user = userRepository.findByUsername(username);
         if(user == null){
             throw new UsernameNotFoundException(username);
         }
+        // TODO 用户权限罗辑处理
+        
+        
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),Collections.emptyList());
     }
 

@@ -1,14 +1,9 @@
 package beat.mercy.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.PrePersist;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import beat.mercy.entity.base.BaseEntity;
-import beat.mercy.entity.rbac.Role;
+import beat.mercy.entity.base.Account;
 
 /**
  * 
@@ -16,58 +11,32 @@ import beat.mercy.entity.rbac.Role;
  * 2018年3月6日
  */
 @Entity  
-@Table(name = "customer")  
-public class Customer extends BaseEntity{
+public class Customer extends Account{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8485303414462923589L;
-	private String username;
-    private String password;
-    private String phoneNum;
-    private Role role;
-    
-    
-    @Column(unique=true)
-    public String getUsername() {  
-        return username;  
-    }  
-  
-    
-    public String getPhoneNum() {
-		return phoneNum;
+	
+	private Long comsumePoint;
+
+	@PrePersist
+	private void beforePersist() {
+		this.comsumePoint=0L;
+	}
+	
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-    @JsonIgnore
-    @ManyToOne
-	public Role getRole() {
-		return role;
+	public Long getComsumePoint() {
+		return comsumePoint;
 	}
 
-    public String getPassword() {  
-        return password;  
-    }  
-    
-    //-----------------------------
-    
-    
-    public void setUsername(String username) {  
-        this.username = username;  
-    }  
-    
-    
-    public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
+	public void setComsumePoint(Long comsumePoint) {
+		this.comsumePoint = comsumePoint;
 	}
-
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-
-	public void setPassword(String password) {  
-        this.password = password;  
-    } 
+	
+	
 }

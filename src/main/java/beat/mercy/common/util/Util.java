@@ -31,6 +31,18 @@ public class Util {
         new File(dir).mkdir();
     }
     
+    public static String makeFloderDirectory(final String floderPath) {
+		if (!floderPath.startsWith(ServiceConst.UPLOAD_ROOT_PATH)) {
+			System.err.println("非项目文件路径！");
+			return null;
+		}
+		File directory = new File(floderPath);
+		if (!directory.exists()) {
+			directory.mkdirs();
+		}
+		return floderPath;
+	}
+    
     private static void getFiles(final File dir, Vector<String> files) {
         File[] filelist = dir.listFiles();
         for (File file : filelist) {
