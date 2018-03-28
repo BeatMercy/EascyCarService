@@ -14,14 +14,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 
 import beat.mercy.entity.Customer;
-import beat.mercy.entity.FrontStaff;
+import beat.mercy.entity.Staff;
 import beat.mercy.entity.base.BaseCarService;
 import beat.mercy.entity.rbac.Authority;
 import beat.mercy.entity.rbac.Role;
 import beat.mercy.repository.AuthorityRepository;
 import beat.mercy.repository.CarServiceRepository;
 import beat.mercy.repository.CustomerRepository;
-import beat.mercy.repository.FrontStaffRepository;
 import beat.mercy.repository.RoleRepository;
 import beat.mercy.repository.StaffRepository;
 
@@ -44,10 +43,9 @@ public class EasyCarServiceApplication {
 			CarServiceRepository carServiceRepository,
 			AuthorityRepository authorityRepository,
 			RoleRepository roleRepository,
-			FrontStaffRepository frontStaffRepository,
+			StaffRepository staffRepository,
 			CustomerRepository customerRepository,
-			BCryptPasswordEncoder bCryptPsswordEncoder,
-			StaffRepository staffRepository) {
+			BCryptPasswordEncoder bCryptPsswordEncoder) {
 		return(args) -> {
 			// 设权
 			authorityRepository.save( new Authority("NORMAL_USER"));
@@ -75,9 +73,8 @@ public class EasyCarServiceApplication {
 			customer.setPassword(bCryptPasswordEncoder().encode("123456"));
 			customer.getRoles().add(roleRepository.findByName("ROLE_USER"));
 			
-			FrontStaff staff = new FrontStaff();
+			Staff staff = new Staff();
 			staff.setUsername("frontStaff1");
-			staff.setComNom("01");
 			staff.setPassword(bCryptPasswordEncoder().encode("123456"));
 			staff.getRoles().add(roleRepository.findByName("ROLE_STAFF"));
 			
@@ -101,15 +98,9 @@ public class EasyCarServiceApplication {
 			carServiceRepository.save(selected);
 			
 			customerRepository.save(customer);
-			frontStaffRepository.save(staff);
+			staffRepository.save(staff);
 			
-			staffRepository.findAll().forEach(child->{
-				System.err.println(child.getUsername());
-				System.err.println(child.getType());
-				child.getRoles().forEach(role->{
-					System.err.println(role.getName());
-				});
-			});
+			 
 			
 		};
 	}

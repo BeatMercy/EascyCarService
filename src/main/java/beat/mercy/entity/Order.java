@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import beat.mercy.common.util.RandomStringGenerator;
 import beat.mercy.entity.base.BaseEntity;
+import beat.mercy.entity.state.OrderState;
 import beat.mercy.entity.state.PayMethod;
 import beat.mercy.entity.state.ServiceProgress;
 
@@ -20,12 +21,14 @@ public class Order extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 4770937925087259672L;
+	
 	private String type;
 	private String orderNo;
+	private String thirdPartyOrderNo;
 	private Date endTime;	// 订单结束时间/取消时间
 	private Double total;
 	private PayMethod paymethod;
-	private ServiceProgress serviceProgress;
+	private OrderState state;
 	private Customer owner;
 	
 	@PrePersist
@@ -49,9 +52,6 @@ public class Order extends BaseEntity {
 	public PayMethod getPaymethod() {
 		return paymethod;
 	}
-	public ServiceProgress getServiceProgress() {
-		return serviceProgress;
-	}
 	public Customer getOwner() {
 		return owner;
 	}
@@ -72,9 +72,6 @@ public class Order extends BaseEntity {
 	}
 	public void setPaymethod(PayMethod paymethod) {
 		this.paymethod = paymethod;
-	}
-	public void setServiceProgress(ServiceProgress serviceProgress) {
-		this.serviceProgress = serviceProgress;
 	}
 	public void setOwner(Customer owner) {
 		this.owner = owner;

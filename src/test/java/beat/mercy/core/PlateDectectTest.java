@@ -7,7 +7,6 @@ import java.util.Vector;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.junit.Test;
-import org.springframework.core.io.ClassPathResource;
 
 import beat.mercy.core.CharsRecognise;
 import beat.mercy.core.PlateDetect;
