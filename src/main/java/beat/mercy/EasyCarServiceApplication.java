@@ -81,17 +81,17 @@ public class EasyCarServiceApplication {
 			BaseCarService baseCs0 = new BaseCarService();
 			baseCs0.setName("小型车洗车服务");
 			baseCs0.setDescription("为车型在xxxx一下的车提供洗车服务");
-			baseCs0.setStartPrice(35.0d);
+			baseCs0.setServePrice(35.0d);
 			
 			BaseCarService baseCs1 = new BaseCarService();
 			baseCs1.setName("小型车保养服务");
 			baseCs1.setDescription("为车型在xxxx一下的车提供洗车服务");
-			baseCs1.setStartPrice(435.0d);
+			baseCs1.setServePrice(435.0d);
 			
 			BaseCarService baseCs2 = new BaseCarService();
 			baseCs2.setName("大型车洗车服务");
 			baseCs2.setDescription("为车型在xxxx一下的车提供洗车服务");
-			baseCs2.setStartPrice(655.0d);
+			baseCs2.setServePrice(655.0d);
 			carServiceRepository.save(Arrays.asList(baseCs0,baseCs1,baseCs2));
 			BaseCarService selected = carServiceRepository.findOne(2L);
 			selected.setName("小型车保养服务[优惠]");

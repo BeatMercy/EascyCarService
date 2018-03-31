@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.authorizeRequests()//认证入口
 				.antMatchers(HttpMethod.POST, "/signup").permitAll()
-				.antMatchers("/","/index","/home","/home/**","/assets/**","/*.js*","/favicon.ico").permitAll()
+				.antMatchers("/","/img/**","/home","/home/**","/assets/**","/*.js*","/favicon.ico").permitAll()
 			.anyRequest().authenticated()
 		.and()
 			.addFilter(new JWTLoginFilter(authenticationManager()))

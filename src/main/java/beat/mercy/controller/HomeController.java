@@ -19,4 +19,9 @@ public class HomeController {
 	public List<BaseCarService> findAllService(){
 		return carServiceRepository.findAll();
 	}
+	
+	@RequestMapping("/home/carousel")
+	public List<Object> findHomeCarousel(){
+		return null;
+	}
 }

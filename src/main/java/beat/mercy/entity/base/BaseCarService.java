@@ -18,9 +18,9 @@ public class BaseCarService extends BaseEntity {
 	protected String type;	// 服务类型
 	protected String name;
 	protected String description;
-	protected String costTime;
-	protected Double startPrice;
-	protected Double originalPrice;
+	protected Double servePrice; // 服务价格
+	protected Float costTime; 	// 单位小时
+	protected Double manHourFee; // 工时费
 	protected String thumbnailImg;
 	protected String[] imges;
 	protected Boolean isSelling;
@@ -44,18 +44,12 @@ public class BaseCarService extends BaseEntity {
 	public String getDescription() {
 		return description;
 	}
-	public String getCostTime() {
-		return costTime;
-	}
 	
 	@Column(nullable=false)
-	public Double getStartPrice() {
-		return startPrice;
+	public Double getServePrice() {
+		return servePrice;
 	}
-	
-	public Double getOriginalPrice() {
-		return originalPrice;
-	}
+
 	public String getThumbnailImg() {
 		return thumbnailImg;
 	}
@@ -68,26 +62,41 @@ public class BaseCarService extends BaseEntity {
 	public Integer getSaleCount() {
 		return saleCount;
 	}
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Float getCostTime() {
+		return costTime;
+	}
+
+	public Double getManHourFee() {
+		return manHourFee;
+	}
 	// ------------------
 	
+
+
 	public void setType(String type) {
 		this.type = type;
 	}
+	public void setServePrice(Double servePrice) {
+		this.servePrice = servePrice;
+	}
+
+	public void setCostTime(Float costTime) {
+		this.costTime = costTime;
+	}
+
+	public void setManHourFee(Double manHourFee) {
+		this.manHourFee = manHourFee;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public void setCostTime(String costTime) {
-		this.costTime = costTime;
-	}
-	public void setStartPrice(Double startPrice) {
-		this.startPrice = startPrice;
-	}
-	public void setOriginalPrice(Double originalPrice) {
-		this.originalPrice = originalPrice;
 	}
 	public void setThumbnailImg(String thumbnailImg) {
 		this.thumbnailImg = thumbnailImg;
