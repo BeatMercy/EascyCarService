@@ -126,14 +126,14 @@ var AppRoutingModule = /** @class */ (function () {
 /***/ "./src/app/app.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".flex-spacer {\r\n    -webkit-box-flex: 1;\r\n        -ms-flex: 1 1 auto;\r\n            flex: 1 1 auto;\r\n}\r\n\r\n.example-container {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    position: absolute;\r\n    top: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    right: 0;\r\n}\r\n\r\n.navContent {\r\n    margin-top: 56px;\r\n}\r\n\r\n#title {\r\n    outline: none;\r\n}\r\n\r\n#title p {\r\n    font-size: 10pt;\r\n    padding: 0;\r\n    margin: 0;\r\n}\r\n\r\n#menuButton {\r\n    outline: none;\r\n    min-width: 50px;\r\n    padding: 0;\r\n}\r\n\r\n.example-sidenav-content {\r\n    /* margin-top: 64px; */\r\n    overflow: visible;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    height: 100%;\r\n    /* align-items: center; */\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.example-sidenav {\r\n    color: #fff;\r\n    min-width: 170px;\r\n    background-color: #3f51b5;\r\n    padding: 20px;\r\n}\r\n\r\n#menuList {\r\n    color: white;\r\n}\r\n\r\n#menuList .mat-button {\r\n    color: white;\r\n}\r\n\r\n.toolbar {\r\n    /* box-shadow: 0 2px 10px #192048; */\r\n    z-index: 2;\r\n    position: fixed;\r\n}"
+module.exports = ".flex-spacer {\r\n    -webkit-box-flex: 1;\r\n        -ms-flex: 1 1 auto;\r\n            flex: 1 1 auto;\r\n}\r\n\r\n.example-container {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    position: absolute;\r\n    top: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    right: 0;\r\n}\r\n\r\n.navContent {\r\n    margin-top: 56px;\r\n}\r\n\r\n#title {\r\n    outline: none;\r\n}\r\n\r\n#title p {\r\n    font-size: 10pt;\r\n    padding: 0;\r\n    margin: 0;\r\n}\r\n\r\n#menuButton {\r\n    color: black;\r\n    outline: none;\r\n    min-width: 50px;\r\n    padding: 0;\r\n}\r\n\r\n.example-sidenav-content {\r\n    /* margin-top: 64px; */\r\n    overflow: visible;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    height: 100%;\r\n    /* align-items: center; */\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.example-sidenav {\r\n    color: #fff;\r\n    min-width: 170px;\r\n    background-color: #3f51b5;\r\n    padding: 20px;\r\n}\r\n\r\n.toolbar {\r\n    /* box-shadow: 0 2px 10px #192048; */\r\n    z-index: 2;\r\n    position: fixed;\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container>\n  <mat-toolbar class=\"toolbar mat-elevation-z6\" color=\"primary\">\n    <mat-toolbar-row  fxLayout=\"row\" fxLayoutAlign=\"start center\" fxLayoutGap=\"gappx\">\n      <div style=\"display:flex;\" fxFlexAlign=\"start center\">\n        <b >{{title}}</b>\n        <span style=\"font-size: 10px\">汽车美容中心</span>\n      </div>\n      <div class=\"flex-spacer\"></div>\n      <div fxFlexAlign=\"end center\">\n        <ng-container *ngIf=\"this.jwtService.checkToken(); else elseTemplate\">\n          <button id='menuButton' mat-icon-button [matMenuTriggerFor]=\"menu\">\n            <span>{{jwtService.getUser().username}}</span>\n            <mat-icon class=\"example-icon\">person_pin</mat-icon>\n          </button>\n          <mat-menu #menu=\"matMenu\">\n            <button routerLink='/me' mat-menu-item>\n              <mat-icon>notifications_off</mat-icon>\n              <span>我的信息</span>\n            </button>\n            <button mat-menu-item disabled>\n              <mat-icon>voicemail</mat-icon>\n              <span>我的订单</span>\n            </button>\n            <button (click)='logout()' mat-menu-item>\n              <mat-icon>exit_to_app</mat-icon>\n              <span>退出登录</span>\n            </button>\n\n\n          </mat-menu>\n\n        </ng-container>\n        <ng-template #elseTemplate>\n          <button mat-button (click)=\"loginDialog()\">\n            <span>登录</span>\n            <mat-icon class=\"example-icon\">person_pin</mat-icon>\n          </button>\n        </ng-template>\n\n\n      </div>\n    </mat-toolbar-row>\n  </mat-toolbar>\n</ng-container>\n<app-slide-nav></app-slide-nav>"
+module.exports = "<ng-container>\n  <mat-toolbar class=\"toolbar mat-elevation-z6\" color=\"primary\">\n    <mat-toolbar-row  fxLayout=\"row\" fxLayoutAlign=\"start center\" fxLayoutGap=\"gappx\">\n      <div style=\"display:flex;\" fxFlexAlign=\"start center\">\n        <b >{{title}}</b>\n      </div>\n      <div class=\"flex-spacer\"></div>\n      <div fxFlexAlign=\"center center\">\n        <ng-container *ngIf=\"this.jwtService.checkToken(); else elseTemplate\">\n          <button id='menuButton' mat-raised-button [matMenuTriggerFor]=\"menu\">\n            <span>{{jwtService.getUser().username}}</span>\n          </button>\n          <mat-menu #menu=\"matMenu\">\n            <button routerLink='/me' mat-menu-item>\n              <mat-icon>notifications_off</mat-icon>\n              <span>我的信息</span>\n            </button>\n            <button mat-menu-item disabled>\n              <mat-icon>voicemail</mat-icon>\n              <span>我的订单</span>\n            </button>\n            <button (click)='logout()' mat-menu-item>\n              <mat-icon>exit_to_app</mat-icon>\n              <span>退出登录</span>\n            </button>\n\n\n          </mat-menu>\n\n        </ng-container>\n        <ng-template #elseTemplate>\n          <button mat-button (click)=\"loginDialog()\">\n            <span>登录/注册</span>\n            <mat-icon class=\"example-icon\">person_pin</mat-icon>\n          </button>\n        </ng-template>\n\n\n      </div>\n    </mat-toolbar-row>\n  </mat-toolbar>\n</ng-container>\n<app-slide-nav></app-slide-nav>"
 
 /***/ }),
 
@@ -213,23 +213,25 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_routing_module__ = __webpack_require__("./src/app/app-routing.module.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng2_image_compress__ = __webpack_require__("./node_modules/ng2-image-compress/ng2-image-compress.umd.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng2_image_compress___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_ng2_image_compress__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__("./src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__login_dialog_login_dialog_component__ = __webpack_require__("./src/app/login-dialog/login-dialog.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__jwt_service__ = __webpack_require__("./src/app/jwt.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__auth_module__ = __webpack_require__("./src/auth.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__car_enterance_car_enterance_component__ = __webpack_require__("./src/app/car-enterance/car-enterance.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__index_page_index_page_component__ = __webpack_require__("./src/app/index-page/index-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__auth_guard_service__ = __webpack_require__("./src/app/auth-guard.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__message_dialog_service__ = __webpack_require__("./src/app/message-dialog.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__message_dialog_message_dialog_component__ = __webpack_require__("./src/app/message-dialog/message-dialog.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__account_info_account_info_component__ = __webpack_require__("./src/app/account-info/account-info.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__product_retrieve_service__ = __webpack_require__("./src/app/product-retrieve.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__slide_nav_slide_nav_component__ = __webpack_require__("./src/app/slide-nav/slide-nav.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__cdk_table_basic_example_cdk_table_basic_example_component__ = __webpack_require__("./src/app/cdk-table-basic-example/cdk-table-basic-example.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__angular_cdk_table__ = __webpack_require__("./node_modules/@angular/cdk/esm5/table.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ng_bootstrap_ng_bootstrap__ = __webpack_require__("./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_component__ = __webpack_require__("./src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__login_dialog_login_dialog_component__ = __webpack_require__("./src/app/login-dialog/login-dialog.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__jwt_service__ = __webpack_require__("./src/app/jwt.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__auth_module__ = __webpack_require__("./src/auth.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__car_enterance_car_enterance_component__ = __webpack_require__("./src/app/car-enterance/car-enterance.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__index_page_index_page_component__ = __webpack_require__("./src/app/index-page/index-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__auth_guard_service__ = __webpack_require__("./src/app/auth-guard.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__message_dialog_service__ = __webpack_require__("./src/app/message-dialog.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__message_dialog_message_dialog_component__ = __webpack_require__("./src/app/message-dialog/message-dialog.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__account_info_account_info_component__ = __webpack_require__("./src/app/account-info/account-info.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__product_retrieve_service__ = __webpack_require__("./src/app/product-retrieve.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__slide_nav_slide_nav_component__ = __webpack_require__("./src/app/slide-nav/slide-nav.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__cdk_table_basic_example_cdk_table_basic_example_component__ = __webpack_require__("./src/app/cdk-table-basic-example/cdk-table-basic-example.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__angular_cdk_table__ = __webpack_require__("./node_modules/@angular/cdk/esm5/table.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -237,6 +239,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 // Denpendency
+
 
 
 
@@ -264,30 +267,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__login_dialog_login_dialog_component__["a" /* LoginDialogComponent */],
-                __WEBPACK_IMPORTED_MODULE_15__car_enterance_car_enterance_component__["a" /* CarEnteranceComponent */],
-                __WEBPACK_IMPORTED_MODULE_16__index_page_index_page_component__["a" /* IndexPageComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__message_dialog_message_dialog_component__["a" /* MessageDialogComponent */],
-                __WEBPACK_IMPORTED_MODULE_21__account_info_account_info_component__["a" /* AccountInfoComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__slide_nav_slide_nav_component__["a" /* SlideNavComponent */],
-                __WEBPACK_IMPORTED_MODULE_24__cdk_table_basic_example_cdk_table_basic_example_component__["a" /* CdkTableBasicExampleComponent */]
+                __WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__login_dialog_login_dialog_component__["a" /* LoginDialogComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__car_enterance_car_enterance_component__["a" /* CarEnteranceComponent */],
+                __WEBPACK_IMPORTED_MODULE_17__index_page_index_page_component__["a" /* IndexPageComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__message_dialog_message_dialog_component__["a" /* MessageDialogComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__account_info_account_info_component__["a" /* AccountInfoComponent */],
+                __WEBPACK_IMPORTED_MODULE_24__slide_nav_slide_nav_component__["a" /* SlideNavComponent */],
+                __WEBPACK_IMPORTED_MODULE_25__cdk_table_basic_example_cdk_table_basic_example_component__["a" /* CdkTableBasicExampleComponent */]
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_11__angular_forms__["d" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_forms__["c" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
                 // http client
-                __WEBPACK_IMPORTED_MODULE_17__angular_http__["HttpModule"],
-                __WEBPACK_IMPORTED_MODULE_13__angular_common_http__["c" /* HttpClientModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_common_http__["b" /* HttpClientJsonpModule */],
-                __WEBPACK_IMPORTED_MODULE_14__auth_module__["a" /* AuthModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_http__["HttpModule"],
+                __WEBPACK_IMPORTED_MODULE_14__angular_common_http__["c" /* HttpClientModule */],
+                __WEBPACK_IMPORTED_MODULE_14__angular_common_http__["b" /* HttpClientJsonpModule */],
+                __WEBPACK_IMPORTED_MODULE_15__auth_module__["a" /* AuthModule */],
                 __WEBPACK_IMPORTED_MODULE_6_ng2_file_upload_file_upload_file_upload_module__["FileUploadModule"],
                 __WEBPACK_IMPORTED_MODULE_7__app_routing_module__["a" /* AppRoutingModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_flex_layout__["a" /* FlexLayoutModule */],
@@ -324,23 +328,28 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__angular_material__["G" /* MatTabsModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_material__["H" /* MatToolbarModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_material__["I" /* MatTooltipModule */],
-                __WEBPACK_IMPORTED_MODULE_25__angular_cdk_table__["m" /* CdkTableModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_forms__["i" /* ReactiveFormsModule */]
+                __WEBPACK_IMPORTED_MODULE_26__angular_cdk_table__["m" /* CdkTableModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_forms__["h" /* ReactiveFormsModule */],
+                __WEBPACK_IMPORTED_MODULE_9__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot()
             ],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_10__login_dialog_login_dialog_component__["a" /* LoginDialogComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__message_dialog_message_dialog_component__["a" /* MessageDialogComponent */]
+                __WEBPACK_IMPORTED_MODULE_11__login_dialog_login_dialog_component__["a" /* LoginDialogComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__message_dialog_message_dialog_component__["a" /* MessageDialogComponent */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_12__jwt_service__["a" /* JwtService */],
-                __WEBPACK_IMPORTED_MODULE_18__auth_guard_service__["a" /* AuthGuardService */],
-                __WEBPACK_IMPORTED_MODULE_19__message_dialog_service__["a" /* MessageDialogService */],
+                {
+                    provide: __WEBPACK_IMPORTED_MODULE_27__angular_common__["LocationStrategy"],
+                    useClass: __WEBPACK_IMPORTED_MODULE_27__angular_common__["HashLocationStrategy"]
+                },
+                __WEBPACK_IMPORTED_MODULE_13__jwt_service__["a" /* JwtService */],
+                __WEBPACK_IMPORTED_MODULE_19__auth_guard_service__["a" /* AuthGuardService */],
+                __WEBPACK_IMPORTED_MODULE_20__message_dialog_service__["a" /* MessageDialogService */],
                 __WEBPACK_IMPORTED_MODULE_8_ng2_image_compress__["ImageCompressService"],
                 __WEBPACK_IMPORTED_MODULE_8_ng2_image_compress__["ResizeOptions"],
-                __WEBPACK_IMPORTED_MODULE_22__product_retrieve_service__["a" /* ProductRetrieveService */]
+                __WEBPACK_IMPORTED_MODULE_23__product_retrieve_service__["a" /* ProductRetrieveService */]
             ],
             bootstrap: [
-                __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* AppComponent */],
             ]
         })
     ], AppModule);
@@ -637,7 +646,7 @@ var ExampleDataSource = /** @class */ (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Product; });
+/* unused harmony export Product */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PRODUCTS; });
 var Product = /** @class */ (function () {
     function Product(name) {
@@ -733,6 +742,18 @@ var PRODUCTS = [
         imges: null,
         isSelling: false,
         saleCount: 0
+    }, {
+        id: 3,
+        type: null,
+        name: '小型车洗车服务',
+        description: '为车型在xxxx一下的车提供洗车服务',
+        costTime: null,
+        startPrice: 35,
+        originalPrice: null,
+        thumbnailImg: null,
+        imges: null,
+        isSelling: false,
+        saleCount: 0
     }
 ];
 
@@ -772,14 +793,14 @@ var RSA_PRIVATE_KEY = 'ss';
 /***/ "./src/app/index-page/index-page.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".carouselExampleControls {\r\n    max-width: 1024px;\r\n}\r\n\r\n.serviceWrap {\r\n    margin-top: 10px;\r\n}\r\n\r\n.serviceShow {\r\n    margin-top: 10px;\r\n}\r\n\r\n.starButton {\r\n    color: #e6e600;\r\n}"
+module.exports = ":host {\r\n    width: 80%;\r\n}\r\n\r\n.example-full-width {\r\n    width: 80%;\r\n}\r\n\r\n.flexCenterContainer {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.flexCenterContainer * {\r\n    -ms-flex-item-align: center;\r\n        -ms-grid-row-align: center;\r\n        align-self: center;\r\n}\r\n\r\n.carousel-item img {\r\n    width: 100%;\r\n}\r\n\r\n.serviceWrap {\r\n    padding: 0 5px;\r\n    margin-top: 10px;\r\n}\r\n\r\n.serviceShow {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-pack: justify;\r\n        -ms-flex-pack: justify;\r\n            justify-content: space-between;\r\n    /* 两端*/\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n}\r\n\r\n.starButton {\r\n    outline: none;\r\n    color: #e6e600;\r\n}\r\n\r\n.starButton:focus {\r\n    outline: none;\r\n}\r\n\r\n.service-card {\r\n    margin: 10px;\r\n    -webkit-animation: showUp 0.1s linear;\r\n            animation: showUp 0.1s linear;\r\n}\r\n\r\n.searchResult {\r\n    position: absolute;\r\n    z-index: 2;\r\n    width: 80%;\r\n    top: -10px;\r\n    -webkit-box-shadow: 0 1px 3px 0 grey;\r\n            box-shadow: 0 1px 3px 0 grey;\r\n}\r\n\r\n.carousel {\r\n    -webkit-animation: showUp 0.3s linear;\r\n            animation: showUp 0.3s linear;\r\n}\r\n\r\n@-webkit-keyframes showUp {\r\n    from {\r\n        opacity: 0;\r\n    }\r\n    to {\r\n        opacity: 1;\r\n    }\r\n}\r\n\r\n@keyframes showUp {\r\n    from {\r\n        opacity: 0;\r\n    }\r\n    to {\r\n        opacity: 1;\r\n    }\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/index-page/index-page.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"serviceWrap\">\n  <div class=\"serviceSearch\">\n<form class=\"example-form\">\n  <mat-form-field class=\"example-full-width\">\n    <input type=\"text\" placeholder=\"Assignee\" aria-label=\"Assignee\" matInput [formControl]=\"searchControl\" [matAutocomplete]=\"auto\">\n    <mat-autocomplete #auto=\"matAutocomplete\" [displayWith]=\"displayFn\">\n      <mat-option *ngFor=\"let option of filteredOptions | async\" [value]=\"option\">\n        {{ option.name }}\n      </mat-option>\n    </mat-autocomplete>\n  </mat-form-field>\n</form>\n</div>\n\n<ng-container *ngFor=\"let item of products;index as i\">\n  <ng-container *ngIf=\"i%2==0;\">\n    <div class=\"serviceShow\" fxLayout=\"row\" fxLayoutAlign=\"start center\" fxLayoutGap=\"10px\">\n    \n      <mat-card class=\"example-card\">\n        <mat-card-header>\n          <div mat-card-avatar class=\"example-header-image\"></div>\n          <mat-card-title>{{products[i].name}} </mat-card-title>\n          <mat-card-subtitle>{{products[i].type}}</mat-card-subtitle>\n        </mat-card-header>\n        <mat-card-content>\n          <p>\n            {{products[i].description}}\n          </p>\n        </mat-card-content>\n        <mat-card-actions>\n          <button mat-raised-button color=\"primary\">购买</button>\n          <button mat-icon-button color=\"warn\">\n            <mat-icon class=\"starButton\" aria-label=\"Example icon-button with a heart icon\">star</mat-icon>\n          </button>\n        </mat-card-actions>\n      </mat-card> \n\n      <ng-container *ngIf=\"i+1<products.length\">\n        <mat-card class=\"example-card\">\n          <mat-card-header>\n            <div mat-card-avatar class=\"example-header-image\"></div>\n            <mat-card-title>{{products[i+1].name}} </mat-card-title>\n            <mat-card-subtitle>{{products[i+1].type}}</mat-card-subtitle>\n          </mat-card-header>\n          <mat-card-content>\n            <p>\n              {{products[i+1].description}}\n            </p>\n          </mat-card-content>\n          <mat-card-actions>\n            <button mat-raised-button color=\"primary\">购买</button>\n            <button mat-icon-button color=\"warn\">\n            <mat-icon  class=\"starButton\"  aria-label=\"Example icon-button with a heart icon\">star</mat-icon> \n          </button>\n          </mat-card-actions>\n        </mat-card>\n      </ng-container>\n    </div>\n  </ng-container>\n</ng-container>\n</div>\n"
+module.exports = "<mat-progress-bar style=\"position: absolute;top: 0;left:0;\" mode=\"indeterminate\" *ngIf=\"!resultState\"></mat-progress-bar>\n<div class=\"serviceWrap\">\n  <div class=\"serviceSearch\">\n    <form class=\"flexCenterContainer\" autocomplete=\"on\">\n      <mat-icon matSuffix class=\"example-icon\" color=\"primary\">search</mat-icon>\n      <mat-form-field class=\"example-full-width\">\n        <input #searchBox type=\"text\" (blur)=\"searchBlur(searchBox.value)\" (click)=\"searchMode=true\" (keyup)=\"search(searchBox.value)\"\n          placeholder=\"店内产品搜索\" matInput>\n      </mat-form-field>\n      <a mat-icon-button *ngIf=\"searchMode\" (click)=\"searchMode=false\" color=\"primary\">\n        <mat-icon class=\"mat-18\">close</mat-icon>\n      </a>\n      <!-- 搜索框 -->\n      <!-- \n      <div style=\"position:relative\">\n        <div id=\"searchResult\" class=\"searchResult\">\n          <mat-option *ngFor=\"let option of product$ | async\" [value]=\"option\">\n            {{ option.name }}\n          </mat-option>\n        </div>\n      </div>  -->\n    </form>\n  </div>\n  <ng-container *ngIf=\"!searchMode; else showSearch\">\n    <ngb-carousel class=\"carousel\" >\n      <ng-template *ngFor=\"let item of images\" ngbSlide>\n        <img [src]=\"item.imgUrl\" alt=\"{{item.title}}\">\n        <div class=\"carousel-caption\">\n          <h3>{{item.title}}</h3>\n          <p>{{item.description}}</p>  \n        </div>\n      </ng-template>\n    </ngb-carousel>\n  </ng-container>\n  <ng-template #showSearch>\n    <div class=\"searchResultFeild\">\n      <div style=\"flex: 1 1 auto;\"></div>\n      <div class=\"serviceShow\">\n        <!-- <mat-progress-bar mode=\"indeterminate\" *ngIf=\"!resultState\"></mat-progress-bar> -->\n        <ng-container *ngFor=\"let item of product$ | async;index as i\">\n          <mat-card class=\"service-card\">\n            <mat-card-header>\n              <div mat-card-avatar class=\"example-header-image\"></div>\n              <mat-card-title>{{item.name}} </mat-card-title>\n              <mat-card-subtitle>{{item.type}}</mat-card-subtitle>\n            </mat-card-header>\n            <mat-card-content>\n              <p>\n                {{item.description}}\n              </p>\n            </mat-card-content>\n            <mat-card-actions>\n              <button mat-raised-button color=\"primary\">购买</button>\n              <button mat-icon-button class=\"starButton\">\n                <mat-icon class=\"starButton\">star</mat-icon>\n              </button>\n            </mat-card-actions>\n          </mat-card>\n        </ng-container>\n      </div>\n      <div style=\"flex: 1 1 auto;\"></div>\n    </div>\n\n  </ng-template>\n</div>"
 
 /***/ }),
 
@@ -789,11 +810,12 @@ module.exports = "<div class=\"serviceWrap\">\n  <div class=\"serviceSearch\">\n
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IndexPageComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_operators_startWith__ = __webpack_require__("./node_modules/rxjs/_esm5/operators/startWith.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operators_map__ = __webpack_require__("./node_modules/rxjs/_esm5/operators/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__product_retrieve_service__ = __webpack_require__("./src/app/product-retrieve.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__entity_product__ = __webpack_require__("./src/app/entity/product.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("./node_modules/rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__ = __webpack_require__("./node_modules/rxjs/_esm5/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operators__ = __webpack_require__("./node_modules/rxjs/_esm5/operators.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__product_retrieve_service__ = __webpack_require__("./src/app/product-retrieve.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__entity_product__ = __webpack_require__("./src/app/entity/product.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -809,30 +831,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var IndexPageComponent = /** @class */ (function () {
-    function IndexPageComponent(productRetrieveService) {
+    function IndexPageComponent(_http, productRetrieveService) {
+        this._http = _http;
         this.productRetrieveService = productRetrieveService;
-        this.searchControl = new __WEBPACK_IMPORTED_MODULE_5__angular_forms__["b" /* FormControl */]();
-        this.options = [
-            new __WEBPACK_IMPORTED_MODULE_4__entity_product__["b" /* Product */]('小型车洗车'),
-            new __WEBPACK_IMPORTED_MODULE_4__entity_product__["b" /* Product */]('小型车洗车'),
-            new __WEBPACK_IMPORTED_MODULE_4__entity_product__["b" /* Product */]('大型车洗车')
-        ];
+        this.searchTerms = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+        this.resultState = true;
+        this.searchMode = false;
     }
     IndexPageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.products = __WEBPACK_IMPORTED_MODULE_4__entity_product__["a" /* PRODUCTS */];
+        this.products = __WEBPACK_IMPORTED_MODULE_5__entity_product__["a" /* PRODUCTS */];
         // this.getProducts();
-        this.filteredOptions = this.searchControl.valueChanges
-            .pipe(Object(__WEBPACK_IMPORTED_MODULE_1_rxjs_operators_startWith__["a" /* startWith */])(''), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators_map__["a" /* map */])(function (value) { return typeof value === 'string' ? value : value.name; }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators_map__["a" /* map */])(function (name) { return name ? _this.filter(name) : _this.options.slice(); }));
+        this.product$ = this.searchTerms.pipe(
+        // 等待300毫秒输入搜索关键字
+        Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* debounceTime */])(300), 
+        // 忽略相同的搜索字段
+        Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["b" /* distinctUntilChanged */])(), 
+        // switch to new search observable each time the term changes
+        Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["c" /* switchMap */])(function (term) { return _this.searchFromHome(term); }));
+        this._http.get('/home/carousel')
+            .pipe()
+            .subscribe(function (images) { _this.images = images; });
     };
-    IndexPageComponent.prototype.filter = function (name) {
-        return this.options.filter(function (option) {
-            return option.name.toLowerCase().indexOf(name.toLowerCase()) === 0;
+    IndexPageComponent.prototype.searchFromHome = function (term) {
+        var _this = this;
+        var s = this.productRetrieveService.findProductFromHome(term);
+        s.subscribe(function (next) {
+            _this.resultState = true;
         });
+        return s;
     };
-    IndexPageComponent.prototype.displayFn = function (user) {
-        return user ? user.name : undefined;
+    IndexPageComponent.prototype.searchFromProducts = function (term) {
+        var result = new Array();
+        this.products.forEach(function (product) {
+            if (product.name === term) {
+                result.push(product);
+            }
+        });
+        this.resultState = true;
+        return Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__["a" /* of */])(result);
+    };
+    IndexPageComponent.prototype.search = function (term) {
+        this.resultState = false;
+        this.searchTerms.next(term);
+    };
+    IndexPageComponent.prototype.searchBlur = function (searchBoxValue) {
+        if (searchBoxValue === '') {
+            this.searchMode = false;
+        }
     };
     IndexPageComponent.prototype.getProducts = function () {
         var _this = this;
@@ -846,7 +894,8 @@ var IndexPageComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/index-page/index-page.component.html"),
             styles: [__webpack_require__("./src/app/index-page/index-page.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__product_retrieve_service__["a" /* ProductRetrieveService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_6__angular_common_http__["a" /* HttpClient */],
+            __WEBPACK_IMPORTED_MODULE_4__product_retrieve_service__["a" /* ProductRetrieveService */]])
     ], IndexPageComponent);
     return IndexPageComponent;
 }());
@@ -890,13 +939,13 @@ var JwtService = /** @class */ (function () {
         this.user = new __WEBPACK_IMPORTED_MODULE_5__entity_user__["a" /* User */]();
         this.authConfig = new __WEBPACK_IMPORTED_MODULE_3_angular2_jwt__["AuthConfig"]({
             tokenName: 'token',
-            tokenGetter: (function () { return sessionStorage.getItem('token'); }),
+            tokenGetter: (function () { return localStorage.getItem('token'); }),
             globalHeaders: [{ 'Content-Type': 'application/json' }],
         });
         this.jwtHelper = new __WEBPACK_IMPORTED_MODULE_3_angular2_jwt__["JwtHelper"]();
         // this.requestOptions.headers.append('Content-Type', 'application/json');
         this.authHttp = Object(__WEBPACK_IMPORTED_MODULE_4__auth_module__["b" /* customAuthHttpServiceFactory */])(this.authConfig, this.jwtHttp, this.requestOptions);
-        this.updateUser(sessionStorage.getItem('token'));
+        this.updateUser(localStorage.getItem('token'));
     }
     JwtService.prototype.getUser = function () {
         return this.user;
@@ -923,8 +972,8 @@ var JwtService = /** @class */ (function () {
         }
     };
     JwtService.prototype.logout = function () {
-        console.log(sessionStorage.removeItem('token'));
-        console.log(sessionStorage.getItem('token'));
+        console.log(localStorage.removeItem('token'));
+        console.log(localStorage.getItem('token'));
         this.httpClient.post('/logout', {});
     };
     JwtService = __decorate([
@@ -1017,20 +1066,10 @@ var LoginDialogComponent = /** @class */ (function () {
         this.jwtService = jwtService;
         this.user = new __WEBPACK_IMPORTED_MODULE_2__entity_user__["a" /* User */]();
         this.isAuthenticated = false;
-        this.values = '';
     }
     LoginDialogComponent.prototype.loginCancel = function ($event) {
         this.dialogRef.close();
         this.user = new __WEBPACK_IMPORTED_MODULE_2__entity_user__["a" /* User */]();
-    };
-    LoginDialogComponent.prototype.onKey = function (event) {
-        console.log(event);
-        this.values += event.target.value + ' | ';
-    };
-    LoginDialogComponent.prototype.submit = function ($event) {
-        if ($event.keyCode === 13) {
-            this.loginSubmit();
-        }
     };
     LoginDialogComponent.prototype.loginSubmit = function () {
         var _this = this;
@@ -1038,7 +1077,7 @@ var LoginDialogComponent = /** @class */ (function () {
         var password = this.user.password;
         this.httpClient.post('/login', { username: username, password: password })
             .subscribe(function (next) {
-            sessionStorage.setItem('token', next['token']);
+            localStorage.setItem('token', next['token']);
             _this.jwtService.updateUser(next['token']);
         }, function (error) {
             alert('登录失败：');
@@ -1222,6 +1261,9 @@ var ProductRetrieveService = /** @class */ (function () {
         //   catchError(this.handleError('getHeroes', []))
         // );
     };
+    ProductRetrieveService.prototype.findProductFromHome = function (keyword) {
+        return this.http.get(this.homeProductUrl + 'findFromHome?keyword=' + keyword);
+    };
     /**
      * Handle Http operation that failed.
      * Let the app continue.
@@ -1259,14 +1301,14 @@ var ProductRetrieveService = /** @class */ (function () {
 /***/ "./src/app/slide-nav/slide-nav.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".example-sidenav-content {\r\n    /* margin-top: 64px; */\r\n    overflow: visible;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    height: 100%;\r\n    /* align-items: center; */\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.example-sidenav {\r\n    margin-top: 64px;\r\n    color: #fff;\r\n    min-width: 170px;\r\n    background-color: #3f51b5;\r\n    padding: 20px;\r\n}\r\n\r\n#menuList {\r\n    color: white;\r\n}\r\n\r\n#menuList .mat-button {\r\n    color: white;\r\n}\r\n\r\n.example-container {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    position: absolute;\r\n    top: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    right: 0;\r\n}\r\n\r\n.menuButton {\r\n    /* position: absolute;\r\n    left: 0;\r\n    top: 54px; */\r\n    color: white;\r\n    outline: none;\r\n    min-width: 50px;\r\n    padding: 0;\r\n}"
+module.exports = ".example-sidenav-content {\r\n    /* margin-top: 64px; */\r\n    overflow: visible;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    height: 100%;\r\n    /* align-items: center; */\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.example-sidenav {\r\n    color: #fff;\r\n    min-width: 15%;\r\n    background-color: #3f51b5;\r\n    padding: 20px;\r\n}\r\n\r\n#menuList {\r\n    color: white;\r\n}\r\n\r\n#menuList .mat-button {\r\n    color: white;\r\n}\r\n\r\n.example-container {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    position: absolute;\r\n    top: 64px;\r\n    bottom: 0;\r\n    left: 0;\r\n    right: 0;\r\n}\r\n\r\n@media (max-width: 599px) {\r\n    .example-container {\r\n        top: 56px;\r\n    }\r\n}\r\n\r\n.menuButton {\r\n    /* position: absolute;\r\n    left: 0;\r\n    top: 54px; */\r\n    color: white;\r\n    outline: none;\r\n    min-width: 50px;\r\n    padding: 0;\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/slide-nav/slide-nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-drawer-container class=\"example-container\" autosize>\n  <!-- 菜单栏 -->\n  <mat-drawer color=\"primary\" #drawer class=\"example-sidenav\" mode='over'>\n    <div id=\"title\" mat-button>\n      <div style=\"font-size:20pt;\">{{title}}</div>\n      <i style=\"font-size:8pt;\">汽车美容中心</i>\n    </div>\n    <div>\n      <mat-list id=\"menuList\">\n        <mat-list-item>\n          <a mat-button focus='false' routerLink=\"/\" (click)=\"drawer.toggle()\">首页</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item>\n          <a mat-button routerLink=\"/carEnterance\" (click)=\"drawer.toggle()\">扫描车牌</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item>\n          <a mat-button routerLink=\"/table\" (click)=\"drawer.toggle()\">列表</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n\n      </mat-list>\n    </div>\n  </mat-drawer>\n\n  <!-- 主页面 -->\n  <mat-toolbar style=\"margin-top:56px;\" color=\"primary\">\n    <button class=\"menuButton\" type=\"button\" mat-button (click)=\"drawer.toggle()\">\n      <mat-icon class=\"example-icon\">menu</mat-icon>\n    </button>\n  </mat-toolbar>\n  <div class=\"example-sidenav-content\">\n      \n\n    <router-outlet></router-outlet>\n  </div>\n</mat-drawer-container>"
+module.exports = "<mat-drawer-container class=\"example-container\" autosize>\n  <!-- 菜单栏 -->\n  <mat-drawer color=\"primary\" #drawer class=\"example-sidenav\" mode='over'>\n    <div>\n      <mat-list id=\"menuList\">\n        <mat-list-item>\n          <a mat-button focus='false' routerLink=\"/\" (click)=\"drawer.toggle()\">首页</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item>\n          <a mat-button routerLink=\"/carEnterance\" (click)=\"drawer.toggle()\">扫描车牌</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item>\n          <a mat-button routerLink=\"/table\" (click)=\"drawer.toggle()\">列表</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n\n      </mat-list>\n    </div>\n  </mat-drawer>\n\n  <!-- 主页面 -->\n  <mat-toolbar  color=\"primary\">\n    <button class=\"menuButton\" type=\"button\" mat-button (click)=\"drawer.toggle()\">\n      <mat-icon class=\"example-icon\">menu</mat-icon>\n    </button>\n  </mat-toolbar>\n  <div class=\"example-sidenav-content\">\n    <router-outlet></router-outlet>\n  </div>\n</mat-drawer-container>"
 
 /***/ }),
 
@@ -1404,3 +1446,4 @@ module.exports = __webpack_require__("./src/main.ts");
 /***/ })
 
 },[0]);
+//# sourceMappingURL=main.bundle.js.map

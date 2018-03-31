@@ -1,8 +1,12 @@
 package beat.mercy.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.PrePersist;
 
 import beat.mercy.entity.base.BaseEntity;
+import beat.mercy.entity.state.AdvertiseLocation;
 
 @Entity
 public class Advertisement extends BaseEntity {
@@ -19,6 +23,19 @@ public class Advertisement extends BaseEntity {
 	private String targetUrl;
 	private Boolean isShow;
 	private Boolean isOutsideHref;
+	private AdvertiseLocation location;
+	
+	@PrePersist
+	private void preset() {
+		if(this.isShow==null)
+			this.isShow=false;
+		if(isOutsideHref==null)
+			this.isOutsideHref=false;
+		if(this.sequence==null)
+			this.sequence=0;
+		if(this.location==null)
+			this.location=AdvertiseLocation.HOME;
+	}
 	
 	public String getTitle() {
 		return title;
@@ -38,12 +55,21 @@ public class Advertisement extends BaseEntity {
 	public String getTargetUrl() {
 		return targetUrl;
 	}
-	
-	//——————————————————————————
-	
+
+	@Enumerated(EnumType.ORDINAL)
+	public AdvertiseLocation getLocation() {
+		return location;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	//——————————————————————————
+	
+	
+	public void setLocation(AdvertiseLocation location) {
+		this.location = location;
+	}
+
 	public void setIsShow(Boolean isShow) {
 		this.isShow = isShow;
 	}
