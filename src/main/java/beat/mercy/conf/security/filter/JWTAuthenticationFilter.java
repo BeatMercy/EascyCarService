@@ -1,19 +1,22 @@
 package beat.mercy.conf.security.filter;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
+import beat.mercy.repository.AccountRepository;
 import io.jsonwebtoken.Jwts;
 
 /**
@@ -23,10 +26,15 @@ import io.jsonwebtoken.Jwts;
  * 
  * @author Mercy Wu(a3049) 2018年3月6日
  */
-public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
+@Component
+public class JWTAuthenticationFilter extends BasicAuthenticationFilter{
 
-	public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+	// 通过构造方法注入
+	private AccountRepository accountRepository;
+
+	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, AccountRepository accountRepository) {
 		super(authenticationManager);
+		this.accountRepository = accountRepository;
 	}
 
 	@Override
@@ -39,32 +47,36 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 		if (header == null || !header.startsWith("Bearer ")) {
 			chain.doFilter(request, response);
 			return;
-//			return;
-//			throw new AccessDeniedException("认证错误：请求中没有token");
+			// return;
+			// throw new AccessDeniedException("认证错误：请求中没有token");
 		}
-
-		UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
+		String token = request.getHeader("Authorization");
+		UsernamePasswordAuthenticationToken authentication = getAuthentication(token);
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		chain.doFilter(request, response);
 	}
-	
+
 	/**
-	 * 解析token中的用户信息，获得认证token
-	 * author: Mercy Wu(a3049)
-	 * 2018年3月6日 下午1:49:17
+	 * 解析token中的用户信息，获得认证token author: Mercy Wu(a3049) 2018年3月6日 下午1:49:17
+	 * 
 	 * @param request
 	 * @return
 	 */
-	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-		String token = request.getHeader("Authorization");
+	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
 		if (token != null) {
 			// parse the token.
 			String user = Jwts.parser().setSigningKey("MyJwtSecret").parseClaimsJws(token.replace("Bearer ", ""))
 					.getBody().getSubject();
 
 			if (user != null) {
-				return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+				Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+				accountRepository.findByUsernameCache(user).getRoles().forEach(role -> {
+					role.getAuthorities().forEach(auth -> {
+						authorities.add(new SimpleGrantedAuthority(auth.getName()));
+					});
+				});
+				return new UsernamePasswordAuthenticationToken(user, null, authorities);
 			}
 			return null;
 		}

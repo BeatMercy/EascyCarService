@@ -112,6 +112,18 @@
 			<artifactId>openid4java</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<!-- 指定使用ehcache作为缓存管理器 -->
+		<dependency>
+    		<groupId>net.sf.ehcache</groupId>
+    		<artifactId>ehcache</artifactId>
+		</dependency>
+		<!-- 自动配置缓存 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<!--  -->
+		
 	</dependencies>
 
 	<build>

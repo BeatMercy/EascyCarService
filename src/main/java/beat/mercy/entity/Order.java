@@ -27,10 +27,20 @@ public class Order extends BaseEntity {
 	private String thirdPartyOrderNo;
 	private String plateNo;
 	private Date endTime;	// 订单结束时间/取消时间
-	private Double total;
-	private PayMethod paymethod;
 	private OrderState state;
+	private Long staffId;
 	private Long userId;	
+	
+	private Double total;	// 预计总价
+	
+	private Boolean hasBasePrice;
+	private Double basePrice;
+	
+	private Double finalTotal; 	// 最终定价
+	private String finalTotalInfo; // 定价信息详情
+	private PayMethod paymethod;
+	private ServiceProgress progress;
+	
 	@PrePersist
 	private void generateOrderNo() {
 		this.orderNo=RandomStringGenerator.getOrderNo();
@@ -71,10 +81,53 @@ public class Order extends BaseEntity {
 	public Long getUserId() {
 		return userId;
 	}
-	
+
+	public Double getFinalTotal() {
+		return finalTotal;
+	}
+
+	public String getFinalTotalInfo() {
+		return finalTotalInfo;
+	}
+	public Long getStaffId() {
+		return staffId;
+	}
+	public ServiceProgress getProgress() {
+		return progress;
+	}
+	public Boolean getHasBasePrice() {
+		return hasBasePrice;
+	}
+
+	public Double getBasePrice() {
+		return basePrice;
+	}
+
 	//---------------------setter
 	
+	public void setHasBasePrice(Boolean hasBasePrice) {
+		this.hasBasePrice = hasBasePrice;
+	}
 
+	public void setBasePrice(Double basePrice) {
+		this.basePrice = basePrice;
+	}
+
+	public void setProgress(ServiceProgress progress) {
+		this.progress = progress;
+	}
+
+	public void setStaffId(Long staffId) {
+		this.staffId = staffId;
+	}
+
+	public void setFinalTotal(Double finalTotal) {
+		this.finalTotal = finalTotal;
+	}
+
+	public void setFinalTotalInfo(String finalTotalInfo) {
+		this.finalTotalInfo = finalTotalInfo;
+	}
 
 	public void setType(String type) {
 		this.type = type;

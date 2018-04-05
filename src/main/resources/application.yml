@@ -12,7 +12,27 @@ spring:
     multipart:
       max-file-size: 10MB
       location: D:\EasyCarService\tmp
-     
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
+  devtools:
+    remote:
+      debug:
+        enabled: true
+  resources:
+    chain:
+      gzipped: true
+      cache: true
+      html-application-cache: true
+      enabled: true
+    cache-period: 120
+   
+# security debug模式
+logging:
+  file: d:\\tmp\\log\\authServer.log
+  level:
+    org.springframework.security: error
+      
 steam:
   api:
     key: 50548F365955D619C1257C3123FB7220

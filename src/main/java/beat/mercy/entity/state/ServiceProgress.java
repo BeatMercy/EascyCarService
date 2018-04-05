@@ -1,10 +1,12 @@
 package beat.mercy.entity.state;
 
 public enum ServiceProgress {
-	UNFINISHED,
+	PENDING,
+	WORKING,
+	
+	FINISHED,
 	/**
 	 * 等待车主验收
 	 */
-	WAITING_CHECK,	
-	FINISHED,
+	WAITING_CONFIRM
 }

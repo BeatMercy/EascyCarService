@@ -2,6 +2,6 @@ package beat.mercy.entity.state;
 
 public enum OrderState {
 	UNPAY,
-	PAIED,
+	FINISHED,
 	CANCELED,
 }

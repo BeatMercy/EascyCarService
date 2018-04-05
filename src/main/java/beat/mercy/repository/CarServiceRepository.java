@@ -9,5 +9,8 @@ import beat.mercy.entity.base.BaseCarService;
 @Repository
 public interface CarServiceRepository extends JpaRepository<BaseCarService,Long> {
 	public List<BaseCarService> findByNameLike(String name);
+	
 	public List<BaseCarService> findByName(String name);
+	
+	public List<BaseCarService> findByTags(String tag);
 }

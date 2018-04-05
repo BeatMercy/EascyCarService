@@ -1,5 +1,6 @@
 package beat.mercy.entity.base;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrePersist;
@@ -16,15 +17,14 @@ public class BaseCarService extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected String type;	// 服务类型
+	protected String tags;
 	protected String name;
 	protected String description;
-	protected Double servePrice; // 服务价格
-	protected Float costTime; 	// 单位小时
-	protected Double manHourFee; // 工时费
 	protected String thumbnailImg;
 	protected String[] imges;
 	protected Boolean isSelling;
 	protected Integer saleCount;
+	protected Double price;
 	
 	@PrePersist
 	protected void prePersist() {
@@ -45,11 +45,6 @@ public class BaseCarService extends BaseEntity {
 		return description;
 	}
 	
-	@Column(nullable=false)
-	public Double getServePrice() {
-		return servePrice;
-	}
-
 	public String getThumbnailImg() {
 		return thumbnailImg;
 	}
@@ -65,33 +60,27 @@ public class BaseCarService extends BaseEntity {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-	public Float getCostTime() {
-		return costTime;
+	public String getTags() {
+		return tags;
 	}
-
-	public Double getManHourFee() {
-		return manHourFee;
+	@Column(nullable=false)
+	public Double getPrice() {
+		return price;
 	}
+	
 	// ------------------
 	
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 
 	public void setType(String type) {
 		this.type = type;
 	}
-	public void setServePrice(Double servePrice) {
-		this.servePrice = servePrice;
-	}
-
-	public void setCostTime(Float costTime) {
-		this.costTime = costTime;
-	}
-
-	public void setManHourFee(Double manHourFee) {
-		this.manHourFee = manHourFee;
-	}
-
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -3,8 +3,8 @@ package beat.mercy.entity.rbac;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -74,7 +74,7 @@ public class Role extends BaseEntity {
 		return users;
 	}
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
     		name = "roles_authorities",
     		joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),

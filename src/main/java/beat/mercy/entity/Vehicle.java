@@ -22,6 +22,7 @@ public class Vehicle extends BaseEntity {
 	private Date broughtDate;
 	private VehicleType vehicleType;
 	private FuseType fuseType;
+	private Double travelMiles;
 	
 	private Customer owner;
 
@@ -48,8 +49,18 @@ public class Vehicle extends BaseEntity {
 	public Customer getOwner() {
 		return owner;
 	}
-	
+	public Double getTravelMiles() {
+		return travelMiles;
+	}
 	//----------------------
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setTravelMiles(Double travelMiles) {
+		this.travelMiles = travelMiles;
+	}
 
 	public void setBrand(String brand) {
 		this.brand = brand;

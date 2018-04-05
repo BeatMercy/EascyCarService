@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.Action;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,12 +64,18 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		// super.successfulAuthentication(request, response, chain, authResult);
+		// 赋权
 		Map<String, Object> map = new HashMap<>();
-		map.put("authorities", authResult.getAuthorities());
+		List<String> s = new ArrayList<>();
+		authResult.getAuthorities().forEach((child) ->{
+			s.add(child.getAuthority());
+		});
+		map.put("authorities", s.toArray());
+		
 		String token = Jwts.builder().setClaims(map)
 				.setSubject(
 						((org.springframework.security.core.userdetails.User) authResult.getPrincipal()).getUsername())
-				.setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))// 有效期1天
+				.setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 7 * 1000))// 有效期7天
 				.signWith(SignatureAlgorithm.HS512, "MyJwtSecret").compact();
 		// 生成认证请求头
 		response.addHeader("Authorization", "Bearer " + token);
