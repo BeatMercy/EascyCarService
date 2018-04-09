@@ -1,6 +1,12 @@
 package beat.mercy.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
 import beat.mercy.entity.base.Account;
@@ -19,20 +25,27 @@ public class Customer extends Account{
 	private static final long serialVersionUID = -8485303414462923589L;
 	
 	private Long comsumePoint;
+	private Set<Vehicle> vehicles = new HashSet<Vehicle>();
 
 	@PrePersist
 	private void beforePersist() {
 		this.comsumePoint=0L;
 	}
-	
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	public Long getComsumePoint() {
 		return comsumePoint;
 	}
+
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	public Set<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(Set<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
+
+
 
 	public void setComsumePoint(Long comsumePoint) {
 		this.comsumePoint = comsumePoint;

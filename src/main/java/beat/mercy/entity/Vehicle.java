@@ -3,6 +3,7 @@ package beat.mercy.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import beat.mercy.entity.base.BaseEntity;
@@ -46,6 +47,7 @@ public class Vehicle extends BaseEntity {
 		return fuseType;
 	}
 
+	@ManyToOne
 	public Customer getOwner() {
 		return owner;
 	}

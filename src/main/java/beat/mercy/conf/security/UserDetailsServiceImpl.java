@@ -13,7 +13,6 @@ import beat.mercy.entity.rbac.Authority;
 import beat.mercy.entity.rbac.Role;
 import beat.mercy.repository.AccountRepository;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;;
 
@@ -35,7 +34,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			for (Authority auth : role.getAuthorities())
 				authorities.add(new SimpleGrantedAuthority(auth.getName()));
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+		return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(),
+				true, // enabled
+				true, // accountNonExpired
+				true, // credentialsNonExpired
+				true, // accountNonLocked
 				authorities);
 	}
 

@@ -1,9 +1,15 @@
 package beat.mercy.entity;
 
 import java.util.Date;
+import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -14,54 +20,67 @@ import beat.mercy.entity.state.PayMethod;
 import beat.mercy.entity.state.ServiceProgress;
 
 @Entity
-@Table(name = "order")
+//@EntityListeners(OrderListener.class)
+@Table(name = "service_order")
 public class Order extends BaseEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4770937925087259672L;
-	
+
 	private String type;
+	private String name;
 	private String orderNo;
 	private String thirdPartyOrderNo;
+
 	private String plateNo;
-	private Date endTime;	// 订单结束时间/取消时间
+	private Double travelMiles;
+
+	private Date endTime; // 订单结束时间/取消时间
 	private OrderState state;
 	private Long staffId;
-	private Long userId;	
-	
-	private Double total;	// 预计总价
-	
-	private Boolean hasBasePrice;
+	private Long userId;
+	private Double total; // 预计总价
+
 	private Double basePrice;
-	
-	private Double finalTotal; 	// 最终定价
-	private String finalTotalInfo; // 定价信息详情
-	private PayMethod paymethod;
+	private Map<String, Double> selectedOption;
+
+	private Boolean isResetTotal;
+	private Double resetTotal; // 重设总价
+	private PayMethod payMethod;
 	private ServiceProgress progress;
-	
+	private String note;
+
 	@PrePersist
 	private void generateOrderNo() {
-		this.orderNo=RandomStringGenerator.getOrderNo();
+		
+		if (this.orderNo == null) {
+			this.orderNo = "un" + RandomStringGenerator.getOrderNo();
+		}
 	}
-	
-	@Column(updatable=false,insertable=false,name="dtype")
+
+	@Column(updatable = false, name = "dtype")
 	public String getType() {
 		return type;
 	}
+
 	public String getOrderNo() {
 		return orderNo;
 	}
+
 	public Date getEndTime() {
 		return endTime;
 	}
+
 	public Double getTotal() {
 		return total;
 	}
-	public PayMethod getPaymethod() {
-		return paymethod;
+
+	public Double getTravelMiles() {
+		return travelMiles;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -82,35 +101,77 @@ public class Order extends BaseEntity {
 		return userId;
 	}
 
-	public Double getFinalTotal() {
-		return finalTotal;
-	}
-
-	public String getFinalTotalInfo() {
-		return finalTotalInfo;
-	}
 	public Long getStaffId() {
 		return staffId;
 	}
+
 	public ServiceProgress getProgress() {
 		return progress;
-	}
-	public Boolean getHasBasePrice() {
-		return hasBasePrice;
 	}
 
 	public Double getBasePrice() {
 		return basePrice;
 	}
 
-	//---------------------setter
-	
-	public void setHasBasePrice(Boolean hasBasePrice) {
-		this.hasBasePrice = hasBasePrice;
+	public String getName() {
+		return name;
+	}
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "order_map_option_price")
+	@MapKeyColumn(name = "option_name")
+	public Map<String, Double> getSelectedOption() {
+		return selectedOption;
+	}
+
+	public Boolean getIsResetTotal() {
+		return isResetTotal;
+	}
+
+	public Double getResetTotal() {
+		return resetTotal;
+	}
+
+	public PayMethod getPayMethod() {
+		return payMethod;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	// ---------------------setter
+
+	public void setTravelMiles(Double travelMiles) {
+		this.travelMiles = travelMiles;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	public void setBasePrice(Double basePrice) {
 		this.basePrice = basePrice;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSelectedOption(Map<String, Double> selectedOption) {
+		this.selectedOption = selectedOption;
+	}
+
+	public void setIsResetTotal(Boolean isResetTotal) {
+		this.isResetTotal = isResetTotal;
+	}
+
+	public void setResetTotal(Double resetTotal) {
+		this.resetTotal = resetTotal;
+	}
+
+	public void setPayMethod(PayMethod payMethod) {
+		this.payMethod = payMethod;
 	}
 
 	public void setProgress(ServiceProgress progress) {
@@ -121,17 +182,10 @@ public class Order extends BaseEntity {
 		this.staffId = staffId;
 	}
 
-	public void setFinalTotal(Double finalTotal) {
-		this.finalTotal = finalTotal;
-	}
-
-	public void setFinalTotalInfo(String finalTotalInfo) {
-		this.finalTotalInfo = finalTotalInfo;
-	}
-
 	public void setType(String type) {
 		this.type = type;
 	}
+
 	public void setThirdPartyOrderNo(String thirdPartyOrderNo) {
 		this.thirdPartyOrderNo = thirdPartyOrderNo;
 	}
@@ -151,15 +205,13 @@ public class Order extends BaseEntity {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+
 	public void setTotal(Double total) {
 		this.total = total;
 	}
-	public void setPaymethod(PayMethod paymethod) {
-		this.paymethod = paymethod;
-	}
-	
-	
+
 }

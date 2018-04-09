@@ -16,7 +16,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
+import beat.mercy.conf.security.UserPrincipal;
+import beat.mercy.entity.base.Account;
 import beat.mercy.repository.AccountRepository;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
 /**
@@ -27,7 +30,7 @@ import io.jsonwebtoken.Jwts;
  * @author Mercy Wu(a3049) 2018年3月6日
  */
 @Component
-public class JWTAuthenticationFilter extends BasicAuthenticationFilter{
+public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
 	// 通过构造方法注入
 	private AccountRepository accountRepository;
@@ -66,17 +69,24 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter{
 	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
 		if (token != null) {
 			// parse the token.
-			String user = Jwts.parser().setSigningKey("MyJwtSecret").parseClaimsJws(token.replace("Bearer ", ""))
-					.getBody().getSubject();
-
-			if (user != null) {
+			Claims tokenClaim = Jwts.parser().setSigningKey("MyJwtSecret").
+					parseClaimsJws(token.replace("Bearer ", "")).getBody();
+			String userName = tokenClaim.getSubject();
+			if (userName != null) {
 				Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-				accountRepository.findByUsernameCache(user).getRoles().forEach(role -> {
+				Account account = accountRepository.findByUsernameCache(userName);
+				account.getRoles().forEach(role -> {
 					role.getAuthorities().forEach(auth -> {
 						authorities.add(new SimpleGrantedAuthority(auth.getName()));
 					});
 				});
-				return new UsernamePasswordAuthenticationToken(user, null, authorities);
+				UserPrincipal principal = new UserPrincipal(account.getId(),
+						account.getUsername(), account.getPassword(),
+						true,
+						true,
+						true,
+						true, authorities);
+				return new UsernamePasswordAuthenticationToken(principal, null, authorities);
 			}
 			return null;
 		}

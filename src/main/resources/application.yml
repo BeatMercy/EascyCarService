@@ -19,19 +19,19 @@ spring:
     remote:
       debug:
         enabled: true
-  resources:
-    chain:
-      gzipped: true
-      cache: true
-      html-application-cache: true
-      enabled: true
-    cache-period: 120
+#  resources:
+#    chain:
+#      gzipped: true
+#      cache: true
+#      html-application-cache: true
+#      enabled: true
+#    cache-period: 120
    
 # security debug模式
 logging:
   file: d:\\tmp\\log\\authServer.log
   level:
-    org.springframework.security: error
+    org.springframework.security: info
       
 steam:
   api:

@@ -1,6 +1,7 @@
 package beat.mercy.entity.dto;
 
 import java.util.Date;
+import java.util.Map;
 
 import beat.mercy.entity.state.OrderState;
 import beat.mercy.entity.state.PayMethod;
@@ -8,7 +9,7 @@ import beat.mercy.entity.state.ServiceProgress;
 
 public class OrderDTO {
 	private Long id;
-	private String type;
+	private String selectedService;
 	private String orderNo;
 	private String thirdPartyOrderNo;
 	private String plateNo;
@@ -17,36 +18,21 @@ public class OrderDTO {
 	private Long staffId;
 	private Long userId;	
 	
+	private Double basePrice;
+	private Map<String, Double> selectedOption;
 	private Double total;	// 预计总价
 	
-	private Boolean hasBasePrice;
-	private Double basePrice;
 	
-	private Double finalTotal; 	// 最终定价
-	private String finalTotalInfo; // 定价信息详情
-	private PayMethod paymethod;
+	private PayMethod payMethod;
 	private ServiceProgress progress;
 	private Double travelMiles;
-	
-	//-------
-	
-	public Double getBasePrice() {
-		return basePrice;
-	}
-	public Boolean getHasBasePrice() {
-		return hasBasePrice;
-	}
-	public void setHasBasePrice(Boolean hasBasePrice) {
-		this.hasBasePrice = hasBasePrice;
-	}
-	public void setBasePrice(Double basePrice) {
-		this.basePrice = basePrice;
-	}
+	private String note;
+
 	public Long getId() {
 		return id;
 	}
-	public String getType() {
-		return type;
+	public String getSelectedService() {
+		return selectedService;
 	}
 	public String getOrderNo() {
 		return orderNo;
@@ -69,17 +55,17 @@ public class OrderDTO {
 	public Long getUserId() {
 		return userId;
 	}
+	public Double getBasePrice() {
+		return basePrice;
+	}
+	public Map<String, Double> getSelectedOption() {
+		return selectedOption;
+	}
 	public Double getTotal() {
 		return total;
 	}
-	public Double getFinalTotal() {
-		return finalTotal;
-	}
-	public String getFinalTotalInfo() {
-		return finalTotalInfo;
-	}
-	public PayMethod getPaymethod() {
-		return paymethod;
+	public PayMethod getPayMethod() {
+		return payMethod;
 	}
 	public ServiceProgress getProgress() {
 		return progress;
@@ -87,11 +73,17 @@ public class OrderDTO {
 	public Double getTravelMiles() {
 		return travelMiles;
 	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setSelectedService(String selectedService) {
+		this.selectedService = selectedService;
 	}
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
@@ -114,17 +106,17 @@ public class OrderDTO {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
+	public void setBasePrice(Double basePrice) {
+		this.basePrice = basePrice;
+	}
+	public void setSelectedOption(Map<String, Double> selectedOption) {
+		this.selectedOption = selectedOption;
+	}
 	public void setTotal(Double total) {
 		this.total = total;
 	}
-	public void setFinalTotal(Double finalTotal) {
-		this.finalTotal = finalTotal;
-	}
-	public void setFinalTotalInfo(String finalTotalInfo) {
-		this.finalTotalInfo = finalTotalInfo;
-	}
-	public void setPaymethod(PayMethod paymethod) {
-		this.paymethod = paymethod;
+	public void setPayMethod(PayMethod payMethod) {
+		this.payMethod = payMethod;
 	}
 	public void setProgress(ServiceProgress progress) {
 		this.progress = progress;
@@ -133,6 +125,7 @@ public class OrderDTO {
 		this.travelMiles = travelMiles;
 	}
 	
+	//-------
 	
 	
 }

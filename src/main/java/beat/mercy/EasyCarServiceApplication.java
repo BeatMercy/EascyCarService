@@ -154,31 +154,63 @@ public class EasyCarServiceApplication {
 			
 			// 选项
 			SelectOption option =new SelectOption();
+			option.setName("清洗选项");
 			option.setServiceType(SelectOption.CAR_BEAUTIFY_SERVICE);
 			option.setOptionType(SelectOption.SHAMPOO_OPTION);
-			option.setItemName("普通清洗");
+			option.setItemName("外观清洗：普通清洗");
 			option.setPrice(35.2);
 			
 			SelectOption option2 =new SelectOption();
+			option2.setName("清洗选项");
 			option2.setServiceType(SelectOption.CAR_BEAUTIFY_SERVICE);
 			option2.setOptionType(SelectOption.SHAMPOO_OPTION);
-			option2.setItemName("高级清洗");
+			option2.setItemName("外观清洗：高级清洗");
 			option2.setPrice(60.00);
 			
 			SelectOption option3 =new SelectOption();
+			option3.setName("打蜡选项");
 			option3.setServiceType(SelectOption.CAR_BEAUTIFY_SERVICE);
 			option3.setOptionType(SelectOption.WAX_OPTION);
-			option3.setItemName("普通蜡");
+			option3.setItemName("打蜡：普通蜡");
 			option3.setPrice(45.00);
 			
 			SelectOption option4 =new SelectOption();
+			option4.setName("内饰清洗选项");
 			option4.setServiceType(SelectOption.CAR_BEAUTIFY_SERVICE);
 			option4.setOptionType(SelectOption.INTERNAL_WASH_OPTION);
-			option4.setItemName("普通清洗");
+			option4.setItemName("内饰清洗：普通清洗");
 			option4.setPrice(35.2);
 			
+			SelectOption option5 =new SelectOption();
+			option5.setName("机油滤嘴选项");
+			option5.setServiceType(SelectOption.CAR_MAINTENANCE_SERVICE);
+			option5.setOptionType(SelectOption.ENGINE_FILTER_OPTION);
+			option5.setItemName("机油滤嘴：普通");
+			option5.setPrice(35.2);
 			
-			optionRepository.save(Arrays.asList(option,option2,option3,option4));
+			SelectOption option6 =new SelectOption();
+			option6.setName("机油选项");
+			option6.setServiceType(SelectOption.CAR_MAINTENANCE_SERVICE);
+			option6.setOptionType(SelectOption.ENGINE_OIL_OPTION);
+			option6.setItemName("机油：嘉实多");
+			option6.setPrice(60.00);
+			
+			SelectOption option7 =new SelectOption();
+			option6.setName("机油选项");
+			option7.setServiceType(SelectOption.CAR_MAINTENANCE_SERVICE);
+			option7.setOptionType(SelectOption.ENGINE_OIL_OPTION);
+			option7.setItemName("机油：美孚");
+			option7.setPrice(45.00);
+			
+			SelectOption option8 =new SelectOption();
+			option6.setName("刹车油选项");
+			option8.setServiceType(SelectOption.CAR_MAINTENANCE_SERVICE);
+			option8.setOptionType(SelectOption.BREAK_OIL_OPTION);
+			option8.setItemName("刹车油：嘉实多");
+			option8.setPrice(35.2);
+			
+			
+			optionRepository.save(Arrays.asList(option,option2,option3,option4,option5,option6,option7,option8));
 			advertisementRepository.save(Arrays.asList(ad, ad2));
 		};
 	}

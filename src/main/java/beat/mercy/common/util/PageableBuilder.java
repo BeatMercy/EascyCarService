@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort.Direction;
 public class PageableBuilder {
 
 	private Integer pageNum = 1; // 页码
-	private Integer pageSize = 15; // 页面大小
+	private Integer pageSize = 10; // 页面大小
 	private String sort = "id"; // 默认id排序
 	private String dir = "DESC"; // 默认降序
 

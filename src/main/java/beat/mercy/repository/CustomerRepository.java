@@ -9,5 +9,7 @@ import beat.mercy.entity.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor<Customer> {
 
-	Customer findByUsername(String username); 
+	Customer findByUsername(String username);
+	
+	Customer findByVehiclesPlateNo(String plateNo);
 }

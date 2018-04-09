@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.MapKeyColumn;
 
-@Entity
+//@Entity
 public class CarRepairOrder extends Order{
 
 	/**

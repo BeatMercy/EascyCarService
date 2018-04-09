@@ -41,7 +41,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 	}
 
 	/**
-	 * 验证用户请求中的用户名与密码生成的token合法性
+	 * 验证用户登录请求中的用户名与密码生成的token合法性
 	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)

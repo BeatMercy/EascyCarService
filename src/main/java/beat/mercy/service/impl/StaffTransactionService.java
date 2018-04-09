@@ -1,18 +1,27 @@
 package beat.mercy.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import beat.mercy.entity.CarBeautifyOrder;
+import beat.mercy.common.exception.OrderTransactionException;
+import beat.mercy.common.util.RandomStringGenerator;
+import beat.mercy.entity.Customer;
+import beat.mercy.entity.Order;
 import beat.mercy.entity.dto.OrderDTO;
 import beat.mercy.entity.dto.SelectOptionDTO;
 import beat.mercy.entity.option.SelectOption;
-import beat.mercy.repository.CarBeautifyOrderRepository;
+import beat.mercy.entity.state.OrderState;
+import beat.mercy.entity.state.ServiceProgress;
+import beat.mercy.repository.CustomerRepository;
+import beat.mercy.repository.OrderRepository;
 import beat.mercy.repository.SelectOptionRepository;
 import beat.mercy.service.IStaffTransactionService;
 
@@ -20,77 +29,95 @@ import beat.mercy.service.IStaffTransactionService;
 public class StaffTransactionService implements IStaffTransactionService {
 
 	@Autowired
-	private CarBeautifyOrderRepository carBeautifyOrderRepo;
+	private OrderRepository orderRepo;
+
+	@Autowired
+	private CustomerRepository customerRepo;
 
 	@Autowired
 	private SelectOptionRepository optionRepo;
 
-	@Transactional
+	@Transactional(rollbackFor = { OrderTransactionException.class })
 	@Override
-	public Boolean submitCarBeautifyOrder(OrderDTO orderDto, SelectOptionDTO optionDto) {
-		Assert.notNull(orderDto, "");
-		Assert.notNull(orderDto.getHasBasePrice(), "");
-		CarBeautifyOrder order = new CarBeautifyOrder();
-		if (orderDto.getHasBasePrice()) {
-			// TODO 使用含有基础售价
-			BeanUtils.copyProperties(orderDto, order);
-		} else {
-			// TODO 计算总价
-			BeanUtils.copyProperties(orderDto, order, "total");
-			Assert.notNull(optionDto, "选项不可为空");
-			Double total =orderDto.getBasePrice()==null?0.00:orderDto.getBasePrice();
-			
-			List<SelectOption> options = optionRepo.findByServiceType(SelectOption.CAR_BEAUTIFY_SERVICE);
-			for (SelectOption o : options) {
-				// 洗涤剂
-				if (o.getOptionType().equals(SelectOption.SHAMPOO_OPTION)) {
-					if(o.getItemName().equals(optionDto.getShampooOption())) {
-						total =+o.getPrice();
-					}
-				}
-				// 打蜡选项
-				if (o.getOptionType().equals(SelectOption.WAX_OPTION)) {
-					if(o.getItemName().equals(optionDto.getWaxOption())) {
-						total =+o.getPrice();
-					}
-				}
-				// 内饰清洗选项
-				if (o.getOptionType().equals(SelectOption.INTERNAL_WASH_OPTION)) {
-					if(o.getItemName().equals(optionDto.getInternalwashOption())) {
-						total =+o.getPrice();
-					}
-				}
-			}
-			
-			
-		}
+	public Boolean submitOrder(Long staffId, OrderDTO orderDto, SelectOptionDTO[] optionDtos)
+			throws OrderTransactionException {
+		if (orderDto.getBasePrice() == null)
+			orderDto.setBasePrice(0D);
+		Order order = new Order();
+		BeanUtils.copyProperties(orderDto, order);
 
-		carBeautifyOrderRepo.saveAndFlush(order);
+		String serviceName = "";
+		if (orderDto.getSelectedService().equals("carBeautify")) {
+			serviceName = "洗车美容";
+			order.setOrderNo("cb" + RandomStringGenerator.getOrderNo());
+		} else if (orderDto.getSelectedService().equals("carMaintenance")) {
+			serviceName = "保养维护";
+			order.setOrderNo("cm" + RandomStringGenerator.getOrderNo());
+		} else
+			throw new OrderTransactionException("未知订单服务类型");
+		// 生成订单基本数据
+		order.setType(orderDto.getSelectedService());
+		order.setName(orderDto.getPlateNo() + serviceName + "订单");
+
+		order.setState(OrderState.UNPAY);
+		order.setProgress(ServiceProgress.PENDING);
+		Customer customer = customerRepo.findByVehiclesPlateNo(order.getPlateNo());
+
+		order.setStaffId(staffId);
+		if (customer != null)
+			order.setUserId(customer.getId());
+		else
+			order.setUserId(null);
+
+		// 处理订单选项
+		Double total = 0 + orderDto.getBasePrice();
+		Map<String, Double> selectedOptions = new HashMap<String, Double>();
+		for (SelectOptionDTO dto : optionDtos) {
+			if (dto == null)
+				continue;
+			selectedOptions.put(dto.getItemName(), dto.getPrice());
+			total = +dto.getPrice();
+		}
+		order.setSelectedOption(selectedOptions);
+
+		order.setTotal(total);
+		try {
+			orderRepo.save(order);
+		} catch (Exception e) {
+			throw new OrderTransactionException(e.getMessage());
+		}
 		return true;
 	}
 
 	@Override
-	public Boolean submitCarMaintenanceOrder(OrderDTO orderDto, SelectOptionDTO optionDto) {
+	public Boolean submitCarRepairOrder(OrderDTO orderDto, SelectOptionDTO[] optionDtos) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Boolean submitCarRepairOrder(OrderDTO orderDto, SelectOptionDTO optionDto) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(rollbackFor = { OrderTransactionException.class })
+	public Boolean startWorkingOrder(Long staffId, String orderNo) throws OrderTransactionException {
+		Order order = orderRepo.findByOrderNo(orderNo);
+		if(!order.getStaffId().equals(staffId))
+			throw new OrderTransactionException("操作与原员工不一致");
+		if(order.getState().equals(OrderState.CANCELED))
+			throw new OrderTransactionException("该订单已取消,不可开始操作");
+		order.setProgress(ServiceProgress.WORKING);
+		orderRepo.save(order);
+		return true;
 	}
 
 	@Override
-	public Boolean startWorkingOrder(String orderNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean cancelOrder(String orderNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean cancelOrder(Long staffId, String orderNo) throws OrderTransactionException{
+		Order order = orderRepo.findByOrderNo(orderNo);
+		if(!order.getStaffId().equals(staffId))
+			throw new OrderTransactionException("操作与原员工不一致");
+		if(order.getState().equals(OrderState.CANCELED))
+			throw new OrderTransactionException("该订单已取消,不可操作");
+		order.setState(OrderState.CANCELED);
+		orderRepo.save(order);
+		return true;
 	}
 
 	@Override

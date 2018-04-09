@@ -7,8 +7,6 @@ import java.util.Map;
 public class RestJsonResult {
 
 	private static final String CODE_KEY = "code";
-	private static final String STATUS_SUCCESS = "success";
-	private static final String STATUS_FAILURE = "failure";
 	private static final String DATA_KEY = "content";
 	private static final String MSG_KEY = "msg";
 
@@ -28,6 +26,10 @@ public class RestJsonResult {
 	 */
 	public static <T> Map<String, Object> getSuccessResult(T data, String msg) {
 		return getMapResult("0", data, msg);
+	}
+
+	public static <T> Map<String, Object> getSuccessResult(T data) {
+		return getMapResult("0", data, "执行成功");
 	}
 
 	/**
@@ -56,7 +58,7 @@ public class RestJsonResult {
 	 */
 	public static <T> Map<String, Object> getMapResult(String code, T data, String msg) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put(code.equals("0") ? STATUS_SUCCESS : STATUS_FAILURE, true);
+		map.put("success", code.equals("0") ? true : false);
 		map.put(DATA_KEY, (data == null) ? "" : data);
 		map.put(MSG_KEY, (msg == null) ? "" : msg);
 		if(!code.equals("0"))

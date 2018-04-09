@@ -1,28 +1,23 @@
 package beat.mercy.service;
 
+import beat.mercy.common.exception.OrderTransactionException;
 import beat.mercy.entity.dto.OrderDTO;
 import beat.mercy.entity.dto.SelectOptionDTO;
 
 public interface IStaffTransactionService {
 
 	/**
-	 * 
+	 * 员工提交订单
 	 * author: Mercy Wu(a3049)
-	 * 2018年4月4日 下午6:07:49
-	 * @param OrderDto
-	 * @param optionDto
+	 * 2018年4月8日 下午10:49:41
+	 * @param staffId
+	 * @param orderDto
+	 * @param optionDtos
 	 * @return
+	 * @throws OrderTransactionException
 	 */
-	public Boolean submitCarBeautifyOrder(OrderDTO orderDto, SelectOptionDTO optionDto);
-	/**
-	 * 
-	 * author: Mercy Wu(a3049)
-	 * 2018年4月4日 下午6:08:22
-	 * @param OrderDto
-	 * @param optionDto
-	 * @return
-	 */
-	public Boolean submitCarMaintenanceOrder(OrderDTO orderDto, SelectOptionDTO optionDto);
+	public Boolean submitOrder(Long staffId,OrderDTO orderDto, SelectOptionDTO[] optionDtos)throws OrderTransactionException;
+ 
 	/**
 	 * 
 	 * author: Mercy Wu(a3049)
@@ -31,7 +26,7 @@ public interface IStaffTransactionService {
 	 * @param optionDto
 	 * @return
 	 */
-	public Boolean submitCarRepairOrder(OrderDTO orderDto, SelectOptionDTO optionDto);
+	public Boolean submitCarRepairOrder(OrderDTO orderDto, SelectOptionDTO[] optionDtos);
 	
 	/**
 	 * 开始进行某订单的工作 进度转为WORKING
@@ -40,7 +35,7 @@ public interface IStaffTransactionService {
 	 * @param orderNo 订单编号
 	 * @return
 	 */
-	public Boolean startWorkingOrder(String orderNo);
+	public Boolean startWorkingOrder(Long staffId,String orderNo)throws OrderTransactionException;
 	
 	/**
 	 * 取消订单 状态转为CANCELED
@@ -49,7 +44,7 @@ public interface IStaffTransactionService {
 	 * @param orderNo
 	 * @return
 	 */
-	public Boolean cancelOrder(String orderNo);
+	public Boolean cancelOrder(Long staffId, String orderNo) throws OrderTransactionException;
 	
 	/**
 	 * 完成服务 进度转为 FINISHED 

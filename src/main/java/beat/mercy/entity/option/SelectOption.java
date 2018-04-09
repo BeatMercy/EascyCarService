@@ -9,7 +9,7 @@ import beat.mercy.entity.base.BaseEntity;
 public class SelectOption extends BaseEntity {
 	
 	public final static String CAR_BEAUTIFY_SERVICE = "carBeautify";
-	public final static String CAR_MAINTENANCe_SERVICE = "carMaintenance";
+	public final static String CAR_MAINTENANCE_SERVICE = "carMaintenance";
 	public final static String CAR_REPAIR_SERVICE = "carRepair";
 
 	public final static String WAX_OPTION = "waxOption";
@@ -26,7 +26,8 @@ public class SelectOption extends BaseEntity {
 	 * 
 	 **/
 	private static final long serialVersionUID = 1L;
-
+	
+	private String name;
 	private String serviceType;
 	private String dtype;
 	private String optionType;
@@ -67,6 +68,12 @@ public class SelectOption extends BaseEntity {
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
