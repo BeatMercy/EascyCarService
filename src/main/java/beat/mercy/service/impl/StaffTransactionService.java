@@ -1,8 +1,10 @@
 package beat.mercy.service.impl;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,20 @@ public class StaffTransactionService implements IStaffTransactionService {
 	@Autowired
 	private SelectOptionRepository optionRepo;
 
+	public Boolean onlyEnglishInside(String str) {
+		if (str.length() > 6)
+			return false;
+		List<Character> characters = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+				'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+				'0');
+		String c = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		for (int i = 0; i < str.length(); i++) {
+			if (!characters.contains(str.charAt(i)))
+				return false;
+		}
+		return true;
+	}
+
 	@Transactional(rollbackFor = { OrderTransactionException.class })
 	@Override
 	public Boolean submitOrder(Long staffId, OrderDTO orderDto, SelectOptionDTO[] optionDtos)
@@ -44,6 +60,8 @@ public class StaffTransactionService implements IStaffTransactionService {
 		if (orderDto.getBasePrice() == null)
 			orderDto.setBasePrice(0D);
 		Order order = new Order();
+		if (!onlyEnglishInside(orderDto.getPlateNo().substring(1)))
+			throw new OrderTransactionException("车牌不合法");
 		BeanUtils.copyProperties(orderDto, order);
 
 		String serviceName = "";
@@ -99,9 +117,11 @@ public class StaffTransactionService implements IStaffTransactionService {
 	@Transactional(rollbackFor = { OrderTransactionException.class })
 	public Boolean startWorkingOrder(Long staffId, String orderNo) throws OrderTransactionException {
 		Order order = orderRepo.findByOrderNo(orderNo);
-		if(!order.getStaffId().equals(staffId))
+		if (order == null)
+			throw new OrderTransactionException("查无此单");
+		if (!order.getStaffId().equals(staffId))
 			throw new OrderTransactionException("操作与原员工不一致");
-		if(order.getState().equals(OrderState.CANCELED))
+		if (order.getState().equals(OrderState.CANCELED))
 			throw new OrderTransactionException("该订单已取消,不可开始操作");
 		order.setProgress(ServiceProgress.WORKING);
 		orderRepo.save(order);
@@ -109,11 +129,13 @@ public class StaffTransactionService implements IStaffTransactionService {
 	}
 
 	@Override
-	public Boolean cancelOrder(Long staffId, String orderNo) throws OrderTransactionException{
+	public Boolean cancelOrder(Long staffId, String orderNo) throws OrderTransactionException {
 		Order order = orderRepo.findByOrderNo(orderNo);
-		if(!order.getStaffId().equals(staffId))
+		if (order == null)
+			throw new OrderTransactionException("查无此单");
+		if (!order.getStaffId().equals(staffId))
 			throw new OrderTransactionException("操作与原员工不一致");
-		if(order.getState().equals(OrderState.CANCELED))
+		if (order.getState().equals(OrderState.CANCELED))
 			throw new OrderTransactionException("该订单已取消,不可操作");
 		order.setState(OrderState.CANCELED);
 		orderRepo.save(order);
@@ -121,15 +143,67 @@ public class StaffTransactionService implements IStaffTransactionService {
 	}
 
 	@Override
-	public Boolean finishOrderService(String orderNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean finishOrderService(Long staffId, String orderNo) throws OrderTransactionException {
+		Order order = orderRepo.findByOrderNo(orderNo);
+		if (order == null)
+			throw new OrderTransactionException("查无此单");
+		if (!order.getStaffId().equals(staffId))
+			throw new OrderTransactionException("操作与原员工不一致");
+		if (order.getState().equals(OrderState.CANCELED))
+			throw new OrderTransactionException("该订单已取消,不可操作");
+
+		if (order.getType().equals("carRepairOrder"))
+			order.setProgress(ServiceProgress.WAITING_CONFIRM);
+		else
+			order.setProgress(ServiceProgress.FINISHED);
+		orderRepo.save(order);
+		return true;
 	}
 
 	@Override
-	public Boolean finishOrder(String orderNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean finishOrder(String orderNo) throws OrderTransactionException {
+		Order order = orderRepo.findByOrderNo(orderNo);
+		if (order == null)
+			throw new OrderTransactionException("查无此单");
+		if (order.getState().equals(OrderState.CANCELED))
+			throw new OrderTransactionException("该订单已取消,不可操作");
+
+		order.setState(OrderState.FINISHED);
+		orderRepo.save(order);
+		return true;
+	}
+
+	@Override
+	public Boolean cancelOrderByCashier(String orderNo) throws OrderTransactionException {
+		Order order = orderRepo.findByOrderNo(orderNo);
+		if (order == null)
+			throw new OrderTransactionException("查无此单");
+		if (order.getState().equals(OrderState.CANCELED))
+			throw new OrderTransactionException("该订单已取消,不可操作");
+		if (order.getProgress().equals(ServiceProgress.WORKING))
+			throw new OrderTransactionException("该订单业务正在进行中,取消请联系对应技工");
+		order.setState(OrderState.CANCELED);
+		orderRepo.save(order);
+		return true;
+	}
+
+	@Override
+	public Boolean resetOrderTotalByCashier(String orderNo, Double resetTotal, String note)
+			throws OrderTransactionException {
+		if (resetTotal == null || note == null || resetTotal < 0) {
+			throw new OrderTransactionException("修改金额的信息不完整");
+		}
+		Order order = orderRepo.findByOrderNo(orderNo);
+		if (order == null)
+			throw new OrderTransactionException("查无此单");
+		if (order.getState().equals(OrderState.CANCELED))
+			throw new OrderTransactionException("该订单已取消,不可操作");
+		order.setIsResetTotal(true);
+		order.setResetTotal(resetTotal);
+		order.setResetNote(note);
+		orderRepo.save(order);
+
+		return true;
 	}
 
 }

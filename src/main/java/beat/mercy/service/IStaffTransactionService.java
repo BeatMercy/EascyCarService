@@ -53,7 +53,7 @@ public interface IStaffTransactionService {
 	 * @param orderNo
 	 * @return
 	 */
-	public Boolean finishOrderService(String orderNo);
+	public Boolean finishOrderService(Long staffId, String orderNo) throws OrderTransactionException;
 	
 	/**
 	 * 完成订单 订单状态转为FISISHED
@@ -62,7 +62,28 @@ public interface IStaffTransactionService {
 	 * @param orderNo
 	 * @return
 	 */
-	public Boolean finishOrder(String orderNo);
+	public Boolean finishOrder(String orderNo) throws OrderTransactionException;
+	
+	/**
+	 * 由前台取消订单
+	 * author: Mercy Wu(a3049)
+	 * 2018年4月4日 下午6:05:47
+	 * @param orderNo
+	 * @return
+	 */
+	public Boolean cancelOrderByCashier(String orderNo) throws OrderTransactionException;
+	
+	/**
+	 * 前台重设订单金额
+	 * author: Mercy Wu(a3049)
+	 * 2018年4月11日 下午2:05:28
+	 * @param orderNo
+	 * @param resetTotal
+	 * @param note
+	 * @return
+	 * @throws OrderTransactionException
+	 */
+	public Boolean resetOrderTotalByCashier(String orderNo,Double resetTotal,String note) throws OrderTransactionException;
 	
 	
 	

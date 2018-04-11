@@ -84,12 +84,14 @@ var AccountInfoComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__cdk_table_basic_example_cdk_table_basic_example_component__ = __webpack_require__("./src/app/cdk-table-basic-example/cdk-table-basic-example.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__order_submit_order_submit_component__ = __webpack_require__("./src/app/order-submit/order-submit.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__staff_work_list_staff_work_list_component__ = __webpack_require__("./src/app/staff-work-list/staff-work-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__cashier_board_cashier_board_component__ = __webpack_require__("./src/app/cashier-board/cashier-board.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -107,6 +109,7 @@ var routes = [
     { path: 'carEnterance', component: __WEBPACK_IMPORTED_MODULE_3__car_enterance_car_enterance_component__["a" /* CarEnteranceComponent */] },
     { path: 'table', component: __WEBPACK_IMPORTED_MODULE_6__cdk_table_basic_example_cdk_table_basic_example_component__["a" /* CdkTableBasicExampleComponent */] },
     { path: 'orderSubmit', component: __WEBPACK_IMPORTED_MODULE_7__order_submit_order_submit_component__["a" /* OrderSubmitComponent */] },
+    { path: 'cashier-board', component: __WEBPACK_IMPORTED_MODULE_9__cashier_board_cashier_board_component__["a" /* CashierBoardComponent */] },
     { path: 'work-list', component: __WEBPACK_IMPORTED_MODULE_8__staff_work_list_staff_work_list_component__["a" /* StaffWorkListComponent */] }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -247,6 +250,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__slide_nav_slide_nav_component__ = __webpack_require__("./src/app/slide-nav/slide-nav.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__order_submit_order_submit_component__ = __webpack_require__("./src/app/order-submit/order-submit.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__staff_work_list_staff_work_list_component__ = __webpack_require__("./src/app/staff-work-list/staff-work-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__cashier_board_cashier_board_component__ = __webpack_require__("./src/app/cashier-board/cashier-board.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -285,6 +289,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -301,6 +306,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_10__cdk_table_basic_example_cdk_table_basic_example_component__["a" /* CdkTableBasicExampleComponent */],
                 __WEBPACK_IMPORTED_MODULE_28__order_submit_order_submit_component__["a" /* OrderSubmitComponent */],
                 __WEBPACK_IMPORTED_MODULE_29__staff_work_list_staff_work_list_component__["a" /* StaffWorkListComponent */],
+                __WEBPACK_IMPORTED_MODULE_30__cashier_board_cashier_board_component__["a" /* CashierBoardComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_15__angular_forms__["d" /* FormsModule */],
@@ -537,6 +543,224 @@ var CarEnteranceComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/cashier-board/cashier-board.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ":host {\r\n    width: 80%;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.wrapper {\r\n    width: 100%;\r\n}\r\n\r\n.flexCenterContainer {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.flexCenterContainer * {\r\n    -ms-flex-item-align: center;\r\n        -ms-grid-row-align: center;\r\n        align-self: center;\r\n}\r\n\r\n#searchResult {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n    padding: 5px;\r\n    flex-wrap: wrap;\r\n    -webkit-box-pack: start;\r\n        -ms-flex-pack: start;\r\n            justify-content: flex-start;\r\n}\r\n\r\n.orderItem {\r\n    margin: 5px 5px;\r\n    width: 300px;\r\n    height: 100%;\r\n    opacity: 1;\r\n    -webkit-transition: all ease-out 0.2s;\r\n    transition: all ease-out 0.2s;\r\n    -webkit-animation: circleTocube 0.4s ease-out;\r\n            animation: circleTocube 0.4s ease-out;\r\n}\r\n\r\n#basePriceExpansion,\r\n#basePriceExpansion mat-expansion-panel-header {\r\n    padding: 0;\r\n    -webkit-box-shadow: 0 0 0;\r\n            box-shadow: 0 0 0;\r\n    background: none;\r\n}\r\n\r\n@-webkit-keyframes circleTocube {\r\n    from {\r\n        border-radius: 100px;\r\n    }\r\n    to {\r\n        border-radius: 2px;\r\n    }\r\n}\r\n\r\n@keyframes circleTocube {\r\n    from {\r\n        border-radius: 100px;\r\n    }\r\n    to {\r\n        border-radius: 2px;\r\n    }\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/cashier-board/cashier-board.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" fxLayoutAlign=\"start center\" fxLayoutGap=\"gappx\" class=\"wrapper\">\n  <div class=\"orderSearch\">\n    <form class=\"flexCenterContainer\" autocomplete=\"on\">\n      <mat-select #abbrBox name=\"abbrBox\" style=\"width:50px;\" (selectionChange)=\"abbrChange(abbrBox.value)\" value=\"\" placeholder=\"省份\">\n        <mat-option *ngFor=\"let abbr of provinceAbbr\" [value]=\"abbr.value\">{{abbr.viewValue}}</mat-option>\n      </mat-select>\n      <mat-form-field class=\"example-full-width\">\n        <mat-icon matSuffix class=\"example-icon\" color=\"primary\">search</mat-icon>\n        <input #searchBox type=\"text\" (keyup)=\"search(searchBox.value)\" placeholder=\"车牌搜索订单\" matInput>\n        <button *ngIf=\"searchBox.value\" matSuffix mat-icon-button aria-label=\"清除\" (click)=\"searchBox.value=''\">\n          <mat-icon>close</mat-icon>\n        </button>\n      </mat-form-field>\n    </form>\n  </div>\n  <div id=\"searchResult\">\n    <ng-container *ngFor=\"let item of orders$|async\">\n      <mat-card class=\"orderItem\">\n        <mat-card-header>\n          <mat-card-title>\n            <h5>\n              <ng-container *ngIf=\"item.state ==='UNPAY'\">\n                [\n                <font color=\"red\">未付款</font>]\n              </ng-container>\n              <ng-container *ngIf=\"item.state ==='FINISHED'\">\n                [\n                <font color=\"green\">已付款</font>]\n              </ng-container><br>\n              <b>{{item.name}}</b>\n            </h5>\n          </mat-card-title>\n          <mat-card-subtitle>\n            <i style=\"font-size:10px;\">{{item.orderNo}}</i>\n          </mat-card-subtitle>\n        </mat-card-header>\n        <mat-card-content>\n          <mat-accordion>\n            <mat-expansion-panel id=\"basePriceExpansion\">\n              <mat-expansion-panel-header>\n                <mat-panel-title>\n                  <div>总价：\n                    <ng-container *ngIf=\"item.isResetTotal; else showTotal\">\n                      <del><font color=\"black\">{{item.total}}</font></del>\n                      <font size=\"5\" color=\"green\"> {{item.resetTotal}}</font>\n                    </ng-container>\n                    <ng-template #showTotal>\n                      <font color=\"green\">{{item.total}}</font>\n                    </ng-template>\n                  </div>\n                </mat-panel-title>\n                <mat-panel-description>\n                  <ng-container *ngIf=\"item.progress ==='PENDING'\">\n                    <font color=\"LightSeaGreen\">准备中</font>\n                  </ng-container>\n                  <ng-container *ngIf=\"item.progress ==='WORKING'\">\n                    <font color=\"coral\">进行中</font>\n                  </ng-container>\n                  <ng-container *ngIf=\"item.progress ==='WAITING_CONFIRM'\">\n                    <font color=\"crimson\">待客户确认</font>\n                  </ng-container>\n                  <ng-container *ngIf=\"item.progress ==='FINISHED'\">\n                    <font color=\"green\">完成</font>\n                  </ng-container>\n                </mat-panel-description>\n              </mat-expansion-panel-header>\n              <mat-list>\n                <ng-container *ngFor=\"let key of item.optionKeys\">\n                  <mat-list-item>\n                    <font weight=\"blod\">{{key}}:{{item.selectedOption[key]}}</font>\n                  </mat-list-item>\n                  <mat-divider></mat-divider>\n                </ng-container>\n                <button (click)=\"resetTotal(item.total,item.orderNo)\" style=\"margin-top: 10px;max-width:60px;\" align=\"start\" mat-raised-button color=\"warn\">修改金额</button>\n              </mat-list>\n            </mat-expansion-panel>\n          </mat-accordion>\n        </mat-card-content>\n        <mat-card-actions style=\"display:flex;justify-content:space-around;\">\n          <button style=\"max-width:60px;\" align=\"start\" (click)=\"confirmPay(item.orderNo)\" mat-raised-button color=\"primary\">确认结账</button>\n          <button style=\"max-width:60px;\" align=\"end\" (click)=\"cancelOrder(item.orderNo)\" mat-button color=\"primary\">取消订单</button>\n        </mat-card-actions>\n        <mat-card-footer>\n          <ng-container *ngIf=\"item.note!==''\">\n            <div align=\"start\">备注:\n              <font align=\"end\" color=\"blue\" weight=\"bold\">{{item.note}}</font>\n            </div>\n          </ng-container>\n          <ng-container *ngIf=\"item.resetNote!==''\">\n            <br><div align=\"start\">金额修改:\n              <font align=\"end\" color=\"brown\" weight=\"bold\">{{item.resetNote}}</font>\n            </div>\n          </ng-container>\n          \n        </mat-card-footer>\n      </mat-card>\n    </ng-container>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/cashier-board/cashier-board.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CashierBoardComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("./node_modules/rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__ = __webpack_require__("./node_modules/rxjs/_esm5/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operators__ = __webpack_require__("./node_modules/rxjs/_esm5/operators.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__entity_order__ = __webpack_require__("./src/app/entity/order.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth_module__ = __webpack_require__("./src/auth.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__message_dialog_service__ = __webpack_require__("./src/app/message-dialog.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__message_dialog_message_dialog_component__ = __webpack_require__("./src/app/message-dialog/message-dialog.component.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+var CashierBoardComponent = /** @class */ (function () {
+    function CashierBoardComponent(messageService, http, requestOption) {
+        this.messageService = messageService;
+        this.http = http;
+        this.provinceAbbr = [
+            { value: '', viewValue: '无' },
+            { value: '粤', viewValue: '粤' },
+            { value: '赣', viewValue: '赣' },
+            { value: '湘', viewValue: '湘' },
+            { value: '京', viewValue: '京' },
+            { value: '冀', viewValue: '冀' },
+            { value: '苏', viewValue: '苏' },
+            { value: '豫', viewValue: '豫' },
+            { value: '辽', viewValue: '辽' },
+            { value: '黑', viewValue: '黑' },
+            { value: '皖', viewValue: '皖' },
+            { value: '新', viewValue: '新' },
+            { value: '鄂', viewValue: '鄂' },
+            { value: '晋', viewValue: '晋' },
+            { value: '陕', viewValue: '陕' },
+            { value: '吉', viewValue: '吉' },
+            { value: '青', viewValue: '青' },
+            { value: '甘', viewValue: '甘' },
+            { value: '贵', viewValue: '贵' },
+            { value: '浙', viewValue: '浙' },
+            { value: '鲁', viewValue: '鲁' },
+            { value: '蒙', viewValue: '蒙' },
+            { value: '藏', viewValue: '藏' },
+            { value: '闽', viewValue: '闽' },
+            { value: '川', viewValue: '川' },
+            { value: '琼', viewValue: '琼' },
+            { value: '云', viewValue: '云' }
+        ];
+        this.plateAbbr = '';
+        this.plateString = '';
+        this.searchTerm = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+        this.authHttp = Object(__WEBPACK_IMPORTED_MODULE_5__auth_module__["b" /* authHttpServiceFactory */])(http, requestOption);
+    }
+    CashierBoardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.searchTerm.pipe(
+        // 等待300毫秒输入搜索关键字
+        Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* debounceTime */])(300), 
+        // 忽略相同的搜索字段
+        Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["b" /* distinctUntilChanged */])(), 
+        // switch to new search observable each time the term changes
+        Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["c" /* switchMap */])(function (term) { return _this.searchUnpayOrder(term); })).subscribe(function (l) {
+            /**
+             * pipe返回的obsevable 事件是懒加载发生的，使用subscrib方法
+             * 在事件emit 后 才进行orders的更新
+             * 而orders=xxx.pipe()相当于只是绑定了一个事件监听器，不能即刻
+             * 用xx.next() emitorders的加载
+             */
+            _this.orders$ = Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__["a" /* of */])(l);
+        });
+        this.searchTerm.next('all');
+        // document.getElementById('').children
+    };
+    CashierBoardComponent.prototype.abbrChange = function (abbr) {
+        this.plateAbbr = abbr;
+        this.searchTerm.next(abbr + this.plateString);
+    };
+    CashierBoardComponent.prototype.search = function (term) {
+        this.plateString = term;
+        this.searchTerm.next(term);
+    };
+    CashierBoardComponent.prototype.searchUnpayOrder = function (term) {
+        return this.authHttp.post('/order/searchUnpay', {
+            plateAbbr: this.plateAbbr,
+            plateString: this.plateString
+        }).map(function (result) {
+            return Object(__WEBPACK_IMPORTED_MODULE_4__entity_order__["a" /* buildOrderOptionKeys */])(result.json()['content']);
+        });
+    };
+    CashierBoardComponent.prototype.confirmPay = function (orderNo) {
+        var _this = this;
+        var result = this.messageService.showAuthConfirmForm('/order/confirmPay', {
+            'orderNo': orderNo
+        }, {
+            'text': '确定该账单已支付？',
+            'confirmText': '已支付'
+        });
+        console.log(result);
+        result.subscribe(function (next) {
+            if (next === false) {
+                return; // 对话框选择了取消
+            }
+            next.subscribe(function (next2) {
+                if (next2['success']) {
+                    _this.searchTerm.next(_this.plateAbbr + _this.plateString + Math.random().toFixed(2));
+                    _this.messageService.showMessage('操作成功', next2['msg']);
+                }
+                else {
+                    _this.messageService.showMessage('操作失败', next2['msg']);
+                }
+            });
+        });
+    };
+    CashierBoardComponent.prototype.cancelOrder = function (orderNo) {
+        var _this = this;
+        var result = this.messageService.showAuthConfirmForm('/order/cancelOrder', {
+            'orderNo': orderNo
+        }, {
+            'text': '确认取消该订单？',
+            'confirmText': '确定'
+        });
+        // console.log(result);
+        result.subscribe(function (next) {
+            if (next === false) {
+                return; // 对话框选择了取消
+            }
+            next.subscribe(function (next2) {
+                if (next2['success']) {
+                    _this.searchTerm.next(_this.plateAbbr + _this.plateString + Math.random().toFixed(2));
+                    _this.messageService.showMessage('操作成功', next2['msg']);
+                }
+                else {
+                    _this.messageService.showMessage('操作失败', next2['msg']);
+                }
+            });
+        });
+    };
+    CashierBoardComponent.prototype.resetTotal = function (original, orderNo) {
+        var _this = this;
+        var messageData = new __WEBPACK_IMPORTED_MODULE_8__message_dialog_message_dialog_component__["b" /* MyMessageData */]('inputForm');
+        messageData.isInputForm = true;
+        messageData.messageDetail.text = '修改金额';
+        messageData.messageDetail.confirmText = '修改';
+        messageData.postData.url = '/order/resetTotal';
+        messageData.postData.body = { 'orderNo': orderNo };
+        messageData.inputFields = [{
+                name: 'resetTotal',
+                placeHolder: '金额',
+                type: 'number',
+                value: original
+            }, {
+                name: 'note',
+                placeHolder: '备注',
+                type: 'textarea',
+                value: ''
+            }];
+        this.messageService.showAuthInputForm(messageData).subscribe(function (next) {
+            if (next === false) {
+                return; // 对话框选择了取消
+            }
+            next.subscribe(function (next2) {
+                if (next2['success']) {
+                    _this.searchTerm.next(_this.plateAbbr + _this.plateString + Math.random().toFixed(2));
+                    _this.messageService.showMessage('操作成功', next2['msg']);
+                }
+                else {
+                    _this.messageService.showMessage('操作失败', next2['msg']);
+                }
+            });
+        });
+    };
+    CashierBoardComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-cashier-board',
+            template: __webpack_require__("./src/app/cashier-board/cashier-board.component.html"),
+            styles: [__webpack_require__("./src/app/cashier-board/cashier-board.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_7__message_dialog_service__["a" /* MessageDialogService */],
+            __WEBPACK_IMPORTED_MODULE_6__angular_http__["Http"], __WEBPACK_IMPORTED_MODULE_6__angular_http__["RequestOptions"]])
+    ], CashierBoardComponent);
+    return CashierBoardComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/cdk-table-basic-example/cdk-table-basic-example.component.css":
 /***/ (function(module, exports) {
 
@@ -670,7 +894,8 @@ var ExampleDataSource = /** @class */ (function (_super) {
 
 "use strict";
 /* unused harmony export Order */
-/* harmony export (immutable) */ __webpack_exports__["a"] = getOrdersFromPage;
+/* harmony export (immutable) */ __webpack_exports__["b"] = getOrdersFromPage;
+/* harmony export (immutable) */ __webpack_exports__["a"] = buildOrderOptionKeys;
 var Order = /** @class */ (function () {
     function Order() {
     }
@@ -679,6 +904,12 @@ var Order = /** @class */ (function () {
 
 function getOrdersFromPage(page) {
     var orders = page.content;
+    orders.forEach(function (element) {
+        element.optionKeys = Object.keys(element.selectedOption);
+    });
+    return orders;
+}
+function buildOrderOptionKeys(orders) {
     orders.forEach(function (element) {
         element.optionKeys = Object.keys(element.selectedOption);
     });
@@ -1305,11 +1536,36 @@ var MessageDialogService = /** @class */ (function () {
     }
     MessageDialogService.prototype.showMessage = function (title, content) {
         var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_2__message_dialog_message_dialog_component__["a" /* MessageDialogComponent */], {
-            data: { 'title': title, 'content': content }
+            data: {
+                'messageOnly': true,
+                'title': title,
+                'content': content
+            },
+            closeOnNavigation: true
         });
         dialogRef.afterClosed().subscribe(function (result) {
-            console.log("Dialog result: " + result);
         });
+    };
+    MessageDialogService.prototype.showAuthConfirmForm = function (url, body, messageDetail) {
+        var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_2__message_dialog_message_dialog_component__["a" /* MessageDialogComponent */], {
+            data: {
+                'isConfirmForm': true,
+                'postData': {
+                    'url': url,
+                    'body': body
+                },
+                'messageDetail': messageDetail
+            },
+            closeOnNavigation: true
+        });
+        return dialogRef.afterClosed();
+    };
+    MessageDialogService.prototype.showAuthInputForm = function (messageData) {
+        var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_2__message_dialog_message_dialog_component__["a" /* MessageDialogComponent */], {
+            data: messageData,
+            closeOnNavigation: true
+        });
+        return dialogRef.afterClosed();
     };
     MessageDialogService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
@@ -1332,7 +1588,7 @@ module.exports = ".dialog-content{\r\n    text-align: center;\r\n    min-width: 
 /***/ "./src/app/message-dialog/message-dialog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 style=\"text-align:center;\" mat-dialog-title>{{data.title}}</h2>\n<mat-dialog-content>\n  <div class=\"dilog-content\">{{data.content}}</div>\n</mat-dialog-content>\n<mat-dialog-actions fxFlexAlign='center center'>\n  <!-- <button mat-button mat-dialog-close>Cancel</button> -->\n  <button mat-button [mat-dialog-close]=\"true\" cdkFocusInitial>确认</button>\n</mat-dialog-actions>"
+module.exports = "<ng-container *ngIf=\"data.messageOnly\">\n  <h3 style=\"text-align:center;\" mat-dialog-title>{{data.title}}</h3>\n  <mat-dialog-content>\n    <div class=\"dilog-content\">{{data.content}}</div>\n  </mat-dialog-content>\n  <mat-dialog-actions fxFlexAlign='center center'>\n    <!-- <button mat-button mat-dialog-close>Cancel</button> -->\n    <button mat-button [mat-dialog-close]=\"true\" cdkFocusInitial>确认</button>\n  </mat-dialog-actions>\n</ng-container>\n\n\n<ng-container *ngIf=\"data.isConfirmForm\">\n  <div fxLayout=\"column\" fxLayoutAlign=\"start start\" fxLayoutGap=\"5px\">\n    <div class=\"messagePos\">\n      <mat-dialog-content>\n        <ng-container *ngIf=\"data.messageDetail.text!==undefined; else elseTemplate\">\n          {{data.messageDetail.text}}\n        </ng-container>\n        <ng-template #elseTemplate>\n          是否执行该操作？\n        </ng-template>\n      </mat-dialog-content>\n    </div>\n    <mat-dialog-actions class=\"actionPos\" fxLayout=\"row\" fxLayoutAlign=\"space-around center\" fxLayoutGap=\"5px\">\n      <button [mat-dialog-close]=\"submit()\" cdkFocusInitial mat-raised-button>\n        <ng-container *ngIf=\"data.messageDetail.confirmText!==undefined; else elseTemplate\">\n          {{data.messageDetail.confirmText}}\n        </ng-container>\n        <ng-template #elseTemplate>\n          确定\n        </ng-template>\n      </button>\n      <button mat-button [mat-dialog-close]=\"false\">取消</button>\n    </mat-dialog-actions>\n  </div>\n</ng-container>\n\n<ng-container *ngIf=\"data.isInputForm\">\n  <h3 style=\"text-align:center;\" mat-dialog-title>{{data.messageDetail.text}}</h3>\n  <div fxLayout=\"column\" fxLayoutAlign=\"start start\" fxLayoutGap=\"5px\">\n    <ng-container *ngFor=\"let item of data.inputFields; index as i\">\n      <mat-form-field>\n        <input matInput [type]=\"item.type\" (keyup)=\"makeBody(i)\" [value]=\"item.value\"  [name]=\"item.name\"  [placeholder]=\"item.placeHolder\" />\n      </mat-form-field>\n    </ng-container>\n  </div>\n  <mat-dialog-actions class=\"actionPos\" fxLayout=\"row\" fxLayoutAlign=\"space-around center\" fxLayoutGap=\"5px\">\n    <button color=\"warn\" [mat-dialog-close]=\"submitInputForm()\" cdkFocusInitial mat-raised-button>\n      <ng-container *ngIf=\"data.messageDetail.confirmText!==undefined; else elseTemplate\">\n        {{data.messageDetail.confirmText}}\n      </ng-container>\n      <ng-template #elseTemplate>\n        确定\n      </ng-template>\n    </button>\n    <button mat-button [mat-dialog-close]=\"false\">取消</button>\n  </mat-dialog-actions>\n</ng-container>"
 
 /***/ }),
 
@@ -1341,8 +1597,14 @@ module.exports = "<h2 style=\"text-align:center;\" mat-dialog-title>{{data.title
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MessageDialogComponent; });
+/* unused harmony export MyMessageDetail */
+/* unused harmony export MyPostData */
+/* unused harmony export MyInputField */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MyMessageData; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_module__ = __webpack_require__("./src/auth.module.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1357,22 +1619,90 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 
 
+
+
 var MessageDialogComponent = /** @class */ (function () {
-    function MessageDialogComponent(data) {
+    function MessageDialogComponent(data, http, requestOptions) {
         this.data = data;
+        this.messageData = data;
+        if (this.data.messageOnly !== true) {
+            this.authHttp = Object(__WEBPACK_IMPORTED_MODULE_3__auth_module__["b" /* authHttpServiceFactory */])(http, requestOptions);
+        }
     }
+    MessageDialogComponent.prototype.submit = function () {
+        this.confirmResult = this.authHttp.post(this.data.postData.url, this.data.postData.body).map(function (rsp) { return rsp.json(); });
+        return this.confirmResult;
+    };
+    MessageDialogComponent.prototype.makeBody = function (i) {
+        var fields = this.data.inputFields;
+        this.messageData.inputFields[i].value = document.getElementsByName(fields[i].name)[0].value;
+    };
+    MessageDialogComponent.prototype.submitInputForm = function () {
+        this.confirmResult = this.authHttp.post(this.data.postData.url, {
+            data: this.messageData.postData.body,
+            inputFields: this.messageData.inputFields
+        }).map(function (rsp) { return rsp.json(); });
+        return this.confirmResult;
+    };
     MessageDialogComponent.prototype.ngOnInit = function () {
     };
     MessageDialogComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-message-dialog',
             template: __webpack_require__("./src/app/message-dialog/message-dialog.component.html"),
-            styles: [__webpack_require__("./src/app/message-dialog/message-dialog.component.css")]
+            styles: [__webpack_require__("./src/app/message-dialog/message-dialog.component.css")],
         }),
         __param(0, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [Object])
+        __metadata("design:paramtypes", [Object, __WEBPACK_IMPORTED_MODULE_2__angular_http__["Http"],
+            __WEBPACK_IMPORTED_MODULE_2__angular_http__["RequestOptions"]])
     ], MessageDialogComponent);
     return MessageDialogComponent;
+}());
+
+var MyMessageDetail = /** @class */ (function () {
+    function MyMessageDetail() {
+    }
+    return MyMessageDetail;
+}());
+
+var MyPostData = /** @class */ (function () {
+    function MyPostData() {
+    }
+    return MyPostData;
+}());
+
+var MyInputField = /** @class */ (function () {
+    function MyInputField() {
+    }
+    return MyInputField;
+}());
+
+var MyMessageData = /** @class */ (function () {
+    /**
+     * @param type  'messageOnly' | 'confirmForm' | 'inputForm'
+     */
+    function MyMessageData(type) {
+        this.messageOnly = false;
+        this.isConfirmForm = false;
+        this.isInputForm = false;
+        switch (type) {
+            case 'messageOnly':
+                this.messageOnly = true;
+                break;
+            case 'confrimForm':
+                this.isConfirmForm = true;
+                break;
+            case 'inputForm':
+                this.isInputForm = true;
+                break;
+            default:
+                break;
+        }
+        this.messageDetail = new MyMessageDetail();
+        this.postData = new MyPostData();
+        this.inputFields = new Array();
+    }
+    return MyMessageData;
 }());
 
 
@@ -1710,7 +2040,7 @@ module.exports = ".example-sidenav-content {\r\n    /* margin-top: 64px; */\r\n 
 /***/ "./src/app/slide-nav/slide-nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-drawer-container class=\"example-container\" autosize>\n  <!-- 菜单栏 -->\n  <mat-drawer color=\"primary\" #drawer class=\"example-sidenav\" mode='over'>\n    <div>\n      <mat-list id=\"menuList\">\n        <mat-list-item>\n          <a mat-button focus='false' routerLink=\"/\" (click)=\"drawer.toggle()\">首页</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item >\n          <a mat-button routerLink=\"/carEnterance\" (click)=\"drawer.toggle()\">扫描车牌</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item>\n          <a mat-button routerLink=\"/table\" (click)=\"drawer.toggle()\">列表</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item>\n          <a mat-button routerLink=\"/orderSubmit\" (click)=\"drawer.toggle()\">创建订单</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n\n      </mat-list>\n    </div>\n  </mat-drawer>\n\n  <!-- 主页面 -->\n  <mat-toolbar *ngIf=\"true||this.jwtService.hasOneOfAuthorities(['ROLE_STAFF','ROLE_ADMIN'])\"  color=\"primary\">\n    <button class=\"menuButton\" type=\"button\" mat-button (click)=\"drawer.toggle()\">\n      <mat-icon class=\"example-icon\">menu</mat-icon>\n    </button>\n  </mat-toolbar>\n  <div class=\"example-sidenav-content\">\n    <router-outlet></router-outlet>\n  </div>\n</mat-drawer-container>"
+module.exports = "<mat-drawer-container class=\"example-container\" autosize>\n  <!-- 菜单栏 -->\n  <mat-drawer color=\"primary\" #drawer class=\"example-sidenav\" mode='over'>\n    <div>\n      <mat-list id=\"menuList\">\n        <mat-list-item>\n          <a mat-button focus='false' routerLink=\"/\" (click)=\"drawer.toggle()\">首页</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item >\n          <a mat-button routerLink=\"/carEnterance\" (click)=\"drawer.toggle()\">扫描车牌</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item>\n          <a mat-button routerLink=\"/table\" (click)=\"drawer.toggle()\">列表</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item>\n          <a mat-button routerLink=\"/orderSubmit\" (click)=\"drawer.toggle()\">创建订单</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n        <mat-list-item>\n          <a mat-button routerLink=\"/cashier-board\" (click)=\"drawer.toggle()\">收银台</a>\n        </mat-list-item>\n        <mat-divider></mat-divider>\n\n      </mat-list>\n    </div>\n  </mat-drawer>\n\n  <!-- 主页面 -->\n  <mat-toolbar *ngIf=\"true||this.jwtService.hasOneOfAuthorities(['ROLE_STAFF','ROLE_ADMIN'])\"  color=\"primary\">\n    <button class=\"menuButton\" type=\"button\" mat-button (click)=\"drawer.toggle()\">\n      <mat-icon class=\"example-icon\">menu</mat-icon>\n    </button>\n  </mat-toolbar>\n  <div class=\"example-sidenav-content\">\n    <router-outlet></router-outlet>\n  </div>\n</mat-drawer-container>"
 
 /***/ }),
 
@@ -1756,14 +2086,14 @@ var SlideNavComponent = /** @class */ (function () {
 /***/ "./src/app/staff-work-list/staff-work-list.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    width: 80%;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.wrapper {\r\n    width: 100%;\r\n}\r\n\r\n.ordersPanel {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n    padding: 5px;\r\n    flex-wrap: wrap;\r\n    -webkit-box-pack: start;\r\n        -ms-flex-pack: start;\r\n            justify-content: flex-start;\r\n}\r\n\r\n.orderItem {\r\n    margin: 5px 5px;\r\n    width: 300px;\r\n}\r\n\r\n#basePriceExpansion,\r\n#basePriceExpansion mat-expansion-panel-header {\r\n    padding: 0;\r\n    -webkit-box-shadow: 0 0 0;\r\n            box-shadow: 0 0 0;\r\n    background: none;\r\n}\r\n\r\n.paginator{\r\n    position: fixed;\r\n    bottom: 0;\r\n}"
+module.exports = ":host {\r\n    width: 80%;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.wrapper {\r\n    width: 100%;\r\n}\r\n\r\n.ordersPanel {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n    padding: 5px;\r\n    flex-wrap: wrap;\r\n    -webkit-box-pack: start;\r\n        -ms-flex-pack: start;\r\n            justify-content: flex-start;\r\n}\r\n\r\n.orderItem {\r\n    margin: 5px 5px;\r\n    width: 300px;\r\n    height: 100%;\r\n    opacity: 1;\r\n    -webkit-transition: all ease-out 0.2s;\r\n    transition: all ease-out 0.2s;\r\n    -webkit-animation: circleTocube 0.4s ease-out;\r\n            animation: circleTocube 0.4s ease-out;\r\n}\r\n\r\n#basePriceExpansion,\r\n#basePriceExpansion mat-expansion-panel-header {\r\n    padding: 0;\r\n    -webkit-box-shadow: 0 0 0;\r\n            box-shadow: 0 0 0;\r\n    background: none;\r\n}\r\n\r\n.flush {\r\n    width: 210px;\r\n    opacity: 0;\r\n}\r\n\r\n.paginator {\r\n    -webkit-box-shadow: 0px -3px 8px rgba(0, 0, 0, 0.38);\r\n            box-shadow: 0px -3px 8px rgba(0, 0, 0, 0.38);\r\n    padding: 0px 20px;\r\n    background-color: #3f51b5;\r\n    color: white;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -ms-flex-line-pack: center;\r\n        align-content: center;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    position: fixed;\r\n    bottom: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    z-index: 2;\r\n}\r\n\r\n@-webkit-keyframes circleTocube {\r\n    from {\r\n        border-radius: 100px;\r\n    }\r\n    to {\r\n        border-radius: 2px;\r\n    }\r\n}\r\n\r\n@keyframes circleTocube {\r\n    from {\r\n        border-radius: 100px;\r\n    }\r\n    to {\r\n        border-radius: 2px;\r\n    }\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/staff-work-list/staff-work-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n  <mat-tab-group (selectedTabChange)=\"active($event)\" [disableRipple]=\"false\">\n    <mat-tab origin=0 label=\"准备中\">\n      <div class=\"ordersPanel\" *ngIf=\"this.activePage==='PENDING'\">\n        <ng-container *ngFor=\"let item of pendingPage.content\">\n          <mat-card class=\"orderItem\">\n            <mat-card-header>\n              <mat-card-title>\n                <h5>\n                  <b>{{item.name}}</b>\n                </h5>\n              </mat-card-title>\n              <mat-card-subtitle>\n                <i style=\"font-size:10px;\">{{item.orderNo}}</i>\n              </mat-card-subtitle>\n            </mat-card-header>\n            <mat-card-content>\n              <mat-accordion>\n                <mat-expansion-panel id=\"basePriceExpansion\">\n                  <mat-expansion-panel-header>\n                    <mat-panel-title>详情</mat-panel-title>\n                    <mat-panel-description>公里数：{{item.travelMiles}}</mat-panel-description>\n                  </mat-expansion-panel-header>\n                  <mat-list>\n                    <ng-container *ngFor=\"let key of item.optionKeys\">\n                      <mat-list-item>\n                        <font weight=\"blod\">{{key}}</font>\n                      </mat-list-item>\n                      <mat-divider></mat-divider>\n                    </ng-container>\n                  </mat-list>\n                </mat-expansion-panel>\n              </mat-accordion>\n            </mat-card-content>\n            <mat-card-actions>\n              <button align=\"start\" mat-raised-button color=\"primary\" (click)=\"startWork( item.orderNo )\">开始</button>\n              <button align=\"end\" mat-button color=\"primary\" (click)=\"cancelWork( item.orderNo )\">取消</button>\n              <div>总价：\n                <font color=\"green\">{{item.total}}</font>\n              </div>\n            </mat-card-actions>\n            <mat-card-footer>\n              <ng-container *ngIf=\"item.note!==''\">\n                <div align=\"start\">备注\n                  <font align=\"end\" color=\"blue\" weight=\"bold\">{{item.note}}</font>\n                </div>\n              </ng-container>\n            </mat-card-footer>\n          </mat-card>\n        </ng-container>\n      </div>\n      \n    </mat-tab>\n    <!-- 进行中 -->\n    <mat-tab origin=1 label=\"进行中\">\n      <div class=\"ordersPanel\" *ngIf=\"this.activePage==='WORKING'\">\n        <ng-container *ngFor=\"let item of pendingPage.content\">\n          <mat-card class=\"orderItem\">\n            <mat-card-header>\n              <mat-card-title>\n                <h5>\n                  <b>{{item.name}}</b>\n                </h5>\n              </mat-card-title>\n              <mat-card-subtitle>\n                <i style=\"font-size:10px;\"> item.orderNo </i>\n              </mat-card-subtitle>\n            </mat-card-header>\n            <mat-card-content>\n              <mat-accordion>\n                <mat-expansion-panel id=\"basePriceExpansion\">\n                  <mat-expansion-panel-header>\n                    <mat-panel-title>详情</mat-panel-title>\n                    <mat-panel-description>公里数：{{item.travelMiles}}</mat-panel-description>\n                  </mat-expansion-panel-header>\n                  <mat-list>\n                    <ng-container *ngFor=\"let key of item.optionKeys\">\n                      <mat-list-item>\n                        <font weight=\"blod\">{{key}}</font>\n                      </mat-list-item>\n                      <mat-divider></mat-divider>\n                    </ng-container>\n                  </mat-list>\n                </mat-expansion-panel>\n              </mat-accordion>\n            </mat-card-content>\n            <mat-card-actions>\n              <button align=\"start\" mat-raised-button color=\"primary\" (click)=\"finishWork( item.orderNo )\">完成</button>\n              <button align=\"end\" mat-button color=\"primary\" (click)=\"cancelWork( item.orderNo )\">取消</button>\n              <div>总价：\n                <font color=\"green\">{{item.total}}</font>\n              </div>\n            </mat-card-actions>\n            <mat-card-footer>\n              <ng-container *ngIf=\"item.note!==''\">\n                <div align=\"start\">备注\n                  <font align=\"end\" color=\"blue\" weight=\"bold\">{{item.note}}</font>\n                </div>\n              </ng-container>\n            </mat-card-footer>\n          </mat-card>\n        </ng-container>\n      </div>\n    </mat-tab>\n    <mat-tab origin=2 label=\"待确认\">\n      <div *ngIf=\"activePage==='WAITING_CONFIRM'\">\n        \n      </div>\n    </mat-tab>\n    <mat-tab origin=3 (selectedTabChange)=\"active('FINISHED')\" label=\"已完成\">\n      <div *ngIf=\"activePage==='FINISHED'\">\n        \n      </div>\n    </mat-tab>\n  </mat-tab-group>\n  <div class=\"paginator\">\n  <mat-paginator [length]=\"pendingPage.totalElements\" [pageSize]=\"pendingPage.size\">\n  </mat-paginator>\n  </div>\n</div>"
+module.exports = "<div class=\"wrapper\">\n  <mat-tab-group (selectedTabChange)=\"active($event)\" [disableRipple]=\"false\">\n    <!-- 准备中 -->\n    <mat-tab origin=0 label=\"准备中\">\n      <div class=\"ordersPanel\" *ngIf=\"this.activePage==='PENDING'\">\n        <ng-container *ngFor=\"let item of pendingPage.content\">\n          <mat-card class=\"orderItem\">\n            <mat-card-header>\n              <mat-card-title>\n                <h5>\n                  <b>{{item.name}}</b>\n                </h5>\n              </mat-card-title>\n              <mat-card-subtitle>\n                <i style=\"font-size:10px;\">{{item.orderNo}}</i>\n              </mat-card-subtitle>\n            </mat-card-header>\n            <mat-card-content>\n              <mat-accordion>\n                <mat-expansion-panel id=\"basePriceExpansion\">\n                  <mat-expansion-panel-header>\n                    <mat-panel-title>详情</mat-panel-title>\n                    <mat-panel-description>公里数：{{item.travelMiles}}</mat-panel-description>\n                  </mat-expansion-panel-header>\n                  <mat-list>\n                    <ng-container *ngFor=\"let key of item.optionKeys\">\n                      <mat-list-item>\n                        <font weight=\"blod\">{{key}}</font>\n                      </mat-list-item>\n                      <mat-divider></mat-divider>\n                    </ng-container>\n                  </mat-list>\n                </mat-expansion-panel>\n              </mat-accordion>\n            </mat-card-content>\n            <mat-card-actions>\n              <button align=\"start\" mat-raised-button color=\"primary\" (click)=\"submitWork('start', item.orderNo,$event )\">开始</button>\n              <button align=\"end\" mat-button color=\"primary\" (click)=\"submitWork('cancel' ,item.orderNo,$event )\">取消</button>\n              <div>总价：\n                <font color=\"green\">{{item.total}}</font>\n              </div>\n            </mat-card-actions>\n            <mat-card-footer>\n              <ng-container *ngIf=\"item.note!==''\">\n                <div align=\"start\">备注\n                  <font align=\"end\" color=\"blue\" weight=\"bold\">{{item.note}}</font>\n                </div>\n              </ng-container>\n            </mat-card-footer>\n          </mat-card>\n        </ng-container>\n      </div>\n\n    </mat-tab>\n    <!-- 进行中 -->\n    <mat-tab origin=1 label=\"进行中\">\n      <div class=\"ordersPanel\" *ngIf=\"this.activePage==='WORKING'\">\n        <ng-container *ngFor=\"let item of pendingPage.content\">\n          <mat-card class=\"orderItem\">\n            <mat-card-header>\n              <mat-card-title>\n                <h5>\n                  <b>{{item.name}}</b>\n                </h5>\n              </mat-card-title>\n              <mat-card-subtitle>\n                <i style=\"font-size:10px;\"> item.orderNo </i>\n              </mat-card-subtitle>\n            </mat-card-header>\n            <mat-card-content>\n              <mat-accordion>\n                <mat-expansion-panel id=\"basePriceExpansion\">\n                  <mat-expansion-panel-header>\n                    <mat-panel-title>详情</mat-panel-title>\n                    <mat-panel-description>公里数：{{item.travelMiles}}</mat-panel-description>\n                  </mat-expansion-panel-header>\n                  <mat-list>\n                    <ng-container *ngFor=\"let key of item.optionKeys\">\n                      <mat-list-item>\n                        <font weight=\"blod\">{{key}}</font>\n                      </mat-list-item>\n                      <mat-divider></mat-divider>\n                    </ng-container>\n                  </mat-list>\n                </mat-expansion-panel>\n              </mat-accordion>\n            </mat-card-content>\n            <mat-card-actions>\n              <button align=\"start\" mat-raised-button color=\"primary\" (click)=\"submitWork('finish', item.orderNo,$event )\">完成</button>\n              <button align=\"end\" mat-button color=\"primary\" (click)=\"submitWork('cancel', item.orderNo,$event )\">取消</button>\n              <div>总价：\n                <font color=\"green\">{{item.total}}</font>\n              </div>\n            </mat-card-actions>\n            <mat-card-footer>\n              <ng-container *ngIf=\"item.note!==''\">\n                <div align=\"start\">备注\n                  <font align=\"end\" color=\"blue\" weight=\"bold\">{{item.note}}</font>\n                </div>\n              </ng-container>\n            </mat-card-footer>\n          </mat-card>\n        </ng-container>\n      </div>\n    </mat-tab>\n    <!-- 待确认 -->\n    <mat-tab origin=2 label=\"待确认\">\n      <div *ngIf=\"activePage==='WAITING_CONFIRM'\">\n      <ng-container *ngFor=\"let item of pendingPage.content\">\n        <mat-card class=\"orderItem\">\n          <mat-card-header>\n            <mat-card-title>\n              <h5>\n                <b>{{item.name}}</b>\n              </h5>\n            </mat-card-title>\n            <mat-card-subtitle>\n              <i style=\"font-size:10px;\"> item.orderNo </i>\n            </mat-card-subtitle>\n          </mat-card-header>\n          <mat-card-content>\n            <mat-accordion>\n              <mat-expansion-panel id=\"basePriceExpansion\">\n                <mat-expansion-panel-header>\n                  <mat-panel-title>详情</mat-panel-title>\n                  <mat-panel-description>公里数：{{item.travelMiles}}</mat-panel-description>\n                </mat-expansion-panel-header>\n                <mat-list>\n                  <ng-container *ngFor=\"let key of item.optionKeys\">\n                    <mat-list-item>\n                      <font weight=\"blod\">{{key}}</font>\n                    </mat-list-item>\n                    <mat-divider></mat-divider>\n                  </ng-container>\n                </mat-list>\n              </mat-expansion-panel>\n            </mat-accordion>\n          </mat-card-content>\n          <mat-card-actions>\n            <div>总价：\n              <font color=\"green\">{{item.total}}</font>\n            </div>\n          </mat-card-actions>\n          <mat-card-footer>\n            <ng-container *ngIf=\"item.note!==''\">\n              <div align=\"start\">备注\n                <font align=\"end\" color=\"blue\" weight=\"bold\">{{item.note}}</font>\n              </div>\n            </ng-container>\n          </mat-card-footer>\n        </mat-card>\n      </ng-container>\n      </div>\n    </mat-tab>\n    <!-- 已完成 -->\n    <mat-tab origin=3 (selectedTabChange)=\"active($event)\" label=\"已完成\">\n      <div *ngIf=\"activePage==='FINISHED'\">\n<ng-container *ngFor=\"let item of pendingPage.content\">\n  <mat-card class=\"orderItem\">\n    <mat-card-header>\n      <mat-card-title>\n        <h5>\n          <b>\n            <ng-container *ngIf=\"item.state ==='UNPAY'\">\n              [<font color=\"red\">未付款</font>]\n            </ng-container>\n            <ng-container *ngIf=\"item.state ==='FINISHED'\">\n              [\n              <font color=\"green\">已付款</font>]\n            </ng-container>\n          </b><br>\n           {{item.name}}\n        </h5>\n      </mat-card-title>\n      <mat-card-subtitle>\n        <i style=\"font-size:10px;\">{{ item.orderNo}} </i>\n      </mat-card-subtitle>\n    </mat-card-header>\n    <mat-card-content>\n      <mat-accordion>\n        <mat-expansion-panel id=\"basePriceExpansion\">\n          <mat-expansion-panel-header>\n            <mat-panel-title>详情</mat-panel-title>\n            <mat-panel-description>公里数：{{item.travelMiles}}</mat-panel-description>\n          </mat-expansion-panel-header>\n          <mat-list>\n            <ng-container *ngFor=\"let key of item.optionKeys\">\n              <mat-list-item>\n                <font weight=\"blod\">{{key}}</font>\n              </mat-list-item>\n              <mat-divider></mat-divider>\n            </ng-container>\n          </mat-list>\n        </mat-expansion-panel>\n      </mat-accordion>\n    </mat-card-content>\n    <mat-card-actions>\n      <div>总价：\n        <font color=\"green\">{{item.total}}</font>\n      </div>\n    </mat-card-actions>\n    <mat-card-footer>\n      <ng-container *ngIf=\"item.note!==''\">\n        <div align=\"start\">备注\n          <font align=\"end\" color=\"blue\" weight=\"bold\">{{item.note}}</font>\n        </div>\n      </ng-container>\n    </mat-card-footer>\n  </mat-card>\n</ng-container>\n      </div>\n    </mat-tab>\n  </mat-tab-group>\n  <div class=\"paginator\">\n    <div>第{{pendingPage.number+1}}/{{pendingPage.totalPages}}页</div>\n    <div style=\"flex:1 1 auto;\"></div>\n    <div>\n      <button mat-icon-button [disabled]=\"pageEnd(false)\" (click)=\"beforePage()\">\n        <mat-icon class=\"mat-18\">navigate_before</mat-icon>\n      </button>\n      <button mat-icon-button [disabled]=\"pageEnd(true)\" (click)=\"nextPage()\">\n        <mat-icon class=\"mat-18\">navigate_next</mat-icon>\n      </button>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1778,6 +2108,7 @@ module.exports = "<div class=\"wrapper\">\n  <mat-tab-group (selectedTabChange)=
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_module__ = __webpack_require__("./src/auth.module.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__entity_page__ = __webpack_require__("./src/app/entity/page.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__entity_order__ = __webpack_require__("./src/app/entity/order.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_delay__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/delay.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1793,6 +2124,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var StaffWorkListComponent = /** @class */ (function () {
     function StaffWorkListComponent(messageService, http, requestOption) {
         this.messageService = messageService;
@@ -1800,10 +2132,11 @@ var StaffWorkListComponent = /** @class */ (function () {
         this.progress = 'PENDING';
         this.activePage = 'PENDING';
         this.pendingPage = new __WEBPACK_IMPORTED_MODULE_4__entity_page__["a" /* Page */]();
+        this.pageSize = 5;
         this.authHttp = Object(__WEBPACK_IMPORTED_MODULE_3__auth_module__["b" /* authHttpServiceFactory */])(http, requestOption);
     }
     StaffWorkListComponent.prototype.ngOnInit = function () {
-        this.updateWorkList(1, 5, 'PENDING');
+        this.updateWorkList(1, this.pageSize, 'PENDING');
     };
     StaffWorkListComponent.prototype.active = function (event) {
         switch (event.index) {
@@ -1822,35 +2155,50 @@ var StaffWorkListComponent = /** @class */ (function () {
         }
         this.updateWorkList(1, 5, this.activePage);
     };
-    StaffWorkListComponent.prototype.startWork = function (orderNo) {
+    StaffWorkListComponent.prototype.findParent = function (element, parentClass) {
+        if (element.parentElement.classList.contains(parentClass)) {
+            return element.parentElement;
+        }
+        else {
+            return this.findParent(element.parentElement, parentClass);
+        }
+    };
+    StaffWorkListComponent.prototype.submitWork = function (action, orderNo, event) {
         var _this = this;
-        this.authHttp.post('/order/startWork', {
+        var url = '/order/' + action + 'Work';
+        // event.srcElement.parentElement.parentElement.parentElement.className += ' flush';
+        this.findParent(event.srcElement.parentElement, 'orderItem').className += ' flush';
+        this.authHttp.post(url, {
             'orderNo': orderNo
-        }).map(function (result) { return result.json(); }).subscribe(function (next) {
+        }).map(function (result) { return result.json(); }).delay(300).subscribe(function (next) {
             if (next['success']) {
                 _this.pendingPage.content = _this.pendingPage.content.filter(function (child) {
                     return child.orderNo !== orderNo;
                 });
+                _this.messageService.showMessage('成功', next['msg']);
+                // this.updateWorkList(this.pendingPage.number + 1, this.pageSize, this.progress);
             }
             else {
+                // event.srcElement.parentElement.parentElement.parentElement.classList.remove('flush');
+                _this.findParent(event.srcElement.parentElement, 'orderItem').classList.remove('flush');
                 _this.messageService.showMessage('提交失败', next['msg']);
             }
         });
     };
-    StaffWorkListComponent.prototype.cancelWork = function (orderNo) {
-        var _this = this;
-        this.authHttp.post('/order/cancelWork', {
-            'orderNo': orderNo
-        }).map(function (result) { return result.json(); }).subscribe(function (next) {
-            if (next['success']) {
-                _this.pendingPage.content = _this.pendingPage.content.filter(function (child) {
-                    return child.orderNo !== orderNo;
-                });
-            }
-            else {
-                _this.messageService.showMessage('取消失败', next['msg']);
-            }
-        });
+    StaffWorkListComponent.prototype.pageEnd = function (isNext) {
+        if (isNext) {
+            return (this.pendingPage.number + 1) >= this.pendingPage.totalPages;
+        }
+        else {
+            return this.pendingPage.number <= 0;
+        }
+    };
+    StaffWorkListComponent.prototype.beforePage = function () {
+        // pageNum=(number+1) nextPage=(number+1)+1
+        this.updateWorkList(this.pendingPage.number, this.pageSize, this.progress);
+    };
+    StaffWorkListComponent.prototype.nextPage = function () {
+        this.updateWorkList(this.pendingPage.number + 2, this.pageSize, this.progress);
     };
     StaffWorkListComponent.prototype.updateWorkList = function (pageNum, pageSize, progress) {
         var _this = this;
@@ -1864,7 +2212,7 @@ var StaffWorkListComponent = /** @class */ (function () {
             .map(function (result) { return result.json(); })
             .subscribe(function (next) {
             _this.pendingPage = Object(__WEBPACK_IMPORTED_MODULE_4__entity_page__["b" /* jsonToPage */])(next['content']);
-            _this.pendingPage.content = Object(__WEBPACK_IMPORTED_MODULE_5__entity_order__["a" /* getOrdersFromPage */])(_this.pendingPage);
+            _this.pendingPage.content = Object(__WEBPACK_IMPORTED_MODULE_5__entity_order__["b" /* getOrdersFromPage */])(_this.pendingPage);
         });
     };
     StaffWorkListComponent = __decorate([

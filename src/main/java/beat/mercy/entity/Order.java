@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -20,7 +21,7 @@ import beat.mercy.entity.state.PayMethod;
 import beat.mercy.entity.state.ServiceProgress;
 
 @Entity
-//@EntityListeners(OrderListener.class)
+// @EntityListeners(OrderListener.class)
 @Table(name = "service_order")
 public class Order extends BaseEntity {
 
@@ -48,16 +49,24 @@ public class Order extends BaseEntity {
 
 	private Boolean isResetTotal;
 	private Double resetTotal; // 重设总价
+	private String resetNote;
 	private PayMethod payMethod;
 	private ServiceProgress progress;
 	private String note;
 
 	@PrePersist
 	private void generateOrderNo() {
-		
+
 		if (this.orderNo == null) {
 			this.orderNo = "un" + RandomStringGenerator.getOrderNo();
 		}
+		if (this.note == null) {
+			this.note = "";
+		}
+		if (this.resetNote == null) {
+			this.resetNote = "";
+		}
+		this.isResetTotal = false;
 	}
 
 	@Column(updatable = false, name = "dtype")
@@ -118,8 +127,9 @@ public class Order extends BaseEntity {
 	}
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "order_map_option_price")
+	@CollectionTable(name = "service_order_map_option_price")
 	@MapKeyColumn(name = "option_name")
+	@Column(name="option_price")
 	public Map<String, Double> getSelectedOption() {
 		return selectedOption;
 	}
@@ -140,7 +150,14 @@ public class Order extends BaseEntity {
 		return note;
 	}
 
+	public String getResetNote() {
+		return resetNote;
+	}
 	// ---------------------setter
+
+	public void setResetNote(String resetNote) {
+		this.resetNote = resetNote;
+	}
 
 	public void setTravelMiles(Double travelMiles) {
 		this.travelMiles = travelMiles;

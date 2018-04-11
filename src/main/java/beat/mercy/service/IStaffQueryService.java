@@ -1,5 +1,7 @@
 package beat.mercy.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import beat.mercy.common.util.PageableBuilder;
@@ -11,6 +13,8 @@ import beat.mercy.entity.state.ServiceProgress;
 public interface IStaffQueryService {
 
 	public Page<Vehicle> findPresentVehicle(PageableBuilder pageableBuilder);
+	
+	public List<Order> findOrderUnpageForCashier(String plateNo);
 	
 	public Page<Order> findMyWorkOrder(Long staffId,ServiceProgress progress,PageableBuilder pageableBuilder);
 	

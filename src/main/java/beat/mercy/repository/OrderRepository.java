@@ -1,5 +1,7 @@
 package beat.mercy.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,9 +20,17 @@ public interface OrderRepository extends JpaRepository<Order, Long>,JpaSpecifica
 	
 	public Page<Order> findByStaffIdAndProgress(Long staffId,ServiceProgress progress,Pageable pageable);
 	
+	public Page<Order> findByStaffIdAndProgressAndStateNotIn(Long staffId,ServiceProgress progress,OrderState[] state,Pageable pageable);
+
 	public Page<Order> findByStaffIdAndProgressAndStateNot(Long staffId,ServiceProgress progress,OrderState state,Pageable pageable);
 
 	public Page<Order> findByStaffIdAndState(Long staffId,OrderState state,Pageable pageable);
 	
 	public Page<Order> findByState(OrderState state,Pageable pageable);
+	
+	public List<Order> findByState(OrderState state);
+	
+	public List<Order> findByStateAndPlateNoLike(OrderState state,String plateNo);
+
 }
+
