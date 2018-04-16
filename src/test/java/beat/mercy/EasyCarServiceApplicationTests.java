@@ -31,7 +31,7 @@ public class EasyCarServiceApplicationTests {
 
 	@Autowired
 	private SelectOptionRepository optionRepo;
-	
+
 	@Test
 	public void contextLoads() {
 		vehicleRepository.findAll().forEach(child -> {
@@ -41,7 +41,16 @@ public class EasyCarServiceApplicationTests {
 			System.err.println("通过userId查找：" + child.getPlateNo());
 		});
 	}
-	
+
+	@Test
+	public void testNullExpression() {
+		Customer user = new Customer();
+		user.setUsername(null);
+		if (user.getUsername().equals("asd") ) {
+			System.err.println("null is unpredictable");
+		} else
+			System.err.println("null is predictable");
+	}
 
 	@Test
 	public void testFindByPlateNo() {

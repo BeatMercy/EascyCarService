@@ -18,10 +18,13 @@ import beat.mercy.entity.Advertisement;
 import beat.mercy.entity.CarBeautifyCombo;
 import beat.mercy.entity.Customer;
 import beat.mercy.entity.Staff;
+import beat.mercy.entity.Vehicle;
 import beat.mercy.entity.base.BaseCarService;
 import beat.mercy.entity.option.SelectOption;
 import beat.mercy.entity.rbac.Authority;
 import beat.mercy.entity.rbac.Role;
+import beat.mercy.entity.state.FuseType;
+import beat.mercy.entity.state.VehicleType;
 import beat.mercy.repository.AccountRepository;
 import beat.mercy.repository.AdministratorRepository;
 import beat.mercy.repository.AdvertisementRepository;
@@ -29,6 +32,7 @@ import beat.mercy.repository.AuthorityRepository;
 import beat.mercy.repository.CarServiceRepository;
 import beat.mercy.repository.RoleRepository;
 import beat.mercy.repository.SelectOptionRepository;
+import beat.mercy.repository.VehicleRepository;
 
 @SpringBootApplication
 @RestController
@@ -45,9 +49,9 @@ public class EasyCarServiceApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
+//	@Bean
 	public CommandLineRunner runWith(AuthorityRepository authorityRepository, RoleRepository roleRepository,
-			BCryptPasswordEncoder bCryptPsswordEncoder, AdministratorRepository adminRepository,
+			BCryptPasswordEncoder bCryptPsswordEncoder, AdministratorRepository adminRepository,VehicleRepository vehicleRepo,
 			AccountRepository accountRepository) {
 		return (args) -> {
 			// 设权
@@ -72,7 +76,11 @@ public class EasyCarServiceApplication {
 			customer.setUsername("mercy");
 			customer.setPassword(bCryptPasswordEncoder().encode("123456"));
 			customer.getRoles().add(roleRepository.findByName("ROLE_USER"));
-
+			customer.setRealName("吴博闻");
+			customer.setHeadimg("assets/img/beatMercy.png");
+			
+			
+			
 			Staff staff = new Staff();
 			staff.setUsername("frontStaff1");
 			staff.setPassword(bCryptPasswordEncoder().encode("123456"));
@@ -84,13 +92,21 @@ public class EasyCarServiceApplication {
 			admin.getRoles().add(roleRepository.findByName("ROLE_ADMIN"));
 			admin.getRoles().add(roleRepository.findByName("ROLE_STAFF"));
 			admin.getRoles().add(roleRepository.findByName("ROLE_USER"));
+			admin.setHeadimg("assets/img/beatMercy.png");
 
-			// customerRepository.save(customer);
-			// staffRepository.save(staff);
-			// adminRepository.save(admin);
+			
+			Vehicle v = new Vehicle();
+			v.setPlateNo("粤S63B87");
+			v.setBrand("丰田");
+			v.setFuseType(FuseType.PETROL92);
+			v.setVehicleType(VehicleType.SMALL);
+			v.setOwner(customer);
+			customer.getVehicles().add(v);
 			accountRepository.save(customer);
 			accountRepository.save(staff);
 			accountRepository.save(admin);
+			
+			
 
 		};
 	}
@@ -101,7 +117,7 @@ public class EasyCarServiceApplication {
 	 * @param carServiceRepository
 	 * @return
 	 */
-	@Bean
+//	@Bean
 	public CommandLineRunner initializeService(CarServiceRepository carServiceRepository) {
 		return (args) -> {
 
@@ -133,7 +149,7 @@ public class EasyCarServiceApplication {
 	 * @param advertisementRepository
 	 * @return
 	 */
-	@Bean
+//	@Bean
 	public CommandLineRunner initializeMGModual(AdvertisementRepository advertisementRepository,SelectOptionRepository optionRepository) {
 		return (args) -> {
 

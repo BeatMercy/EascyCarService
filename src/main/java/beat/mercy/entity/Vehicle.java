@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import beat.mercy.entity.base.BaseEntity;
 import beat.mercy.entity.state.FuseType;
 import beat.mercy.entity.state.VehicleType;
@@ -47,6 +49,7 @@ public class Vehicle extends BaseEntity {
 		return fuseType;
 	}
 
+	@JsonIgnore
 	@ManyToOne
 	public Customer getOwner() {
 		return owner;

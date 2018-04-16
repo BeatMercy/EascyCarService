@@ -2,7 +2,7 @@ spring:
   jpa:
     database: mysql
     hibernate: 
-      ddl-auto: create-drop
+      ddl-auto: update  #create-drop
     show-sql: true
   datasource: 
       url: jdbc:mysql://127.0.0.1/easycarservice?useSSL=true

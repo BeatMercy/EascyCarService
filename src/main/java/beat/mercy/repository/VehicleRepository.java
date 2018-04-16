@@ -13,4 +13,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long>,JpaSpeci
 	public Vehicle findByPlateNo(String plateNo);
 	
 	public List<Vehicle> findByOwnerId(Long id);
+	
+	public List<Vehicle> findByOwnerUsername(String username);
+
 }

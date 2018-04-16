@@ -20,14 +20,14 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /***/ "./src/app/account-info/account-info.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ":host {\r\n    width: 80%;\r\n}\r\n\r\n.wrapContent {\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n}\r\n\r\n.wrapper {\r\n    width: 100%;\r\n    height: 100%;\r\n    -webkit-transition: all 0.3s ease-out;\r\n    transition: all 0.3s ease-out;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: start;\r\n        -ms-flex-align: start;\r\n            align-items: flex-start;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    -ms-flex-wrap: nowrap;\r\n        flex-wrap: nowrap;\r\n    -webkit-box-align: stretch;\r\n        -ms-flex-align: stretch;\r\n            align-items: stretch;\r\n}\r\n\r\n.example-card {\r\n    margin: 5px 0;\r\n}\r\n\r\n.headImg,\r\n.brandImg {\r\n    width: 120px;\r\n    height: 120px;\r\n}\r\n\r\n.headImg img,\r\n.brandImg img {\r\n    max-width: 100%;\r\n    max-height: 100%;\r\n    border-radius: 50%;\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/account-info/account-info.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container *ngIf=\"jwtService.checkToken()\">\n<mat-card class=\"example-card\">\n  <mat-card-header>\n    <div mat-card-avatar class=\"example-header-image\"></div>\n    <mat-card-title>Shiba Inu</mat-card-title>\n    <mat-card-subtitle>Dog Breed</mat-card-subtitle>\n  </mat-card-header>\n  <img mat-card-image src=\"https://material.angular.io/assets/img/examples/shiba2.jpg\" alt=\"Photo of a Shiba Inu\">\n  <mat-card-content>\n    <p>\n      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes\n      very well with mountainous terrain, the Shiba Inu was originally bred for hunting.\n    </p>\n  </mat-card-content>\n  <mat-card-actions>\n    <button mat-button>LIKE</button>\n    <button mat-button>SHARE</button>\n  </mat-card-actions>\n</mat-card>\n</ng-container>"
+module.exports = "<div class=\"wrapper\" *ngIf=\"jwtService.checkToken()\">\n  <mat-card class=\"example-card\">\n    <mat-card-header>\n      <mat-card-title>个人信息</mat-card-title>\n      <mat-card-subtitle>{{user.realName}}</mat-card-subtitle>\n      <div style=\"flex: 1 1 auto;\"></div>\n      <button *ngIf=\"editAccountMode\" mat-icon-button  color=\"primary\" (click)=\"editAccountMode=false\">\n        <mat-icon class=\"mat-18\">check</mat-icon>\n      </button>\n      <button *ngIf=\"!editAccountMode\" mat-icon-button  color=\"primary\" (click)=\"editAccountMode=true\">\n        <mat-icon class=\"mat-18\">mode_edit</mat-icon>\n      </button>\n    </mat-card-header>\n    <mat-card-content>\n      <div class=\"wrapContent\" fxLayout=\"row\" fxLayoutAlign=\"start center\" fxLayoutGap=\"5px\">\n        <div fxLayout=\"column\" fxLayoutAlign=\" start center\" fxLayoutGap=\"10px\">\n          <div class=\"headImg\">\n            <img [src]=\"userHeadImg()\" alt=\"用户头像\">\n          </div>\n          <div>积分：\n            <font color=\"green\" weight=\"blod\">{{user.consumePoint}}</font>\n          </div>\n        </div>\n\n        <div>\n          <!-- 姓名 -->\n          <mat-input-container floatPlaceholder=\"auto\">\n            <input matInput type=\"text\" [(ngModel)]=\"user.realName\" [disabled]=\"!editAccountMode\" placeholder=\"姓名\">\n          </mat-input-container>\n          <!-- 手机 -->\n          <mat-input-container floatPlaceholder=\"auto\">\n            <input matInput type=\"text\" [(ngModel)]=\"user.phone\" [disabled]=\"!editAccountMode\" placeholder=\"手机\">\n          </mat-input-container>\n          <!-- 微信 -->\n          <mat-input-container floatPlaceholder=\"auto\">\n            <input matInput type=\"text\" [(ngModel)]=\"user.weixin\" [disabled]=\"!editAccountMode\" placeholder=\"微信\">\n          </mat-input-container>\n\n        </div>\n      </div>\n    </mat-card-content>\n  </mat-card>\n  <mat-card class=\"example-card\">\n    <mat-card-header>\n      <mat-card-title>车辆信息</mat-card-title>\n      <div style=\"flex: 1 1 auto;\"></div>\n      <button mat-button color=\"primary\" (click)=\"addVehicle()\">\n        <mat-icon class=\"mat-18\">add</mat-icon>\n        <span>添加车辆</span>\n      </button>\n    </mat-card-header>\n    <mat-card-content>\n      <ng-container *ngFor=\"let item of vehicles$ | async\">\n        <div class=\"wrapContent\" fxLayout=\"row\" fxLayoutAlign=\"start center\" fxLayoutGap=\"10px\">\n          <!-- 车标 -->\n          <div class=\"brandImg\">\n            <img [src]=\"brandImg(item.brand)\" alt=\"\">\n          </div>\n          <!-- 车信息 -->\n          <div>\n            <mat-input-container floatPlaceholder=\"auto\">\n                <input matInput [(ngModel)]=\"item.plateNo\" [disabled]=\"!editVehicleMode\"\n                       type=\"text\"\n                       required\n                       placeholder=\"车牌\">\n            </mat-input-container>\n            <mat-input-container floatPlaceholder=\"auto\">\n              <input matInput [(ngModel)]=\"item.fuseType\" [disabled]=\"!editVehicleMode\" type=\"text\" required placeholder=\"燃油\">\n            </mat-input-container>\n            <mat-input-container floatPlaceholder=\"auto\">\n              <input matInput [(ngModel)]=\"item.VehicleType\" [disabled]=\"!editVehicleMode\" type=\"text\" required placeholder=\"车型\">\n            </mat-input-container>\n          </div>\n          <!-- 编辑 -->\n          <button *ngIf=\"!editVehicleMode\" mat-icon-button  color=\"primary\" (click)=\"editVehicleMode=true\">\n              <mat-icon class=\"mat-18\">mode_edit</mat-icon>\n          </button>\n          <button *ngIf=\"editVehicleMode\" mat-icon-button  color=\"primary\" (click)=\"addVehicle(item.plateNo)\">\n            <mat-icon  class=\"mat-18\">check</mat-icon>\n          </button>\n        </div>\n      </ng-container>\n    </mat-card-content>\n  </mat-card>\n</div>"
 
 /***/ }),
 
@@ -38,6 +38,8 @@ module.exports = "<ng-container *ngIf=\"jwtService.checkToken()\">\n<mat-card cl
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AccountInfoComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__jwt_service__ = __webpack_require__("./src/app/jwt.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_module__ = __webpack_require__("./src/auth.module.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -49,11 +51,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
 var AccountInfoComponent = /** @class */ (function () {
-    function AccountInfoComponent(jwtService) {
+    function AccountInfoComponent(http, requestOptions, jwtService) {
         this.jwtService = jwtService;
+        this.editAccountMode = false;
+        this.editVehicleMode = false;
+        this.authHttp = Object(__WEBPACK_IMPORTED_MODULE_3__auth_module__["b" /* authHttpServiceFactory */])(http, requestOptions);
     }
     AccountInfoComponent.prototype.ngOnInit = function () {
+        this.user = this.jwtService.getCurrentUser();
+        this.fetchMyVehicles();
+    };
+    AccountInfoComponent.prototype.userHeadImg = function () {
+        var headimg = 'assets/img/default_head.jpg';
+        if (this.jwtService.getCurrentUser().headimg !== undefined && this.jwtService.getCurrentUser().headimg !== null) {
+            headimg = this.jwtService.getCurrentUser().headimg;
+        }
+        return headimg;
+    };
+    AccountInfoComponent.prototype.addVehicle = function (plateNo) {
+        this.editVehicleMode = false;
+    };
+    AccountInfoComponent.prototype.brandImg = function (brand) {
+        var type = 'default';
+        var url = 'img/brand/';
+        if (brand !== undefined && brand !== null) {
+            type = brand;
+        }
+        return url + type;
+    };
+    AccountInfoComponent.prototype.fetchMyVehicles = function () {
+        this.vehicles$ = this.authHttp.get('me/vehicles')
+            .map(function (rsp) {
+            rsp.json();
+            return rsp.json()['content'];
+        });
     };
     AccountInfoComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -61,7 +95,8 @@ var AccountInfoComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/account-info/account-info.component.html"),
             styles: [__webpack_require__("./src/app/account-info/account-info.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__jwt_service__["a" /* JwtService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["Http"], __WEBPACK_IMPORTED_MODULE_2__angular_http__["RequestOptions"],
+            __WEBPACK_IMPORTED_MODULE_1__jwt_service__["a" /* JwtService */]])
     ], AccountInfoComponent);
     return AccountInfoComponent;
 }());
@@ -85,12 +120,14 @@ var AccountInfoComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__order_submit_order_submit_component__ = __webpack_require__("./src/app/order-submit/order-submit.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__staff_work_list_staff_work_list_component__ = __webpack_require__("./src/app/staff-work-list/staff-work-list.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__cashier_board_cashier_board_component__ = __webpack_require__("./src/app/cashier-board/cashier-board.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__my_orders_my_orders_component__ = __webpack_require__("./src/app/my-orders/my-orders.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -110,6 +147,7 @@ var routes = [
     { path: 'table', component: __WEBPACK_IMPORTED_MODULE_6__cdk_table_basic_example_cdk_table_basic_example_component__["a" /* CdkTableBasicExampleComponent */] },
     { path: 'orderSubmit', component: __WEBPACK_IMPORTED_MODULE_7__order_submit_order_submit_component__["a" /* OrderSubmitComponent */] },
     { path: 'cashier-board', component: __WEBPACK_IMPORTED_MODULE_9__cashier_board_cashier_board_component__["a" /* CashierBoardComponent */] },
+    { path: 'my-orders', component: __WEBPACK_IMPORTED_MODULE_10__my_orders_my_orders_component__["a" /* MyOrdersComponent */] },
     { path: 'work-list', component: __WEBPACK_IMPORTED_MODULE_8__staff_work_list_staff_work_list_component__["a" /* StaffWorkListComponent */] }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -136,14 +174,14 @@ var AppRoutingModule = /** @class */ (function () {
 /***/ "./src/app/app.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".flex-spacer {\r\n    -webkit-box-flex: 1;\r\n        -ms-flex: 1 1 auto;\r\n            flex: 1 1 auto;\r\n}\r\n\r\n.example-container {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    position: absolute;\r\n    top: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    right: 0;\r\n}\r\n\r\n.navContent {\r\n    margin-top: 56px;\r\n}\r\n\r\n#title {\r\n    outline: none;\r\n}\r\n\r\n#title p {\r\n    font-size: 10pt;\r\n    padding: 0;\r\n    margin: 0;\r\n}\r\n\r\n#menuButton {\r\n    color: black;\r\n    outline: none;\r\n    min-width: 50px;\r\n    padding: 0;\r\n}\r\n\r\n.example-sidenav-content {\r\n    /* margin-top: 64px; */\r\n    overflow: visible;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    height: 100%;\r\n    /* align-items: center; */\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.example-sidenav {\r\n    color: #fff;\r\n    min-width: 170px;\r\n    background-color: #3f51b5;\r\n    padding: 20px;\r\n}\r\n\r\n.toolbar {\r\n    /* box-shadow: 0 2px 10px #192048; */\r\n    z-index: 2;\r\n    position: fixed;\r\n}"
+module.exports = ".flex-spacer {\r\n    -webkit-box-flex: 1;\r\n        -ms-flex: 1 1 auto;\r\n            flex: 1 1 auto;\r\n}\r\n\r\n.headImg {\r\n    max-width: 36px;\r\n    max-height: 36px;\r\n    border-radius: 18px;\r\n}\r\n\r\n.example-container {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    position: absolute;\r\n    top: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    right: 0;\r\n}\r\n\r\n.navContent {\r\n    margin-top: 56px;\r\n}\r\n\r\n#title {\r\n    outline: none;\r\n}\r\n\r\n#title p {\r\n    font-size: 10pt;\r\n    padding: 0;\r\n    margin: 0;\r\n}\r\n\r\n#menuButton {\r\n    color: black;\r\n    outline: none;\r\n    min-width: 50px;\r\n    padding: 0;\r\n}\r\n\r\n.example-sidenav-content {\r\n    /* margin-top: 64px; */\r\n    overflow: visible;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    height: 100%;\r\n    /* align-items: center; */\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\n.example-sidenav {\r\n    color: #fff;\r\n    min-width: 170px;\r\n    background-color: #3f51b5;\r\n    padding: 20px;\r\n}\r\n\r\n.toolbar {\r\n    /* box-shadow: 0 2px 10px #192048; */\r\n    z-index: 2;\r\n    position: fixed;\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container>\n  <mat-toolbar class=\"toolbar mat-elevation-z6\" color=\"primary\">\n    <mat-toolbar-row  fxLayout=\"row\" fxLayoutAlign=\"start center\" fxLayoutGap=\"gappx\">\n      <div style=\"display:flex;\" fxFlexAlign=\"start center\">\n        <b >{{title}}</b>\n      </div>\n      <div class=\"flex-spacer\"></div>\n      <div fxFlexAlign=\"center center\">\n        <ng-container *ngIf=\"this.jwtService.checkToken(); else elseTemplate\">\n          <button id='menuButton' mat-raised-button [matMenuTriggerFor]=\"menu\">\n            <span>{{jwtService.getCurrentUser().username}}</span>\n          </button>\n          <mat-menu #menu=\"matMenu\">\n            <button routerLink='/me' mat-menu-item>\n              <mat-icon>notifications_off</mat-icon>\n              <span>我的信息</span>\n            </button>\n            <button mat-menu-item >\n              <mat-icon>voicemail</mat-icon>\n              <span>我的订单</span>\n            </button>\n            <button routerLink='/work-list' mat-menu-item >\n              <mat-icon>voicemail</mat-icon>\n              <span>我的工单</span>\n            </button>\n            <button (click)='logout()' mat-menu-item>\n              <mat-icon>exit_to_app</mat-icon>\n              <span>退出登录</span>\n            </button>\n\n\n          </mat-menu>\n\n        </ng-container>\n        <ng-template #elseTemplate>\n          <button mat-button (click)=\"loginDialog()\">\n            <span>登录/注册</span>\n            <mat-icon class=\"example-icon\">person_pin</mat-icon>\n          </button>\n        </ng-template>\n\n\n      </div>\n    </mat-toolbar-row>\n  </mat-toolbar>\n</ng-container>\n<app-slide-nav></app-slide-nav>"
+module.exports = "<ng-container>\n  <mat-toolbar class=\"toolbar mat-elevation-z6\" color=\"primary\">\n    <mat-toolbar-row fxLayout=\"row\" fxLayoutAlign=\"start center\" fxLayoutGap=\"gappx\">\n      <div style=\"display:flex;\" fxFlexAlign=\"start center\">\n        <b>{{title}}</b>\n      </div>\n      <div class=\"flex-spacer\"></div>\n      <div fxFlexAlign=\"center center\">\n        <ng-container *ngIf=\"this.jwtService.checkToken(); else elseTemplate\">\n          <button id='menuButton' mat-button [matMenuTriggerFor]=\"menu\">\n            <img class=\"headImg\" [src]=\"this.userHeadImg()\" alt=\"\">\n            <span style=\"color:white;\">{{jwtService.getCurrentUser().realName}}</span>\n          </button>\n          <mat-menu #menu=\"matMenu\">\n            <button routerLink='/me' mat-menu-item>\n              <mat-icon>account_circle</mat-icon>\n              <span>我的信息</span>\n            </button>\n            <button routerLink='/my-orders' mat-menu-item>\n              <mat-icon>insert_drive_file</mat-icon>\n              <span>我的订单</span>\n            </button>\n            <button routerLink='/work-list' mat-menu-item>\n              <mat-icon>insert_drive_file</mat-icon>\n              <span>我的工单</span>\n            </button>\n            <button (click)='logout()' mat-menu-item>\n              <mat-icon>exit_to_app</mat-icon>\n              <span>退出登录</span>\n            </button>\n\n\n          </mat-menu>\n\n        </ng-container>\n        <ng-template #elseTemplate>\n          <button mat-button (click)=\"loginDialog()\">\n            <span>登录/注册</span>\n            <mat-icon class=\"example-icon\">person_pin</mat-icon>\n          </button>\n        </ng-template>\n\n\n      </div>\n    </mat-toolbar-row>\n  </mat-toolbar>\n</ng-container>\n<app-slide-nav></app-slide-nav>"
 
 /***/ }),
 
@@ -183,6 +221,13 @@ var AppComponent = /** @class */ (function () {
         router.onSameUrlNavigation = 'reload';
     }
     AppComponent.prototype.ngOnDestory = function () {
+    };
+    AppComponent.prototype.userHeadImg = function () {
+        var headimg = 'assets/img/default_head.jpg';
+        if (this.jwtService.getCurrentUser().headimg !== undefined && this.jwtService.getCurrentUser().headimg !== null) {
+            headimg = this.jwtService.getCurrentUser().headimg;
+        }
+        return headimg;
     };
     AppComponent.prototype.loginDialog = function () {
         this.dialog.open(__WEBPACK_IMPORTED_MODULE_2__login_dialog_login_dialog_component__["a" /* LoginDialogComponent */], {
@@ -251,6 +296,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__order_submit_order_submit_component__ = __webpack_require__("./src/app/order-submit/order-submit.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__staff_work_list_staff_work_list_component__ = __webpack_require__("./src/app/staff-work-list/staff-work-list.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__cashier_board_cashier_board_component__ = __webpack_require__("./src/app/cashier-board/cashier-board.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__my_orders_my_orders_component__ = __webpack_require__("./src/app/my-orders/my-orders.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -290,6 +336,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -307,6 +354,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_28__order_submit_order_submit_component__["a" /* OrderSubmitComponent */],
                 __WEBPACK_IMPORTED_MODULE_29__staff_work_list_staff_work_list_component__["a" /* StaffWorkListComponent */],
                 __WEBPACK_IMPORTED_MODULE_30__cashier_board_cashier_board_component__["a" /* CashierBoardComponent */],
+                __WEBPACK_IMPORTED_MODULE_31__my_orders_my_orders_component__["a" /* MyOrdersComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_15__angular_forms__["d" /* FormsModule */],
@@ -1136,23 +1184,36 @@ function buildOptionDetailList(serviceOptions) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return User; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = buildUser;
 /* unused harmony export USER */
 /* unused harmony export RSA_PRIVATE_KEY */
 var User = /** @class */ (function () {
     function User() {
-        this.id = null;
-        this.username = null;
-        this.password = null;
-        this.authorities = null;
     }
     return User;
 }());
 
+function buildUser(user, userdata) {
+    user.id = userdata['id'];
+    user.username = userdata['username'];
+    user.headimg = userdata['headimg'];
+    user.phone = userdata['phone'];
+    user.weixin = userdata['weixin'];
+    user.qq = userdata['qq'];
+    user.realName = userdata['realName'];
+    user.consumePoint = userdata['consumePoint'];
+}
 var USER = {
     id: null,
     username: null,
     password: null,
-    authorities: null
+    authorities: null,
+    headimg: 'assets/img/default_head',
+    phone: null,
+    weixin: null,
+    qq: null,
+    realName: null,
+    consumePoint: 0,
 };
 var RSA_PRIVATE_KEY = 'ss';
 
@@ -1320,14 +1381,25 @@ var JwtService = /** @class */ (function () {
         return this.user;
     };
     JwtService.prototype.updateUser = function (token) {
+        var _this = this;
         if (token === undefined || token === null || token === 'undefined') {
-            return;
+            token = localStorage.getItem('token');
+            if (token === null) {
+                return;
+            }
+        }
+        else {
+            localStorage.setItem('token', token);
         }
         var raw = this.jwtHelper.decodeToken(token);
-        this.user.username = raw['sub'];
-        this.user.authorities = raw['authorities'];
-        console.log(raw['authorities']);
-        console.log(this.user);
+        this.authHttp.get('me').map(function (rsp) { return rsp.json(); })
+            .subscribe(function (json) {
+            if (json['success']) {
+                Object(__WEBPACK_IMPORTED_MODULE_5__entity_user__["b" /* buildUser */])(_this.user, json['content']);
+                _this.user.authorities = raw['authorities'];
+                console.log(_this.user);
+            }
+        });
     };
     JwtService.prototype.logout = function () {
         localStorage.removeItem('token');
@@ -1411,14 +1483,14 @@ var JwtService = /** @class */ (function () {
 /***/ "./src/app/login-dialog/login-dialog.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".loginInput{\r\n    width: 100%;\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n}"
+module.exports = ".loginInput {\r\n    width: 100%;\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n}\r\n\r\n.panel {\r\n    width: 100%;\r\n    height: 100%;\r\n    -webkit-transition: all 0.2s ease-out;\r\n    transition: all 0.2s ease-out;\r\n}\r\n"
 
 /***/ }),
 
 /***/ "./src/app/login-dialog/login-dialog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container >\n<div style=\"font-size:20pt;\">\n  <div fxLayout=\"row\" fxLayoutAlign=\"start start\" fxLayoutGap=\"gappx\">\n    <div fxFlex=\"100%\" fxLayoutAlign=\"center center\" fxFlexFill>\n      <span>用户登录</span>\n    </div>\n  </div>\n  <br>\n  <br>\n  <div fxLayout=\"row\" fxLayoutAlign=\"center center\">\n    <div (keyup.enter)=\"loginSubmit()\" fxFelx=\"100%\" class=\"loginForm\">\n\n      <mat-form-field class=\"loginInput\">\n\n        <input matInput placeholder=\"用户名/手机号码\" [(ngModel)]=\"user.username\">\n        <mat-icon matSuffix class=\"example-icon\" color=\"primary\">account_box</mat-icon>\n      </mat-form-field>\n      <mat-form-field class=\"loginInput\">\n        <input type=\"password\" matInput placeholder=\"密码\" [(ngModel)]=\"user.password\">\n        <mat-icon matSuffix color=\"primary\">vpn_key</mat-icon>\n      </mat-form-field>\n\n      <button mat-button (click)=\"loginSubmit()\" color=\"primary\">\n        <mat-icon class=\"mat-18\">fingerprint</mat-icon>\n        <span>登录</span>\n      </button>\n\n      <button mat-button (click)=\"loginCancel()\" color=\"primary\">\n        <mat-icon class=\"mat-18\">close</mat-icon>\n        <span>取消</span>\n      </button>\n    </div>\n\n  </div>\n</div>\n</ng-container>\n"
+module.exports = "<div class=\"panel\" style=\"font-size:20pt;\">\n  <ng-container *ngIf=\"loginMode; else registerTemplate\">\n    <div fxLayout=\"row\" fxLayoutAlign=\"start start\" fxLayoutGap=\"gappx\">\n      <div fxFlex=\"100%\" fxLayoutAlign=\"center center\" fxFlexFill>\n        <span>用户登录</span>\n      </div>\n    </div>\n    <br>\n    <br>\n    <div fxLayout=\"row\" fxLayoutAlign=\"center center\">\n      <div (keyup.enter)=\"loginSubmit()\" fxFelx=\"100%\" class=\"loginForm\">\n\n        <mat-form-field class=\"loginInput\">\n\n          <input matInput placeholder=\"用户名/手机号码\" [(ngModel)]=\"user.username\">\n          <mat-icon matSuffix class=\"example-icon\" color=\"primary\">account_box</mat-icon>\n        </mat-form-field>\n        <mat-form-field class=\"loginInput\">\n          <input type=\"password\" matInput placeholder=\"密码\" [(ngModel)]=\"user.password\">\n          <mat-icon matSuffix color=\"primary\">vpn_key</mat-icon>\n        </mat-form-field>\n\n        <div style=\"display: flex;\">\n          <button mat-button (click)=\"loginSubmit()\" color=\"primary\">\n            <mat-icon class=\"mat-18\">fingerprint</mat-icon>\n            <span>登录</span>\n          </button>\n\n          <button mat-button (click)=\"loginCancel()\" color=\"primary\">\n            <mat-icon class=\"mat-18\">close</mat-icon>\n            <span>关闭</span>\n          </button>\n          <div style=\"flex:1 1 auto;\"></div>\n          <button mat-button (click)=\"loginMode=false\" color=\"primary\">\n            <span>注册</span>\n          </button>\n        </div>\n      </div>\n\n    </div>\n  </ng-container>\n  <ng-template #registerTemplate>\n    <div fxLayout=\"column\" fxLayoutAlign=\"start center\" fxLayoutGap=\"5px\">\n      <div  class=\"registerTop\">\n          <div>\n            <span>用户注册</span>\n          </div>\n      </div>\n      <div style=\"width:100%;\" class=\"registerBody\">\n        <div fxLayout=\"column\" fxLayoutAlign=\"start center\" fxLayoutGap=\"2px\">\n          <mat-input-container class=\"loginInput\">\n            <input matInput [(ngModel)]=\"realName\" type=\"text\" placeholder=\"姓名\" required>\n            <span matPrefix>\n              <mat-icon class=\"mat-18\">account_box</mat-icon>\n            </span>\n          </mat-input-container>\n          <mat-input-container class=\"loginInput\">\n              <input matInput\n                    [(ngModel)]=\"phone\"\n                     type=\"text\"\n                     required\n                     placeholder=\"中国大陆手机号\">\n              <span matPrefix><mat-icon class=\"mat-18\">phone</mat-icon></span>\n          </mat-input-container>\n          <mat-input-container class=\"loginInput\">\n            <input matInput [(ngModel)]=\"password\" type=\"password\" placeholder=\"密码\" required>\n            <span matPrefix><mat-icon class=\"mat-18\">vpn_key</mat-icon></span>\n          </mat-input-container>\n          <mat-input-container class=\"loginInput\">\n            <input matInput [(ngModel)]=\"confirmPassword\" type=\"password\" placeholder=\"确认密码\" required>\n          </mat-input-container>\n        </div>\n      </div>\n      <div class=\"registerBottom\">\n        <button mat-raised-button (click)=\"signUp()\" color=\"primary\" >注册</button>\n        <button mat-button (click)=\"loginMode=true\" color=\"primary\">\n          <span>已有账号</span>\n        </button>\n      </div>\n    </div>\n  </ng-template>\n</div>"
 
 /***/ }),
 
@@ -1455,7 +1527,11 @@ var LoginDialogComponent = /** @class */ (function () {
         this.messageService = messageService;
         this.jwtService = jwtService;
         this.user = new __WEBPACK_IMPORTED_MODULE_2__entity_user__["a" /* User */]();
-        this.isAuthenticated = false;
+        this.loginMode = true;
+        this.password = '';
+        this.confirmPassword = '';
+        this.realName = '';
+        this.phone = '';
     }
     LoginDialogComponent.prototype.loginCancel = function () {
         this.dialogRef.close();
@@ -1467,7 +1543,7 @@ var LoginDialogComponent = /** @class */ (function () {
         var password = this.user.password;
         this.httpClient.post('/login', { username: username, password: password })
             .subscribe(function (next) {
-            localStorage.setItem('token', next['token']);
+            // localStorage.setItem('token', next['token']);
             _this.jwtService.updateUser(next['token']);
             _this.dialogRef.close();
             _this.messageService.showMessage('消息', '登录成功');
@@ -1475,20 +1551,44 @@ var LoginDialogComponent = /** @class */ (function () {
             _this.messageService.showMessage('消息', '登录失败: ' + error);
         }, function () {
         });
-        // this.jwtService.login(this.user.username, this.user.password);
-        // if (this.jwtService.checkToken()) {
-        //   this.isAuthenticated = true;
-        //   this.user = new User();
-        // } else {
-        //   alert('登录失败：');
-        // }
-        // const result = this.jwtService.login(this.user.username, this.user.password);
-        // if (result['success'] === true) {
-        //   this.isAuthenticated = true;
-        //   this.user = USER;
-        // } else {
-        //   alert('登录失败：' + result['message']);
-        // }
+    };
+    LoginDialogComponent.prototype.phoneValid = function (phone) {
+        if (phone.length !== 11) {
+            return false;
+        }
+        var numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+        for (var i = 0; i < 11; i++) {
+            if (!numbers.includes(phone[i], 0)) {
+                return false;
+            }
+        }
+        return true;
+    };
+    LoginDialogComponent.prototype.signUp = function () {
+        var _this = this;
+        if (!this.phoneValid(this.phone)) {
+            this.messageService.showMessage('提交失败', '手机位数不正确');
+            return;
+        }
+        if (this.password !== this.confirmPassword || this.password === '') {
+            this.messageService.showMessage('提交失败', '密码不一致');
+            return;
+        }
+        this.httpClient.post('signup', {
+            phone: this.phone,
+            password: this.password,
+            username: this.phone,
+            realName: this.realName
+        }).subscribe(function (json) {
+            if (json['success']) {
+                _this.jwtService.updateUser(json['content']);
+                _this.dialogRef.close();
+                _this.messageService.showMessage('注册成功', '');
+            }
+            else {
+                _this.messageService.showMessage('注册失败', json['msg']);
+            }
+        });
     };
     LoginDialogComponent.prototype.ngOnInit = function () {
     };
@@ -1703,6 +1803,101 @@ var MyMessageData = /** @class */ (function () {
         this.inputFields = new Array();
     }
     return MyMessageData;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/my-orders/my-orders.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ":host {\r\n    width: 80%;\r\n}\r\n\r\n.wrapContent {\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n}\r\n\r\n.wrapper {\r\n    width: 100%;\r\n    height: 100%;\r\n    -webkit-transition: all 0.3s ease-out;\r\n    transition: all 0.3s ease-out;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: start;\r\n        -ms-flex-align: start;\r\n            align-items: flex-start;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    -ms-flex-wrap: nowrap;\r\n        flex-wrap: nowrap;\r\n    -webkit-box-align: stretch;\r\n        -ms-flex-align: stretch;\r\n            align-items: stretch;\r\n}\r\n\r\n.orderItem {\r\n    margin: 5px 5px;\r\n    max-width: 300px;\r\n    height: 100%;\r\n    opacity: 1;\r\n    -webkit-transition: all ease-out 0.2s;\r\n    transition: all ease-out 0.2s;\r\n    -webkit-animation: circleTocube 0.4s ease-out;\r\n            animation: circleTocube 0.4s ease-out;\r\n}\r\n\r\n#basePriceExpansion,\r\n#basePriceExpansion mat-expansion-panel-header {\r\n    padding: 0;\r\n    -webkit-box-shadow: 0 0 0;\r\n            box-shadow: 0 0 0;\r\n    background: none;\r\n}\r\n\r\n.paginator {\r\n    padding: 0px 20px;\r\n    background-color: white;\r\n    color: #3f51b5;\r\n    -webkit-box-align: center;\r\n    -ms-flex-align: center;\r\n    align-items: center;\r\n    -ms-flex-line-pack: center;\r\n    align-content: center;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    width: 100%;\r\n}\r\n\r\n@-webkit-keyframes circleTocube {\r\n    from {\r\n        border-radius: 100px;\r\n    }\r\n    to {\r\n        border-radius: 2px;\r\n    }\r\n}\r\n\r\n@keyframes circleTocube {\r\n    from {\r\n        border-radius: 100px;\r\n    }\r\n    to {\r\n        border-radius: 2px;\r\n    }\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/my-orders/my-orders.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrap\">\n  <mat-accordion>\n    <!-- 最近一个月的订单 -->\n    <mat-expansion-panel [expanded]=\"true\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          订单\n        </mat-panel-title>\n        <mat-panel-description>\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <div fxLayout=\"column\" fxLayoutAlign=\"start stretch\" fxLayoutGap=\"10px\">\n        <mat-select [(ngModel)]=\"orderDateRange\">\n          <mat-option value=\"latestMonth\">近一个月</mat-option>\n          <mat-option value=\"latestThreeMonth\">近一个月</mat-option>\n          <mat-option value=\"latestYear\">近一年</mat-option>\n          <mat-option value=\"all\">所有</mat-option>\n        </mat-select>\n        <div>\n          <div style=\"display:flex;flex-wrap: wrap;\">\n            <ng-container *ngIf=\"ordersPage.content === undefined||ordersPage.content.length === 0; else showOrders\">\n              <div>未有数据</div>              \n            </ng-container>\n            <ng-template #showOrders>\n            <ng-container *ngFor=\"let item of ordersPage.content \">\n              <mat-card class=\"orderItem\">\n                <mat-card-header>\n                  <mat-card-title>\n                    <h5>\n                      <b>\n                        <ng-container *ngIf=\"item.state ==='UNPAY'\">\n                          [\n                          <font color=\"red\">未付款</font>]\n                        </ng-container>\n                        <ng-container *ngIf=\"item.state ==='FINISHED'\">\n                          [\n                          <font color=\"green\">已付款</font>]\n                        </ng-container>\n                      </b>\n                      <br> {{item.name}}\n                    </h5>\n                  </mat-card-title>\n                  <mat-card-subtitle>\n                    <i style=\"font-size:10px;\">{{ item.orderNo}} </i>\n                  </mat-card-subtitle>\n                </mat-card-header>\n                <mat-card-content>\n                  <mat-accordion>\n                    <mat-expansion-panel id=\"basePriceExpansion\">\n                      <mat-expansion-panel-header>\n                        <mat-panel-title>详情</mat-panel-title>\n                        <mat-panel-description>公里数：{{item.travelMiles}}</mat-panel-description>\n                      </mat-expansion-panel-header>\n                      <mat-list>\n                        <ng-container *ngFor=\"let key of item.optionKeys\">\n                          <mat-list-item>\n                            <font weight=\"blod\">{{key}}</font>\n                          </mat-list-item>\n                          <mat-divider></mat-divider>\n                        </ng-container>\n                      </mat-list>\n                    </mat-expansion-panel>\n                  </mat-accordion>\n                </mat-card-content>\n                <mat-card-actions>\n                  <div>总价：\n                    <font color=\"green\">{{item.total}}</font>\n                  </div>\n                </mat-card-actions>\n                <mat-card-footer>\n                  <ng-container *ngIf=\"item.note!==''\">\n                    <div align=\"start\">备注\n                      <font align=\"end\" color=\"blue\" weight=\"bold\">{{item.note}}</font>\n                    </div>\n                  </ng-container>\n                </mat-card-footer>\n              </mat-card>\n            </ng-container>\n          </ng-template>\n          </div>\n          <div class=\"paginator\">\n            <div>第{{ordersPage.number+1}}/{{ordersPage.totalPages}}页</div>\n            <div style=\"flex:1 1 auto;\"></div>\n            <div>\n              <button mat-icon-button [disabled]=\"pageEnd(false,ordersPage)\" (click)=\"beforePage()\">\n                <mat-icon class=\"mat-18\">navigate_before</mat-icon>\n              </button>\n              <button mat-icon-button [disabled]=\"pageEnd(true,ordersPage)\" (click)=\"nextPage()\">\n                <mat-icon class=\"mat-18\">navigate_next</mat-icon>\n              </button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </mat-expansion-panel>\n    <!-- 保养记录 -->\n    <mat-expansion-panel (opened)=\"panelOpenState = true\" (closed)=\"panelOpenState = false\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          保养记录\n        </mat-panel-title>\n        <mat-panel-description>\n          近一个月\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <p>I'm visible because I am open</p>\n    </mat-expansion-panel>\n    <!-- 维修记录 -->\n    <mat-expansion-panel (opened)=\"panelOpenState = true\" (closed)=\"panelOpenState = false\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          维修记录\n        </mat-panel-title>\n        <mat-panel-description>\n          近一个月\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <p>I'm visible because I am open</p>\n    </mat-expansion-panel>\n  </mat-accordion>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/my-orders/my-orders.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyOrdersComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__entity_page__ = __webpack_require__("./src/app/entity/page.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__entity_order__ = __webpack_require__("./src/app/entity/order.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__message_dialog_service__ = __webpack_require__("./src/app/message-dialog.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth_module__ = __webpack_require__("./src/auth.module.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var MyOrdersComponent = /** @class */ (function () {
+    function MyOrdersComponent(messageService, http, requestOption) {
+        this.messageService = messageService;
+        this.http = http;
+        this.panelOpenState = false;
+        this.ordersPage = new __WEBPACK_IMPORTED_MODULE_1__entity_page__["a" /* Page */]();
+        this.ordersPageNum = 1;
+        this.orderDateRange = 'latestMonth';
+        this.authHttp = Object(__WEBPACK_IMPORTED_MODULE_5__auth_module__["b" /* authHttpServiceFactory */])(http, requestOption);
+    }
+    MyOrdersComponent.prototype.ngOnInit = function () {
+        this.fetchMyOrder();
+    };
+    MyOrdersComponent.prototype.pageEnd = function (isNext, page) {
+        if (isNext) {
+            return (page.number + 1) >= page.totalPages;
+        }
+        else {
+            return page.number <= 0;
+        }
+    };
+    MyOrdersComponent.prototype.fetchMyOrder = function () {
+        var _this = this;
+        this.authHttp.post('me/orders', {
+            dateRange: this.orderDateRange,
+            pageNum: this.ordersPageNum
+        }).map(function (rsp) { return rsp.json(); })
+            .subscribe(function (json) {
+            if (json['success']) {
+                _this.ordersPage = Object(__WEBPACK_IMPORTED_MODULE_1__entity_page__["b" /* jsonToPage */])(json['content']);
+                _this.ordersPage.content = Object(__WEBPACK_IMPORTED_MODULE_2__entity_order__["b" /* getOrdersFromPage */])(_this.ordersPage);
+                console.log(_this.ordersPage.content);
+            }
+            else {
+                _this.messageService.showMessage('出错了！', json['msg']);
+            }
+        });
+    };
+    MyOrdersComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-my-orders',
+            template: __webpack_require__("./src/app/my-orders/my-orders.component.html"),
+            styles: [__webpack_require__("./src/app/my-orders/my-orders.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__message_dialog_service__["a" /* MessageDialogService */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_http__["Http"],
+            __WEBPACK_IMPORTED_MODULE_3__angular_http__["RequestOptions"]])
+    ], MyOrdersComponent);
+    return MyOrdersComponent;
 }());
 
 

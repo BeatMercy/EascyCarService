@@ -37,6 +37,7 @@ public class Account extends BaseEntity {
     @PrePersist
     private void beforePersist() {
     	this.enabled=true;
+    	this.headimg="assets/img/default_head.jpg";
     }
     
 	public static long getSerialversionuid() {

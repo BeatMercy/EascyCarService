@@ -1,6 +1,7 @@
 package beat.mercy.service.impl;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,6 +139,7 @@ public class StaffTransactionService implements IStaffTransactionService {
 		if (order.getState().equals(OrderState.CANCELED))
 			throw new OrderTransactionException("该订单已取消,不可操作");
 		order.setState(OrderState.CANCELED);
+		order.setEndTime(new Date());
 		orderRepo.save(order);
 		return true;
 	}

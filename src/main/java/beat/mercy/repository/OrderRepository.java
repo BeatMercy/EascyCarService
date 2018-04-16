@@ -1,5 +1,6 @@
 package beat.mercy.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -32,5 +33,10 @@ public interface OrderRepository extends JpaRepository<Order, Long>,JpaSpecifica
 	
 	public List<Order> findByStateAndPlateNoLike(OrderState state,String plateNo);
 
+	public Page<Order> findByUserId(Long userId,Pageable pageable);
+	
+	public Page<Order> findByUserIdAndCreateTimeAfter(Long userId,Date afterDate,Pageable pageable);
+	
+	
 }
 

@@ -24,16 +24,16 @@ public class Customer extends Account{
 	 */
 	private static final long serialVersionUID = -8485303414462923589L;
 	
-	private Long comsumePoint;
+	private Long consumePoint;
 	private Set<Vehicle> vehicles = new HashSet<Vehicle>();
 
 	@PrePersist
 	private void beforePersist() {
-		this.comsumePoint=0L;
+		this.consumePoint=0L;
 	}
 
-	public Long getComsumePoint() {
-		return comsumePoint;
+	public Long getConsumePoint() {
+		return consumePoint;
 	}
 
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
@@ -47,8 +47,8 @@ public class Customer extends Account{
 
 
 
-	public void setComsumePoint(Long comsumePoint) {
-		this.comsumePoint = comsumePoint;
+	public void setConsumePoint(Long consumePoint) {
+		this.consumePoint = consumePoint;
 	}
 	
 	
