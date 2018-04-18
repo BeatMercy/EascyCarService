@@ -85,7 +85,7 @@ public class PageableBuilder {
 
 		// 排序项
 		Sort sort = new Sort(Direction.ASC, this.sort);
-
+		this.dir = this.dir.toUpperCase();
 		if (this.dir.equals("DESC")) {
 			sort = new Sort(Direction.DESC, this.sort);
 		}

@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import beat.mercy.entity.base.Account;
 
 /**
@@ -36,6 +38,7 @@ public class Customer extends Account{
 		return consumePoint;
 	}
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	public Set<Vehicle> getVehicles() {
 		return vehicles;

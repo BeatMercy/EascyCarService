@@ -82,7 +82,7 @@ public class Account extends BaseEntity {
 	}
 
 	@JsonIgnore
-	 @ManyToMany(fetch = FetchType.EAGER)
+	 @ManyToMany(fetch = FetchType.LAZY)
 	    @JoinTable(
 	    		name = "account_roles",
 	    		joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"), 

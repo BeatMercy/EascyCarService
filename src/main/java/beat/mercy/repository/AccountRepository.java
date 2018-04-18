@@ -1,6 +1,8 @@
 package beat.mercy.repository;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,8 +14,14 @@ import beat.mercy.entity.base.Account;
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
 	@Cacheable(cacheNames="userTokenInfo", key="#p0")
-	@Query("select a from Account a where username = :username")
+	@Query("select a from Account a Join Fetch a.roles,  Authority where username = :username")
 	Account findByUsernameCache(@Param("username")String username);
 	
-	Account findByUsername(String username); 
+	@Query("select a from Account a Join Fetch a.roles, Authority where username = :username")
+	Account findByUsernameJoinRoleAuthority(@Param("username")String username);
+	
+	Account findByUsername(String username);
+	
+	Page<Account> findByPhoneOrRealNameOrWeixin(String phone,String realName,String weixin,Pageable pageable);
+	
 }
