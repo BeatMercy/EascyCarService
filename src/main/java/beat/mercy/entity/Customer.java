@@ -26,15 +26,16 @@ public class Customer extends Account{
 	 */
 	private static final long serialVersionUID = -8485303414462923589L;
 	
-	private Long consumePoint;
+	private Integer consumePoint;
 	private Set<Vehicle> vehicles = new HashSet<Vehicle>();
 
 	@PrePersist
-	private void beforePersist() {
-		this.consumePoint=0L;
+	protected void beforePersist() {
+		super.beforePersist();
+		this.consumePoint=0;
 	}
 
-	public Long getConsumePoint() {
+	public Integer getConsumePoint() {
 		return consumePoint;
 	}
 
@@ -50,7 +51,7 @@ public class Customer extends Account{
 
 
 
-	public void setConsumePoint(Long consumePoint) {
+	public void setConsumePoint(Integer consumePoint) {
 		this.consumePoint = consumePoint;
 	}
 	

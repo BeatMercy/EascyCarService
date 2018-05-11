@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -66,7 +67,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 	 * @param request
 	 * @return
 	 */
-	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
+	private UsernamePasswordAuthenticationToken getAuthentication(String token)throws AccessDeniedException {
 		if (token != null) {
 			// parse the token.
 			Claims tokenClaim = Jwts.parser().setSigningKey("MyJwtSecret").
@@ -75,6 +76,9 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 			if (userName != null) {
 				Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 				Account account = accountRepository.findByUsernameCache(userName);
+				if(!account.isEnabled()) {
+					throw new AccessDeniedException("您的账户已被停用,请联络管理员QQ；304921113");
+				}
 				account.getRoles().forEach(role -> {
 					role.getAuthorities().forEach(auth -> {
 						authorities.add(new SimpleGrantedAuthority(auth.getName()));

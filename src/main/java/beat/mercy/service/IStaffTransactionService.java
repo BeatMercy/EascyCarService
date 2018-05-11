@@ -26,7 +26,7 @@ public interface IStaffTransactionService {
 	 * @param optionDto
 	 * @return
 	 */
-	public Boolean submitCarRepairOrder(OrderDTO orderDto, SelectOptionDTO[] optionDtos);
+	public Boolean submitCarRepairOrder(Long staffId,OrderDTO orderDto, SelectOptionDTO[] optionDtos)throws OrderTransactionException;
 	
 	/**
 	 * 开始进行某订单的工作 进度转为WORKING

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,9 +46,19 @@ public class OrderController {
 	 */
 	@Secured({ "ROLE_STAFF", "ROLE_ADMIN" })
 	@RequestMapping(path = "/order/{serviceType}/submit", method = RequestMethod.POST, consumes = "application/json")
-	public Map<String, Object> createServiceOrder(@RequestBody Map<String, Object> paramMap, Authentication auth) {
+	public Map<String, Object> createServiceOrder(@RequestBody Map<String, Object> paramMap, Authentication auth,
+			@PathVariable("serviceType") String serviceType) {
+		UserPrincipal staff = (UserPrincipal) auth.getPrincipal();
 		try {
-			UserPrincipal staff = (UserPrincipal) auth.getPrincipal();
+			switch (serviceType) {
+			case "repair":
+				OrderDTO orderDto = JsonUtils.getObjectFromMap(paramMap.get("orderDto"), OrderDTO.class);
+				SelectOptionDTO[] optionDtos = JsonUtils.getObjectFromMap(paramMap.get("optionDto"),
+						SelectOptionDTO[].class);
+				transactionService.submitCarRepairOrder(staff.getId(), orderDto, optionDtos);
+				return RestJsonResult.getSuccessResult(optionDtos);
+			}
+
 			OrderDTO orderDto = JsonUtils.getObjectFromMap(paramMap.get("orderDto"), OrderDTO.class);
 			SelectOptionDTO[] optionDtos = JsonUtils.getObjectFromMap(paramMap.get("optionDto"),
 					SelectOptionDTO[].class);

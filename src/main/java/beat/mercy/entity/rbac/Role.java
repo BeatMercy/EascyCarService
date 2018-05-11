@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import beat.mercy.entity.base.Account;
 import beat.mercy.entity.base.BaseEntity;
 
@@ -68,12 +70,12 @@ public class Role extends BaseEntity {
 	public String getName() {
 		return name;
 	}
-
+	@JsonIgnore
 	@ManyToMany(mappedBy = "roles")
 	public Set<Account> getUsers() {
 		return users;
 	}
-	
+	@JsonIgnore
 	@ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
     		name = "roles_authorities",

@@ -1,5 +1,6 @@
 package beat.mercy.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,14 @@ public class BasicDataController {
 
 	@RequestMapping("/img/{type}/{id}")
 	public ResponseEntity<byte[]> imgRetrieve(@PathVariable(name = "type") String type,
-			@PathVariable(name = "id") String id) {
+			@PathVariable(name = "id") String id) throws IOException {
 		String filePath = FileUtil.UPLOAD_ROOT_PATH + "/" + type + "/" + id;
 		try {
 			return FileUtil.downloadFile(filePath);
 		} catch (Exception e) {
+			if(type.equals("brand")) {
+				return FileUtil.downloadFile(FileUtil.UPLOAD_ROOT_PATH + "/" + type + "/default");
+			}
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -46,8 +50,13 @@ public class BasicDataController {
 			@PathVariable("optionType") String optionType) {
 
 		if (optionType.equals("all"))
-			return optionRepo.findByServiceType(serviceType);
-		return optionRepo.findByServiceTypeAndOptionType(serviceType, optionType);
+			return optionRepo.findByServiceTypeAndEnable(serviceType,true);
+		return optionRepo.findByServiceTypeAndOptionTypeAndEnable(serviceType, optionType, true);
+	}
+
+	@RequestMapping("/isActiveAccount")
+	public String isActiveAccount() {
+		return "{\"success\":true}";
 	}
 
 }

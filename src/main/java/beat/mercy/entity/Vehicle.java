@@ -26,7 +26,8 @@ public class Vehicle extends BaseEntity {
 	private VehicleType vehicleType;
 	private FuseType fuseType;
 	private Double travelMiles;
-	
+	private String engineNo;
+	private String chassisNo;
 	private Customer owner;
 
 	public String getBrand() {
@@ -89,6 +90,22 @@ public class Vehicle extends BaseEntity {
 
 	public void setOwner(Customer owner) {
 		this.owner = owner;
+	}
+
+	public String getEngineNo() {
+		return engineNo;
+	}
+
+	public String getChassisNo() {
+		return chassisNo;
+	}
+
+	public void setEngineNo(String engineNo) {
+		this.engineNo = engineNo;
+	}
+
+	public void setChassisNo(String chassisNo) {
+		this.chassisNo = chassisNo;
 	}
 	
 	

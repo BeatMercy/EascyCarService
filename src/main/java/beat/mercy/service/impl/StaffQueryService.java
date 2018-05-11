@@ -42,11 +42,11 @@ public class StaffQueryService implements IStaffQueryService {
 		if (pageableBuilder.getPageSize() == null || pageableBuilder.getPageSize() < 1) {
 			pageableBuilder.setPageSize(10);
 		}
-		if (progress.equals(ServiceProgress.WAITING_CONFIRM)) {
-			OrderState[] states = { OrderState.CANCELED, OrderState.FINISHED };
-			return orderRepo.findByStaffIdAndProgressAndStateNotIn(staffId, progress, states,
-					pageableBuilder.getPageable());
-		}
+//		if (progress.equals(ServiceProgress.WAITING_CONFIRM)) {
+//			OrderState[] states = { OrderState.CANCELED, OrderState.FINISHED };
+//			return orderRepo.findByStaffIdAndProgressAndStateNotIn(staffId, progress, states,
+//					pageableBuilder.getPageable());
+//		}
 		return orderRepo.findByStaffIdAndProgressAndStateNot(staffId, progress, OrderState.CANCELED,
 				pageableBuilder.getPageable());
 	}

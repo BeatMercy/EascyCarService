@@ -35,7 +35,7 @@ public class Account extends BaseEntity {
     private Set<Role> roles = new HashSet<>();
 
     @PrePersist
-    private void beforePersist() {
+    protected void beforePersist() {
     	this.enabled=true;
     	this.headimg="assets/img/default_head.jpg";
     }
@@ -61,6 +61,7 @@ public class Account extends BaseEntity {
 		return realName;
 	}
 
+	@Column(unique=true)
 	public String getPhone() {
 		return phone;
 	}

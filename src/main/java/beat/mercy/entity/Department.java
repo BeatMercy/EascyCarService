@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import beat.mercy.entity.base.BaseEntity;
 
 @Entity
@@ -37,7 +39,8 @@ public class Department extends BaseEntity {
 	public Staff getLeader() {
 		return leader;
 	}
-
+	
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	public Set<Staff> getStaffs() {
 		return staffs;

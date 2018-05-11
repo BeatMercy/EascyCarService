@@ -23,6 +23,7 @@ public class RecognizePlate {
 
 	public static List<String> recognizeFromImg(MultipartFile file) throws IOException {
 		Util.makeFloderDirectory(ServiceConst.TMP_DIR);
+		// 获取图片输入流
 		String fileName = ServiceConst.TMP_DIR + file.getName();
 		file.transferTo(new File(fileName));
 		Mat src = imread(fileName);
@@ -31,8 +32,10 @@ public class RecognizePlate {
 		// 设置检测的环境参数
 		plateDetect.setPDLifemode(false);
 
+		// 初始化车牌图像容器
 		Vector<Mat> matVector = new Vector<Mat>();
 
+		// 进行识别获取结果状态码
 		Integer errCode = plateDetect.plateDetect(src, matVector);
 
 		List<String> list = new ArrayList<>();
@@ -58,6 +61,6 @@ public class RecognizePlate {
 		}
 
 		// 返回空元素数组
-		return new ArrayList<>();
+		return list;
 	}
 }

@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import beat.mercy.entity.Order;
@@ -18,6 +20,12 @@ public interface OrderRepository extends JpaRepository<Order, Long>,JpaSpecifica
 	public Order findByOrderNo(String orderNo);
 	
 	public Page<Order> findByStaffId(Long staffId,Pageable pageable);
+	
+	public Page<Order> findByType(String type,Pageable pageable);
+	
+	@Query("select sOrder from beat.mercy.entity.Order sOrder where sOrder.type=:type and (sOrder.orderNo like :keyword or sOrder.plateNo like :keyword)")
+	public Page<Order> findByTypeAndKeyword(@Param("type") String type,
+			@Param("keyword") String keyword, Pageable pageable);
 	
 	public Page<Order> findByStaffIdAndProgress(Long staffId,ServiceProgress progress,Pageable pageable);
 	
@@ -35,8 +43,14 @@ public interface OrderRepository extends JpaRepository<Order, Long>,JpaSpecifica
 
 	public Page<Order> findByUserId(Long userId,Pageable pageable);
 	
+	public Page<Order> findByUserIdAndType(Long userId,String type,Pageable pageable);
+	
 	public Page<Order> findByUserIdAndCreateTimeAfter(Long userId,Date afterDate,Pageable pageable);
 	
+	public Page<Order> findByUserIdAndTypeAndCreateTimeAfter(Long userId,String type,Date afterDate,Pageable pageable);
+	
+	public Page<Order> findByStaffIdAndCreateTimeAfter(Long staffId,Date afterDate,Pageable pageable);
+
 	
 }
 

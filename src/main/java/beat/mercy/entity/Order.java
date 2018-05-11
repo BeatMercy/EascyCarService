@@ -21,7 +21,6 @@ import beat.mercy.entity.state.PayMethod;
 import beat.mercy.entity.state.ServiceProgress;
 
 @Entity
-// @EntityListeners(OrderListener.class)
 @Table(name = "service_order")
 public class Order extends BaseEntity {
 
@@ -69,7 +68,7 @@ public class Order extends BaseEntity {
 		this.isResetTotal = false;
 	}
 
-	@Column(updatable = false, name = "dtype")
+	@Column(updatable = false,insertable=false, name = "dtype")
 	public String getType() {
 		return type;
 	}

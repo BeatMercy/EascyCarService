@@ -13,6 +13,8 @@ public class OrderDTO {
 	private String orderNo;
 	private String thirdPartyOrderNo;
 	private String plateNo;
+	private String chassisNo;
+	private String engineNo;
 	private Date endTime;	// 订单结束时间/取消时间
 	private OrderState state;
 	private Long staffId;
@@ -96,6 +98,18 @@ public class OrderDTO {
 	}
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+	public String getChassisNo() {
+		return chassisNo;
+	}
+	public String getEngineNo() {
+		return engineNo;
+	}
+	public void setChassisNo(String chassisNo) {
+		this.chassisNo = chassisNo;
+	}
+	public void setEngineNo(String engineNo) {
+		this.engineNo = engineNo;
 	}
 	public void setState(OrderState state) {
 		this.state = state;

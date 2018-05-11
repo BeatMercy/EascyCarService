@@ -28,6 +28,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
 		}
+		if(!user.isEnabled()) {
+			throw new UsernameNotFoundException(username+"已被停用");
+		}
 		// TODO 用户权限逻辑处理
 		Set<GrantedAuthority> authorities = new HashSet<>();
 		for (Role role : user.getRoles()) {

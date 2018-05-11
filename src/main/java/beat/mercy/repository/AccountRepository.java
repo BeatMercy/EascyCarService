@@ -13,11 +13,11 @@ import beat.mercy.entity.base.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-	@Cacheable(cacheNames="userTokenInfo", key="#p0")
-	@Query("select a from Account a Join Fetch a.roles,  Authority where username = :username")
+//	@Cacheable(cacheNames="userTokenInfo", key="#p0")
+	@Query("select DISTINCT a from Account a Left Join Fetch a.roles, Authority where username = :username")
 	Account findByUsernameCache(@Param("username")String username);
 	
-	@Query("select a from Account a Join Fetch a.roles, Authority where username = :username")
+	@Query("select DISTINCT a from Account a Left Join Fetch a.roles, Authority where username = :username or phone= :username")
 	Account findByUsernameJoinRoleAuthority(@Param("username")String username);
 	
 	Account findByUsername(String username);

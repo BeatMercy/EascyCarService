@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,9 +14,17 @@ import org.springframework.web.multipart.MultipartFile;
 import beat.mercy.common.util.JsonUtils;
 import beat.mercy.common.util.RecognizePlate;
 import beat.mercy.common.util.RestJsonResult;
+import beat.mercy.repository.CustomerRepository;
+import beat.mercy.repository.VehicleRepository;
 
 @RestController
-public class CarEnteranceController {
+public class PlateRecognizeController {
+	
+	@Autowired
+	CustomerRepository customerRepo;
+	
+	@Autowired
+	VehicleRepository vehicleRepo;
 
 	@RequestMapping("/car/enter")
 	public Map<String, Object> recognizeCar(MultipartFile file) {
@@ -52,6 +61,27 @@ public class CarEnteranceController {
 			Map<String, String> plateMap = new HashMap<>();
 			plateMap.put("plateAbbr", result.get(0).substring(0, 1));
 			plateMap.put("plateString", result.get(0).substring(1));
+			return JsonUtils.toJson(RestJsonResult.getSuccessResult(plateMap, ""));
+		} catch (IOException e) {
+			return JsonUtils.toJson(RestJsonResult.getErrorResult(e.getMessage()));
+		}
+	}
+	
+	@Secured({ "ROLE_STAFF" })
+	@RequestMapping("/plate-recognize/car/full")
+	public String recognizePlateWithInfo(MultipartFile file) {
+		try {
+			List<String> result = RecognizePlate.recognizeFromImg(file);
+			result.forEach(child -> {
+				System.err.println(child);
+			});
+			if (result.size() < 1)
+				return JsonUtils.toJson(RestJsonResult.getErrorResult("检测失败：字符识别错误"));
+			
+			Map<String, Object> plateMap = new HashMap<>();
+			plateMap.put("plateAbbr", result.get(0).substring(0, 1));
+			plateMap.put("plateString", result.get(0).substring(1));
+			plateMap.put("info", vehicleRepo.findByPlateNo(result.get(0)));
 			return JsonUtils.toJson(RestJsonResult.getSuccessResult(plateMap, ""));
 		} catch (IOException e) {
 			return JsonUtils.toJson(RestJsonResult.getErrorResult(e.getMessage()));
