@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import beat.mercy.common.util.PageableBuilder;
@@ -27,10 +29,12 @@ public class StaffQueryService implements IStaffQueryService {
 	}
 
 	public List<Order> findOrderUnpageForCashier(String plateNo) {
+		Sort sort = new Sort(Direction.DESC, "createTime");
 		if (plateNo.trim().equals("")) {
-			return orderRepo.findByState(OrderState.UNPAY);
+			return orderRepo.findByState(OrderState.UNPAY,sort);
 		} else {
-			return orderRepo.findByStateAndPlateNoLike(OrderState.UNPAY,plateNo);
+			
+			return orderRepo.findByStateAndPlateNoLike(OrderState.UNPAY,plateNo,sort);
 		}
 	}
 

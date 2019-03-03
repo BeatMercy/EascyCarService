@@ -15,10 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @MappedSuperclass
 public class BaseEntity implements Serializable{
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	protected Long id;
@@ -75,7 +72,7 @@ public class BaseEntity implements Serializable{
 	
 	@Override
 	public int hashCode() {
-		return id == null ? System.identityHashCode(this) : id.hashCode();
+		return id == null ? System.identityHashCode(this) :(System.identityHashCode(this) + id.hashCode());
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -39,7 +40,11 @@ public interface OrderRepository extends JpaRepository<Order, Long>,JpaSpecifica
 	
 	public List<Order> findByState(OrderState state);
 	
+	public List<Order> findByState(OrderState state,Sort sort);
+	
 	public List<Order> findByStateAndPlateNoLike(OrderState state,String plateNo);
+
+	public List<Order> findByStateAndPlateNoLike(OrderState state,String plateNo,Sort sort);
 
 	public Page<Order> findByUserId(Long userId,Pageable pageable);
 	

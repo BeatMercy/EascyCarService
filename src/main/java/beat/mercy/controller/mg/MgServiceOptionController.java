@@ -21,60 +21,68 @@ import beat.mercy.repository.SelectOptionRepository;
 
 @RestController
 @RequestMapping("/mg")
-@Secured({"ROLE_ADMIN"})
+@Secured({ "ROLE_ADMIN" })
 public class MgServiceOptionController {
 
 	@Autowired
 	SelectOptionRepository optionRepo;
-	
+
 	@GetMapping("/service/options")
-	public Page<SelectOption> getOptionById(String serviceType,String keyword,PageableBuilder pageableBuilder){
-		if(keyword==null||keyword.trim().isEmpty()) {
-			return optionRepo.findByServiceType(serviceType,pageableBuilder.getPageable());
+	public Page<SelectOption> getOptionById(String serviceType, String keyword, PageableBuilder pageableBuilder) {
+		if (keyword == null || keyword.trim().isEmpty()) {
+			return optionRepo.findByServiceType(serviceType, pageableBuilder.getPageable());
 		}
-		return optionRepo.findByServiceTypeAndKeyword(serviceType, "%"+keyword+"%", pageableBuilder.getPageable());
+		return optionRepo.findByServiceTypeAndKeyword(serviceType, "%" + keyword + "%", pageableBuilder.getPageable());
 	}
-	
+
 	@PostMapping("/service/option/add")
-	public Map<String, Object> addOne(@RequestBody Map<String,Object> paramMap){
-		List<Map<String, Object>> inputFields = (List<Map<String, Object>>) paramMap.get("inputFields");
-		SelectOption option =new SelectOption();
-		option.setName(String.valueOf(inputFields.get(0).get("value")));
-		option.setItemName(String.valueOf(inputFields.get(1).get("value")));
-		option.setPrice(Double.valueOf(String.valueOf(inputFields.get(2).get("value"))));
-		Object serviceType = ((Map)paramMap.get("data")).get("serviceType");
-		option.setServiceType(String.valueOf(serviceType));
-		if(option.getName()==null||option.getName().trim().isEmpty())
-			return RestJsonResult.getErrorResult("选项名设置不合法");
-		if(option.getItemName()==null||option.getItemName().trim().isEmpty())
-			return RestJsonResult.getErrorResult("选项所属的类型名设置不合法");
-		if(option==null||option.getPrice()<0)
-			return RestJsonResult.getErrorResult("价格设置不合法");
-		optionRepo.save(option);
-		return RestJsonResult.getSuccessResult();
+	public Map<String, Object> addOne(@RequestBody Map<String, Object> paramMap) {
+		try {
+			List<Map<String, Object>> inputFields = (List<Map<String, Object>>) paramMap.get("inputFields");
+			SelectOption option = new SelectOption();
+			option.setItemName(String.valueOf(inputFields.get(0).get("value")));
+			option.setName(String.valueOf(inputFields.get(1).get("value")));
+			option.setPrice(Double.valueOf(String.valueOf(inputFields.get(2).get("value"))));
+			Object serviceType = ((Map) paramMap.get("data")).get("serviceType");
+			option.setServiceType(String.valueOf(serviceType));
+			if (option.getName() == null || option.getName().trim().isEmpty())
+				return RestJsonResult.getErrorResult("选项名设置不合法");
+			if (option.getItemName() == null || option.getItemName().trim().isEmpty())
+				return RestJsonResult.getErrorResult("选项所属的类型名设置不合法");
+			if (option == null || option.getPrice() < 0)
+				return RestJsonResult.getErrorResult("价格设置不合法");
+			optionRepo.save(option);
+			return RestJsonResult.getSuccessResult();
+		} catch (Exception e) {
+			return RestJsonResult.getErrorResult("选项填写不完整");
+		}
 	}
-	
+
 	@PostMapping("/service/option/edit")
-	public Map<String, Object> editOne(@RequestBody Map<String,Object> paramMap){
-		List<Map<String, Object>> inputFields = (List<Map<String, Object>>) paramMap.get("inputFields");
-		SelectOption option =new SelectOption();
-		option.setId(((Integer)inputFields.get(0).get("value")).longValue());
-		option.setItemName(String.valueOf(inputFields.get(1).get("value")));
-		option.setName(String.valueOf(inputFields.get(2).get("value")));
-		option.setPrice(Double.valueOf(String.valueOf(inputFields.get(3).get("value"))));
-		Object serviceType = ((Map)paramMap.get("data")).get("serviceType");
-		option.setServiceType(String.valueOf(serviceType));
-		
-		if(option.getId()==null)
-			return RestJsonResult.getErrorResult("选项id不可为空");
-		if(option==null||option.getPrice()<0)
-			return RestJsonResult.getErrorResult("价格设置不合法");
-		SelectOption original = optionRepo.findOne(option.getId());
-		BeanUtils.copyProperties(option, original, "id", "createTime","updateTime","dtype","enable");
-		optionRepo.save(original);
-		return RestJsonResult.getSuccessResult();
+	public Map<String, Object> editOne(@RequestBody Map<String, Object> paramMap) {
+		try {
+			List<Map<String, Object>> inputFields = (List<Map<String, Object>>) paramMap.get("inputFields");
+			SelectOption option = new SelectOption();
+			option.setId(((Integer) inputFields.get(0).get("value")).longValue());
+			option.setItemName(String.valueOf(inputFields.get(1).get("value")));
+			option.setName(String.valueOf(inputFields.get(2).get("value")));
+			option.setPrice(Double.valueOf(String.valueOf(inputFields.get(3).get("value"))));
+			Object serviceType = ((Map) paramMap.get("data")).get("serviceType");
+			option.setServiceType(String.valueOf(serviceType));
+
+			if (option.getId() == null)
+				return RestJsonResult.getErrorResult("选项id不可为空");
+			if (option == null || option.getPrice() < 0)
+				return RestJsonResult.getErrorResult("价格设置不合法");
+			SelectOption original = optionRepo.findOne(option.getId());
+			BeanUtils.copyProperties(option, original, "id", "createTime", "updateTime", "dtype", "enable");
+			optionRepo.save(original);
+			return RestJsonResult.getSuccessResult();
+		} catch (Exception e) {
+			return RestJsonResult.getErrorResult("选项填写不完整");
+		}
 	}
-	
+
 	@GetMapping("/service/option/disable")
 	public Map<String, Object> disableUser(Long id) {
 		SelectOption user = optionRepo.findOne(id);
@@ -96,6 +104,5 @@ public class MgServiceOptionController {
 		optionRepo.save(user);
 		return RestJsonResult.getSuccessResult();
 	}
-	
-	
+
 }

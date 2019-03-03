@@ -13,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtil {
 
-	public static final String ROOT_PATH = "D:/EasyCarService";
+	public static final String ROOT_PATH = "/usr/share/EasyCarService/";//"D:/EasyCarService";
 
-	public static final String UPLOAD_ROOT_PATH = "D:/EasyCarService/upload";
+	public static final String UPLOAD_ROOT_PATH = "/usr/share/EasyCarService/upload";//"D:/EasyCarService/upload";
 
 	private static String makeFloderDirectory(String floderPath) {
 		if (!floderPath.startsWith(UPLOAD_ROOT_PATH)) {

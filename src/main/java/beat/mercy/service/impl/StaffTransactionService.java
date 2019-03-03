@@ -230,6 +230,7 @@ public class StaffTransactionService implements IStaffTransactionService {
 		account.setConsumePoint(after);
 		customerRepo.save(account);
 		
+		order.setEndTime(new Date());
 		order.setState(OrderState.FINISHED);
 		orderRepo.save(order);
 		return true;
